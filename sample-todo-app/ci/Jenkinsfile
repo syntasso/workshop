@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone the app') {
+            steps {
+                // secret manually added to the jenkins instance
+                // this shouldnt be needed if the example app is a public repository
+                git branch: 'main', credentialsId: '<deploy key id>', url: 'git@github.com:syntasso/workshop.git'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "testing pending"
+            }
+        }
+
+        stage('Deploy on knative') {
+            steps {
+                echo "deploying pending"
+                // kubectl --context kind-worker apply --filename <>/sample-todo-app/k8s/service.yaml
+            }
+        }
+
+        stage('Validate app is running') {
+            steps {
+                echo "testing if its running"
+            }
+        }
+    }
+}
