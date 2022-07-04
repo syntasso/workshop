@@ -24,7 +24,7 @@ podTemplate(yaml: '''
       container('kubectl') {
         sh '''
         kubectl apply --filename ./sample-todo-app/k8s/serving.yaml
-        until (( $(curl -s -o /dev/null -w "%{http_code}" -H "host: todo.default.example.com" kourier.kourier-system.svc.cluster.local) == 200 ))
+        until [ "$(curl -s -o /dev/null -w "%{http_code}" -H "host: todo.default.example.com" kourier.kourier-system.svc.cluster.local)" -eq "200" ]
         do
           sleep 2
         done
