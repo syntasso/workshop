@@ -1,15 +1,24 @@
-# Deploying this webapp with Kratix promises
+# Deploying this webapp with Kratix Promises
 
-This application was conceived as a demo on how to do combine Kratix promises to deploy a webapp. The application code is based on a [blog](https://blog.logrocket.com/building-simple-app-go-postgresql/) published by Emmanuel John.
+This application was conceived as a demo on how to do combine Kratix Promises to deploy a webapp. The application code is based on a [blog](https://blog.logrocket.com/building-simple-app-go-postgresql/) published by Emmanuel John.
 
 If you are looking to run this app locally, please check the necessary environment variables you'll need to set [here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
 
 ## Setup the Kratix Platform and Worker clusters with KinD
 
+In order to run the three applications necessary for this workshop, we must allocate enough resources to docker.
+
+We require:
+* 5 CPU
+* 12GB Memory
+* 4GB swap
+
+This is managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
+
 You can follow the [Part I on the Kratix quick start](https://github.com/syntasso/kratix/blob/main/docs/quick-start.md#part-1-kratix-multi-cluster-install)
 to get that up and running.
 
-## Install all required promises
+## Install all required Promises
 
 At this stage, you should have Kratix installed and a couple of clusters:
 
@@ -28,7 +37,7 @@ NAME                   STATUS   AGE
 kratix-worker-system   Active   1h
 ```
 
-We can now install the required promises on your Platform cluster:
+We can now install the required Promises on your Platform cluster:
 
 <!-- ❓ Do we want people to clone the workshop and kratix or not? -->
 ```bash
@@ -39,10 +48,10 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 
 ## Request all the resources
 
-At this stage, the required promises are all installed on your platform cluster:
+At this stage, the required Promises are all installed on your platform cluster:
 
 ```console
-$ kubectl --context kind-worker get promises
+$ kubectl --context kind-platform get promises
 NAME                      AGE
 ha-postgres-promise       1h
 jenkins-promise           1h
@@ -53,9 +62,9 @@ You can now request a Knative Serving, a Jenkins instance and a Postgres
 database:
 
 ```bash
+kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/postgres/postgres-resource-request.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/knative-serving/knative-serving-resource-request.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/jenkins/jenkins-resource-request.yaml
-kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/postgres/postgres-resource-request.yaml
 ```
 
 ## Deploy the app using Jenkins
@@ -96,7 +105,7 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-example -o
 
 ### Create a Service Account
 
-<!-- This could later be added to the existing jenkins promise to simplify this step  -->
+<!-- This could later be added to the existing jenkins Promise to simplify this step  -->
 
 To deploy the app on the worker cluster, you need to setup a Service Account
 with the right permissions:
