@@ -20,7 +20,7 @@ podTemplate(yaml: '''
     stage('Deploy application') {
       // secret manually added to the jenkins instance
       // this shouldnt be needed if the example app is a public repository
-      git branch: 'main', credentialsId: 'github-access-token', url: 'git@github.com:syntasso/workshop.git'
+      git branch: 'main', url: 'https://github.com/syntasso/workshop.git'
       container('kubectl') {
         sh '''
         kubectl apply --filename ./sample-todo-app/k8s/serving.yaml
