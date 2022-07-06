@@ -1,6 +1,6 @@
 # Enhancing the sample Postgres Promise
 
-<!-- TOC -->
+<!-- TODO: TOC -->
 
 ## What will I learn?
 
@@ -27,12 +27,11 @@ cd kratix/samples/postgres/
 
 In this directory you will see a complete Promise as well as an example resource request. If you have not yet worked with Promises, you can learn more about the basic structure in Kratix's [Writing a Promise](https://github.com/syntasso/kratix/blob/main/docs/writing-a-promise.md) documentation.
 
-<!-- This is a soft duplicated from `writing-a-promise` which will be hard to maintain -->
 The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. A Promise is made of three parts:
 
 * `xaasCrd`: this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the SATs. Here is where we will introduce a `costCentre` property.
-* `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll use that `costCentre` property to set a label for cost tracking.
-* `workerClusterResources`: this contains all of the Kubernetes resources required to run an instance of Postgres, such as CRDs, Operators and Deployments. This will not be required to change since the label is only applied to single instance of Postgres.
+* `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll set the value for the `costCentre` label based on the user input.
+* `workerClusterResources`: this contains all of the Kubernetes resources required to run an instance of Postgres, such as CRDs, Operators and Deployments. This is where we will tell the Postgres Operator to create instances with a `costCentre` label.
 
 The `postgres-resource-request.yaml` file is an example of what SATs can use to request an postgres instance. As a application developer, we will need to update this request to include the newly defined `costCentre` property.
 
@@ -102,6 +101,78 @@ xaasCrd:
           type: object
       served: true
       storage: true
+```
+</details>
+
+
+### Changing the cluster resources to include a new label
+
+When installing a Promise, there are two sides of the coin. On one side, we the platform team, are providing access to a capability via the `workerClusterResources`. On the other side, our users (the application developers), will request a personal instance of that capability via the `xaasPipeline` outputs.
+
+In the case of Postgres, we are leveraging the Postgres Operator to provide the platform capability of databases. This operator packages up the complexities of configuring Postgres into a more manageable configuration format. One option when configuring the Postgres Operator is to set [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels). This is a comma delimited list of labels that all instances created by the Operator are permitted to be set. This is exactly the behaviour we want when delivering cost tracking across instances.
+
+Add this parameter within the `workerClusterResources` section of the `postgres-promise.yaml` file by adding `inherited_labels: costCentre` to the `ConfigMap` named `postgres-operator`.
+
+<details>
+  <summary>Click here to see a complete ConfigMap resource after this change</summary>
+
+```yaml
+- apiVersion: v1
+  data:
+    api_port: "8080"
+    aws_region: eu-central-1
+    cluster_domain: cluster.local
+    cluster_history_entries: "1000"
+    cluster_labels: application:spilo
+    cluster_name_label: cluster-name
+    connection_pooler_image: registry.opensource.zalan.do/acid/pgbouncer:master-16
+    db_hosted_zone: db.example.com
+    debug_logging: "true"
+    docker_image: registry.opensource.zalan.do/acid/spilo-13:2.0-p7
+    enable_ebs_gp3_migration: "false"
+    enable_master_load_balancer: "false"
+    enable_pgversion_env_var: "true"
+    enable_replica_load_balancer: "false"
+    enable_spilo_wal_path_compat: "true"
+    enable_team_member_deprecation: "false"
+    enable_teams_api: "false"
+    external_traffic_policy: Cluster
+    inherited_labels: costCentre
+    logical_backup_docker_image: registry.opensource.zalan.do/acid/logical-backup:v1.6.3
+    logical_backup_job_prefix: logical-backup-
+    logical_backup_provider: s3
+    logical_backup_s3_bucket: my-bucket-url
+    logical_backup_s3_sse: AES256
+    logical_backup_schedule: 30 00 * * *
+    major_version_upgrade_mode: manual
+    master_dns_name_format: '{cluster}.{team}.{hostedzone}'
+    pdb_name_format: postgres-{cluster}-pdb
+    pod_deletion_wait_timeout: 10m
+    pod_label_wait_timeout: 10m
+    pod_management_policy: ordered_ready
+    pod_role_label: spilo-role
+    pod_service_account_name: postgres-pod
+    pod_terminate_grace_period: 5m
+    ready_wait_interval: 3s
+    ready_wait_timeout: 30s
+    repair_period: 5m
+    replica_dns_name_format: '{cluster}-repl.{team}.{hostedzone}'
+    replication_username: standby
+    resource_check_interval: 3s
+    resource_check_timeout: 10m
+    resync_period: 30m
+    ring_log_lines: "100"
+    role_deletion_suffix: _deleted
+    secret_name_template: '{username}.{cluster}.credentials'
+    spilo_allow_privilege_escalation: "true"
+    spilo_privileged: "false"
+    storage_resize_mode: pvc
+    super_username: postgres
+    watched_namespace: '*'
+    workers: "8"
+  kind: ConfigMap
+  metadata:
+    name: postgres-operator
 ```
 </details>
 
@@ -204,8 +275,8 @@ Now we can then build this image with a custom tag:
 
 _(to run this command, make sure you are within the `request-pipeline-image` directory)_
 ```bash
-docker build . --tag kratix-workshop/postgres-request-pipeline:latest
-docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postgres-request-pipeline:latest
+docker build . --tag kratix-workshop/postgres-request-pipeline:dev
+docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postgres-request-pipeline:dev
 ```
 
 And finally, you we can validate the `output/output.yaml` file holds the manifest including all customised values. It should look like the example below. If your output is different, go back and check the files we touched. Repeat this process until you're satisfied with the output.
@@ -279,27 +350,27 @@ Once you have made and validated all the pipeline image changes, you will need t
 If you are running a local local KinD cluster we can take advantage of the fact that Kubernetes will always look for locally cached images first. By running the following command, you will load the image into local caches which will therefore stop any remote DockerHub calls:
 
 ```bash
-kind load docker-image kratix-workshop/postgres-pipeline-request --name platform
+kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name platform
 ```
 
 Alternatively, if you need to pull from a remote source, you can re-tag the image with your own DockerHub repository and then push it for public use.
 
 ```bash
-docker tag kratix-workshop/postgres-request-pipeline:latest <your-dockerhub-org>/postgres-request-pipeline:latest
-docker push <your-dockerhub-org>/postgres-request-pipeline:latest
+docker tag kratix-workshop/postgres-request-pipeline:dev <your-dockerhub-org>/postgres-request-pipeline:dev
+docker push <your-dockerhub-org>/postgres-request-pipeline:dev
 ```
 
 
 #### Setting the xaasRequestPipeline image to our new custom image
 
-Now that the new image is built and available in our platform cluster, we can update the Promise to use the new image. For that, open the `postgres-promise.yaml` and update the `xaasRequestPipeline` to use the `kratix-workshop/postgres-pipeline-request:latest` instead of the `syntasso/postgres-pipeline-request`.
+Now that the new image is built and available in our platform cluster, we can update the Promise to use the new image. For that, open the `postgres-promise.yaml` and update the `xaasRequestPipeline` to use the `kratix-workshop/postgres-pipeline-request:dev` instead of the `syntasso/postgres-pipeline-request`.
 
 <details>
   <summary>Click here to see the resulting xaasRequestPipeline section which should be indented under `spec` in the Promise yaml</summary>
 
 ```yaml
 xaasRequestPipeline:
-  -  kratix-workshop/postgres-pipeline-request:latest
+  -  kratix-workshop/postgres-pipeline-request:dev
 ```
 
 </details>
@@ -307,16 +378,29 @@ xaasRequestPipeline:
 
 ### Releasing the enhanced Promise to our platform
 
-Once you have either loaded the image or updated your pipeline with the correct remote image, we are ready to release the Promise to our platform.
-
-
-
-Once you verify that kratix is installed, you can simply apply our Promise yaml to the platform cluster:
+Once you have either loaded the image or updated your pipeline with the correct remote image, we are ready to release the Promise to our platform:
 
 ```bash
 kubectl --context kind-platform apply -f postgres-promise.yaml
 ```
 
+This promise has been successfully installed once the promise is available:
+
+```console
+$ kubectl --context kind-platform -n default get promises
+NAME                  AGE
+ha-postgres-promise   1m
+```
+
+And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform. For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the operator is ready to receive a request from a SAT.
+
+```console
+$ kubectl --context kind-worker --namespace default get pods
+NAME                                 READY   STATUS    RESTARTS   AGE
+postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
+```
+
+And that's it! You have successfully released a new platform capability! Let's move on to how teams can use this to request a new Postgres instance from the platform.
 
 ## Stream-Aligned Team (SAT) requesting Postgres
 
@@ -324,9 +408,14 @@ Until now, we have been acting as a platform engineer designing, updating, and r
 
 ### Updating the resource request
 
-When the platform team install a promise into a cluster, they install a Custom Resource Definition which they describe under the `xaasCrd` section of the spec. This creates a new kind within the `example.promise.syntasso.io/v1` group of resources and includes all the details necessary for a customer application developer to request the resource. Like all Kubernetes resources, this request needs to include a unique name and namespace combination as well as any required fields in the spec.
+As an application developer, we will need create a resource request in the platform cluster. Like all Kubernetes resources, this request needs to include:
 
-As an application developer, we will need create our request in the platform cluster which will then use it to create a Postgres in the worker cluster for us to use. To make this request as an application developer, we can run the following command:
+1. An API that the resource can be found under. This is `example.promise.syntasso.io/v1` in our Postgres promise (see `spec.xaasCrd.spec.group` in the Promise manifest).
+1. A kind which points to a specific promise. In this case it will be `postgres` (see `spec.xaasCrd.spec.name` in the Promise manifest).
+1. A unique name and namespace combination.
+1. Any required fields in defined the in our Promise `spec`. These can be found in the `xaasCrd` section of the Ppromise (more specifically under the `openAPIV3Schema` spec).
+
+You can define and apply this request in a single command as shown below:
 
 ```bash
 cat <<EOF | kubectl apply --context kind-platform -f -
@@ -344,19 +433,10 @@ EOF
 
 ### Validating the created Postgres
 
+<!-- TODO -->
+
 
 ## Summary
-
-<!--
-
-What did we learn?
-
-- Extended the xaasCrd to support the new costCentre property
-- Created a new request pipeline to process the new property
-- As an app dev, we updated the resource request to include the new costCentre property
-- Validated the label got there
-
- -->
 
 In this workshop, we explored the components that make up a Kratix Promise. We then customised an existing Postgres promise, tailoring it to our specific organisation needs.
 
@@ -373,16 +453,13 @@ While our example was very simple, it shows the power of Kratix Pipelines. You c
 
 Furthermore, instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. This would allow you to re-use the logic in all other Promises you publish in your platform.
 
-We then switched hats and, as a member of a Stream-Aligned Team (SAT), sent out a resource request for a new Postgres instance. The request was very straightforward, we only had to add the new required property to the `spec` session of our resource requets.
+We then switched hats and, as a member of a Stream-Aligned Team (SAT), sent out a resource request for a new Postgres instance. The request was very straightforward, we only had to add the new required property to the `spec` session of our resource requests.
 <!-- Maybe we want to add a bit of future-looking here? -->
-<!-- Add a few words on why this is good for app devs -->
+<!-- ❓ Add a few words on why this is good for app devs -->
 
 Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
 
-
 ## What's next?
-
-<!-- Maybe ack that we never touched the workerClusterResources section in this change? -->
 
 Now that you have hands on experience working with Promises, you can start thinking about what Promises you would need on your organisation. A good next step is to learn more about how to design good Promises.
 
