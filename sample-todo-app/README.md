@@ -1,6 +1,6 @@
 # Sample Golang To Do app
 
-Based on the code published on https://blog.logrocket.com/building-simple-app-go-postgresql/
+The application code is based on a [blog](https://blog.logrocket.com/building-simple-app-go-postgresql/) published by Emmanuel John.
 
 ## Running
 

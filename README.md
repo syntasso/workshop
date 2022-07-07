@@ -1,8 +1,11 @@
 # Deploying this webapp with Kratix Promises
 
-This application was conceived as a demo on how to do combine Kratix Promises to deploy a webapp. The application code is based on a [blog](https://blog.logrocket.com/building-simple-app-go-postgresql/) published by Emmanuel John.
+This application was conceived as a demo on how to do combine Kratix Promises
+to deploy a webapp.
 
-If you are looking to run this app locally, please check the necessary environment variables you'll need to set [here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
+If you are looking to run this app locally, please check the necessary
+environment variables you'll need to set
+[here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
 
 ## Setup the Kratix Platform and Worker clusters with KinD
 
