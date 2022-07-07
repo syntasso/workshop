@@ -16,7 +16,7 @@ Table of Contents
       * [Accessing the new request pipeline container image from your cluster](#accessing-the-new-request-pipeline-container-image-from-your-cluster)
       * [Setting the xaasRequestPipeline image to our new custom image](#setting-the-xaasrequestpipeline-image-to-our-new-custom-image)
   * [Releasing the enhanced Promise to our platform](#releasing-the-enhanced-promise-to-our-platform)
-* [Stream-Aligned Team (SAT) requesting Postgres](#stream-aligned-team-sat-requesting-postgres)
+* [App developer requesting Postgres](#app-developer-requesting-postgres)
   * [Updating the resource request](#updating-the-resource-request)
   * [Validating the created Postgres](#validating-the-created-postgres)
 * [Summary](#summary)
@@ -28,7 +28,7 @@ Table of Contents
 
 This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of community available Promises, you may require slightly different configuration options unique to your business.
 
-Once we identify a Promise that satisfy our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer on a SAT, and request a Postgres database instance complete with our business specific customisations.
+Once we identify a Promise that satisfy our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer, and request a Postgres database instance complete with our business specific customisations.
 
 
 ## Platform team providing an enhanced Postgres Promise
@@ -59,16 +59,16 @@ In this directory you will see a complete Promise as well as an example resource
 
 The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. A Promise is made of three parts:
 
-* `xaasCrd`: this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the SATs. Here is where we will introduce a `costCentre` property.
+* `xaasCrd`: this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the consumers of the platform. Here is where we will introduce a `costCentre` property.
 * `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll set the value for the `costCentre` label based on the user input.
 * `workerClusterResources`: this contains all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. This is where we will tell the Postgres Operator to create instances with a `costCentre` label.
 
-The `postgres-resource-request.yaml` file is an example of what SATs can use to request an postgres instance. As a application developer, we will need to update this request to include the newly defined `costCentre` property.
+The `postgres-resource-request.yaml` file is an example of how to request an postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
 
 
 ### Adding a new property to the xaasCrd
 
-The contract with the SATs is defined by a number of properties on the `xaasCrd`. These properties are defined within a versioned schema and can have different types and validations. It's in this section that the platform team defines what are the required and optional configuration options exposed to the SATs.
+The contract with the app developers, i.e. the consumers of the platform, is defined by a number of properties on the `xaasCrd`. These properties are defined within a versioned schema and can have different types and validations. It's in this section that the platform team defines what are the required and optional configuration options exposed to the consumers.
 
 In our case, we want to add a new required property called `costCentre` of type string and with a simple pattern requiring only certain character types. The complete property is as follows:
 
@@ -283,7 +283,7 @@ cat /input/minimal-postgres-manifest.yaml |  \
 
 Since a pipeline is just the manipulation of an input value to generate an output file, it can be easily validate locally by building and running the docker image with the correct volume mounts.
 
-To set up this test, we will create two directories inside `request-pipeline-image`: `input` and `output`. Inside `input`, then we will add our expected input file (i.e., the resource request the SATs provide). From the `kratix/samples/postgres` directory, run the following:
+To set up this test, we will create two directories inside `request-pipeline-image`: `input` and `output`. Inside `input`, then we will add our expected input file (i.e., the resource request the app developer provides). From the `kratix/samples/postgres` directory, run the following:
 
 ```bash
 cd request-pipeline-image
@@ -425,7 +425,7 @@ NAME                  AGE
 ha-postgres-promise   1m
 ```
 
-And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform. For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the operator is ready to receive a request from a SAT.
+And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform. For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the operator is ready to provision a new instance.
 
 ```console
 $ kubectl --context kind-worker --namespace default get pods
@@ -435,9 +435,9 @@ postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 
 And that's it! You have successfully released a new platform capability! Let's move on to how teams can use this to request a new Postgres instance from the platform.
 
-## Stream-Aligned Team (SAT) requesting Postgres
+## App developer requesting Postgres
 
-Until now, we have been acting as a platform engineer designing, updating, and releasing a new Promise to enhance our platform. With this Promise now available, we are going to take a moment to switch hats and have a look at what one of our application developers on a SAT would do to take advantage of this new Promise.
+Until now, we have been acting as a platform engineer designing, updating, and releasing a new Promise to enhance our platform. With this Promise now available, we are going to take a moment to switch hats and have a look at what one of our application developers would do to take advantage of this new Promise.
 
 ### Updating the resource request
 
@@ -468,7 +468,7 @@ EOF
 
 As a platform engineer, we needed to support two different requirements when fulfilling the Postgres Promise.
 
-First, we require a working Postgres service for our SATs. This will show as a cluster of two Postgres pods in `Running` state with the name we defined in our request:
+First, we require a working Postgres service for our app developers. This will show as a cluster of two Postgres pods in `Running` state with the name we defined in our request:
 
 ```console
 $ kubectl --context kind-worker get pods
@@ -492,11 +492,11 @@ acid-minimal-cluster-1   1/1     Running   0          10m
 In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
 
 We started by extending the Promise's `xaasCrd`, which acts as the contract between the platform team and their users, to accept a new property: `costCentre`. We defined its type and added some basic validations using the Schema object in the OpenAPI V3 specification.
-Next, we set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardise how Postgres instances are created for each SAT. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all created Postgreses.
+Next, we set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardise how Postgres instances are created for each app development team. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all created Postgreses.
 
 Once the Promise's contract was updated to accept the `costCentre` property, and the Postgres Operator was updated to use a custom label, we moved our attention to the Promise's `xaasRequestPipeline`. It's the pipeline that takes the resource request and outputs the set of resources that will be created in the worker cluster. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
 
-We then switched hats and, as a member of a Stream-Aligned Team (SAT), sent out a resource request for a new Postgres instance. The request was straightforward, we only had to add the new required property to the `spec` session of our resource requests.
+We then switched hats and, as a member of an app development team, sent out a resource request for a new Postgres instance. The request was straightforward, we only had to add the new required property to the `spec` session of our resource requests.
 
 Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
 
