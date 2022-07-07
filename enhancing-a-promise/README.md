@@ -1,24 +1,54 @@
 # Enhancing the sample Postgres Promise
 
-<!-- TODO: TOC -->
+Table of Contents
+=================
+
+* [What will I learn?](#what-will-i-learn)
+* [Platform team providing an enhanced Postgres Promise](#platform-team-providing-an-enhanced-postgres-promise)
+  * [Getting the sample Promise](#getting-the-sample-promise)
+  * [Adding a new property to the xaasCrd](#adding-a-new-property-to-the-xaascrd)
+  * [Changing the cluster resources to include a new label](#changing-the-cluster-resources-to-include-a-new-label)
+  * [Updating the xaasRequestPipeline to use the new property](#updating-the-xaasrequestpipeline-to-use-the-new-property)
+      * [Introducing a new resource label to the Postgres manifest](#introducing-a-new-resource-label-to-the-postgres-manifest)
+      * [Updating the pipeline script to set the new resource label from user input](#updating-the-pipeline-script-to-set-the-new-resource-label-from-user-input)
+      * [Testing it all together locally](#testing-it-all-together-locally)
+      * [Preparing your Kubernetes environment](#preparing-your-kubernetes-environment)
+      * [Accessing the new request pipeline container image from your cluster](#accessing-the-new-request-pipeline-container-image-from-your-cluster)
+      * [Setting the xaasRequestPipeline image to our new custom image](#setting-the-xaasrequestpipeline-image-to-our-new-custom-image)
+  * [Releasing the enhanced Promise to our platform](#releasing-the-enhanced-promise-to-our-platform)
+* [Stream-Aligned Team (SAT) requesting Postgres](#stream-aligned-team-sat-requesting-postgres)
+  * [Updating the resource request](#updating-the-resource-request)
+  * [Validating the created Postgres](#validating-the-created-postgres)
+* [Summary](#summary)
+* [What's next?](#whats-next)
+* [Feedback](#feedback)
+
 
 ## What will I learn?
 
-This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of community available Promises, you may require slightly different configuration options. For example, your Stream-Aligned Teams (SATs) have requested a database, and your team also has a requirement from the finance team to track costs for any new infrastructure.
+This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of community available Promises, you may require slightly different configuration options unique to your business.
 
-In this example, we'll customise a sample Postgres Promise to satisfy this new requirement.
-
-To make this change, we will need to become familiar with the existing Postgres Promise and then make a `costCentre` variable configurable which can be used to set a resource label for cost tracking. We will then assume the role of an application developer on a SAT, and request a new Postgres database while providing the new property.
+Once we identify a Promise that satisfy our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer on a SAT, and request a Postgres database instance complete with our business specific customisations.
 
 
 ## Platform team providing an enhanced Postgres Promise
 
-<!-- Should there be a primer here about it being a platform engineer... -->
+We will first assume the role of a Platform engineer who, after discussing with teams internal to their organisation, decided to provide Postgres-as-a-Service in their internal Kratix platform. To be compliant with other parts of the business, this engineer knows that any resources created need to be traceable back to a cost centre, so departments can be properly charged.
+
+We can consider how resources are scanned for costs out of scope for this workshop. We can assume that there is already a process in place to scan for a `costCentre` label and do the charge back. Therefore, to satisfy our finance team requirements, we will need to ensure that any database created through our Postgres Promise contains that label. In order to do that, in this workshop, we will:
+
+1. Identify a good base Postgres Promise.
+1. Define the contract with our users.
+1. Configure the Operator support custom labels.
+1. Understand the parts of the Promise, and update them accordingly.
+1. Package and release our custom Postgres Promise on the platform.
+
+The goal for this section is to get you familiar with the Promise components, and give you the confidence to build and test a Promise from scratch.
 
 
 ### Getting the sample Promise
 
-We will use a sample Postgres Promise provided in the Kratix repository as the base of our custom Promise. For that, you will need to clone this repository and navigate to `samples/postgres` directory.
+We will use a sample Postgres Promise provided in the Kratix repository as the base of our custom Promise. For that, you will need to clone the repository and navigate to `samples/postgres` directory.
 
 ```bash
 git clone https://github.com/syntasso/kratix.git
@@ -459,33 +489,33 @@ acid-minimal-cluster-1   1/1     Running   0          10m
 
 ## Summary
 
-In this workshop, we explored the components that make up a Kratix Promise. We then customised an existing Postgres promise, tailoring it to our specific organisation needs.
+In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
 
-We started by extending the Promise's `xaasCrd` which acts as the contract between the platform team and their users to accept a new property: `costCentre`. We defined its type and some basic validations using Schema object in the OpenAPI V3. The validation runs when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, like only accepting certain values.
+We started by extending the Promise's `xaasCrd`, which acts as the contract between the platform team and their users, to accept a new property: `costCentre`. We defined its type and added some basic validations using the Schema object in the OpenAPI V3 specification.
+Next, we set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardise how Postgres instances are created for each SAT. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all created Postgreses.
 
-A more complete list of the possible validation can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
+Once the Promise's contract was updated to accept the `costCentre` property, and the Postgres Operator was updated to use a custom label, we moved our attention to the Promise's `xaasRequestPipeline`. It's the pipeline that takes the resource request and outputs the set of resources that will be created in the worker cluster. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
 
-Once the Promise's contract was updated to accept the `costCentre` property, we moved our attention to the Promise's `xaasRequestPipeline`. It's the pipeline that takes the resource request and outputs the set of resources that will be created in the worker cluster. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
+We then switched hats and, as a member of a Stream-Aligned Team (SAT), sent out a resource request for a new Postgres instance. The request was straightforward, we only had to add the new required property to the `spec` session of our resource requests.
 
-While our example was very simple, it shows the power of Kratix Pipelines. You could, for example:
+Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
+
+## What's next?
+
+One option is to continue refining exising promises to see how Kratix can support scaled and complex scenarios. For example, while our pipeline example is quite simple, you could:
 
 1. Send a request to an external API to validate the user sending the request has permission to bill that particular cost centre.
 2. Verify any quotas that may have been setup, and fire an email to inform an interested party of this action
 
 Furthermore, instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. This would allow you to re-use the logic in all other Promises you publish in your platform.
 
-We then switched hats and, as a member of a Stream-Aligned Team (SAT), sent out a resource request for a new Postgres instance. The request was very straightforward, we only had to add the new required property to the `spec` session of our resource requests.
-<!-- Maybe we want to add a bit of future-looking here? -->
-<!-- ❓ Add a few words on why this is good for app devs -->
+We also added validations that are executed when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, like only accepting certain values. A more complete list of the possible validation can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
 
-Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
+Another option is to dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your clients to ensure you're providing the products they need.
 
-## What's next?
+If that sounds intriguing and you'd like to chat with us about anything Platform, we'd love to hear from you. Please reach out on https://www.syntasso.io/ and we'll be happy to schedule a call.
 
-Now that you have hands on experience working with Promises, you can start thinking about what Promises you would need on your organisation. A good next step is to learn more about how to design good Promises.
 
-<!--
+## Feedback
 
-Have hands on experience with two working promises, now to learn how to scope / design a new one
-
--->
+If you have any feedback about this workshop, we would love to hear about it. Please send it [here](https://docs.google.com/forms/d/1-7NyYMBw98dPnQZXa9ZNb97U1wlDCQhohMYjmfLOO4o/viewform).
