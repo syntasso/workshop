@@ -17,7 +17,7 @@ Table of Contents
       * [Setting the xaasRequestPipeline image to our new custom image](#setting-the-xaasrequestpipeline-image-to-our-new-custom-image)
   * [Releasing the enhanced Promise to our platform](#releasing-the-enhanced-promise-to-our-platform)
 * [App developer requesting Postgres](#app-developer-requesting-postgres)
-  * [Updating the resource request](#updating-the-resource-request)
+  * [Submitting the resource request](#submitting-the-resource-request)
   * [Validating the created Postgres](#validating-the-created-postgres)
 * [Summary](#summary)
 * [What's next?](#whats-next)
@@ -68,7 +68,7 @@ The `postgres-resource-request.yaml` file is an example of how to request an pos
 
 ### Adding a new property to the xaasCrd
 
-The contract with the app developers, i.e. the consumers of the platform, is defined by a number of properties on the `xaasCrd`. These properties are defined within a versioned schema and can have different types and validations. It's in this section that the platform team defines what are the required and optional configuration options exposed to the consumers.
+The contract with the app developers, i.e. the consumers of the platform, is defined by a number of properties in the `postgres-promise.yaml` file in the `xaasCrd` section. These properties are defined within a versioned schema and can have different types and validations. It's in this section that the platform team defines what are the required and optional configuration options exposed to the consumers.
 
 In our case, we want to add a new required property called `costCentre` of type string and with a simple pattern requiring only certain character types. The complete property is as follows:
 
@@ -77,7 +77,6 @@ costCentre:
   pattern: "^[a-zA-Z0-9_.-]*$"
   type: string
 ```
-<!-- TODO: can we make this one required? -->
 
 Add this cost centre property as a sibling to the existing `preparedDatabases` property. To navigate to the properties, open the `postgres-promise.yaml` file, then find the `xaasCrd` section and within the xaasCrd find the `v1` version which has a set of properties within the `openAPIV3Schema` spec.
 
@@ -139,9 +138,13 @@ xaasCrd:
 
 When installing a Promise, there are two sides of the coin. On one side, we the platform team, are providing access to a capability via the `workerClusterResources`. On the other side, our users (the application developers), will request a personal instance of that capability via the `xaasPipeline` outputs.
 
-In the case of Postgres, we are leveraging the Postgres Operator to provide the platform capability of databases. This operator packages up the complexities of configuring Postgres into a more manageable configuration format. One option when configuring the Postgres Operator is to set [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels). This is a comma delimited list of labels that all instances created by the Operator are permitted to be set. This is exactly the behaviour we want when delivering cost tracking across instances.
+The Postgres Promise we are using leverages [Zalando's Postgres Operator](https://github.com/zalando/postgres-operator) to provide Postgres-as-a-Service. This operator packages up the complexities of configuring Postgres into a more manageable configuration format. One of its configuration options allows certain labels to be set on the resulting Pods. This is exactly the behaviour we want when delivering cost tracking across instances.
 
-Add this parameter within the `workerClusterResources` section of the `postgres-promise.yaml` file by adding `inherited_labels: costCentre` in alphabetical order to the `ConfigMap` named `postgres-operator`.
+To enable the label feature, we need to set any desired labels in the [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels) option in the Operators config. The value is a comma delimited list of labels that all instances created by the Operator are permitted to be set.
+
+Note that this change is needed only because that's how the underlying Postgres Operator works. If the "off the shelf" Promise was using a different Postgres Operator, a different change may be required (or no change at all).
+
+Update the `workerClusterResources` section of the `postgres-promise.yaml` file by adding `inherited_labels: costCentre` in alphabetical order to the `ConfigMap` named `postgres-operator`.
 
 <details>
   <summary>Click here to see a complete ConfigMap resource after this change</summary>
@@ -439,7 +442,7 @@ And that's it! You have successfully released a new platform capability! Let's m
 
 Until now, we have been acting as a platform engineer designing, updating, and releasing a new Promise to enhance our platform. With this Promise now available, we are going to take a moment to switch hats and have a look at what one of our application developers would do to take advantage of this new Promise.
 
-### Updating the resource request
+### Submitting the resource request
 
 As an application developer, we will need create a resource request in the platform cluster. Like all Kubernetes resources, this request needs to include:
 
@@ -448,10 +451,12 @@ As an application developer, we will need create a resource request in the platf
 1. A unique name and namespace combination.
 1. Any required fields in defined the in our Promise `spec`. These can be found in the `xaasCrd` section of the Promise (more specifically under the `openAPIV3Schema` spec).
 
-You can define and apply this request in a single command as shown below:
+You can start with the provided sample `postgres-resource-request.yaml` and add the additional `costCentre` field as a sibling to the `preparedDatabases` field with any valid input. For example, `costCentre: "rnd-10002"`.
 
-```bash
-cat <<EOF | kubectl apply --context kind-platform -f -
+<details>
+<summary>Click here for the full Postgres resource request</summary>
+
+```yaml
 apiVersion: example.promise.syntasso.io/v1
 kind: postgres
 metadata:
@@ -461,7 +466,14 @@ spec:
   costCentre: "rnd-10002"
   preparedDatabases:
     mydb: {}
-EOF
+```
+</details>
+<br />
+
+Then apply this file to the platform cluster with the following command:
+
+```bash
+kubectl --context kind-platform apply --file postgres-resource-request.yaml
 ```
 
 ### Validating the created Postgres
@@ -527,7 +539,7 @@ Furthermore, instead of editing the script being executed by the `postgres-reque
 
 We also added validations that are executed when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, like only accepting certain values. A more complete list of the possible validation can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
 
-Another option is to dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your clients to ensure you're providing the products they need.
+Another option is to dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your clients to ensure you're providing the products they need. If this is a new concept for you, you may want to learn more by watching a short talk on the topic by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
 
 If that sounds intriguing and you'd like to chat with us about anything Platform, we'd love to hear from you. Please reach out on https://www.syntasso.io/ and we'll be happy to schedule a call.
 
