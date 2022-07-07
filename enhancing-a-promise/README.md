@@ -466,9 +466,25 @@ EOF
 
 ### Validating the created Postgres
 
-As a platform engineer, we needed to support two different requirements when fulfilling the Postgres Promise.
+As a platform engineer, we use our pipeline to support two different requirements when fulfilling the Postgres Promise.
 
-First, we require a working Postgres service for our app developers. This will show as a cluster of two Postgres pods in `Running` state with the name we defined in our request:
+Once the resource request is applied on the platform cluster, you should eventually see a new pod executing the pipeline script we just created. Listing the pods should output something similar to:
+
+```console
+$ kubectl --context kind-platform get pods
+NAME                                                     READY   STATUS      RESTARTS   AGE
+request-pipeline-ha-postgres-promise-default-<SHA>       0/1     Completed   0          1h
+```
+
+You can then view the pipeline logs by running:
+
+_(make sure to update the pod SHA accordingly to the output of the `get pods` above)_
+
+```bash
+kubectl logs -c xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
+```
+
+Once the pipeline is completed, you will eventually see on the worker cluster a Postgres service as a two pod cluster in `Running` state with the name we defined in our request:
 
 ```console
 $ kubectl --context kind-worker get pods
@@ -478,13 +494,13 @@ acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-In addition, we needed to provide cost tracking for the finance team, this can be confirm by only selecting pods that contain the provided cost centre value:
+In addition, the pods will provide cost tracking for the finance team through a new label. This can be confirm by only selecting pods that contain the provided cost centre value:
 
 ```console
 $  kubectl --context kind-worker get pods --selector costCentre=rnd-10002
 NAME                     READY   STATUS    RESTARTS   AGE
-acid-minimal-cluster-0   1/1     Running   0          11m
-acid-minimal-cluster-1   1/1     Running   0          10m
+acid-minimal-cluster-0   1/1     Running   0          1h
+acid-minimal-cluster-1   1/1     Running   0          1h
 ```
 
 ## Summary
