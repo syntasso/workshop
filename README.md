@@ -1,7 +1,7 @@
-# Deploying a webapp with Kratix Promises
+# Deploying a web app with Kratix Promises
 
-This sample application is a demo showing how to combine Kratix Promises
-to deploy a webapp.
+This sample application shows how to combine Kratix Promises
+to deploy a web app.
 
 If you are looking to run this app locally, please check the necessary
 environment variables you'll need to set
