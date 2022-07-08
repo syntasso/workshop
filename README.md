@@ -3,8 +3,8 @@
 This sample application shows how to combine Kratix Promises
 to deploy a web app.
 
-If you are looking to run this app locally, please check the necessary
-environment variables you'll need to set
+If you wish to run this app locally, please check the necessary
+environment variables 
 [here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
 
 ## Setup the Kratix Platform and Worker clusters with KinD
