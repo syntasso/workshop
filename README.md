@@ -1,25 +1,25 @@
 # Deploying a web app with Kratix Promises
 
-This sample application shows how to combine Kratix Promises
+This sample application workflow shows how to combine Kratix Promises
 to deploy a web app.
 
 If you wish to run this app locally, please check the necessary
 environment variables 
 [here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
 
-## Setup the Kratix Platform and Worker clusters with KinD
+## Set up the Kratix Platform and Worker clusters with KinD
 
-In order to run the three applications necessary for this workshop, we must allocate enough resources to docker.
+In order to run the three applications necessary for this workshop, you must allocate enough resources to docker.
 
-We require:
+Docker requires:
 * 5 CPU
 * 12GB Memory
 * 4GB swap
 
-This is managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
+This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
 
 You can follow the [Part I on the Kratix quick start](https://github.com/syntasso/kratix/blob/main/docs/quick-start.md#part-1-kratix-multi-cluster-install)
-to get that up and running.
+for details on how to get this up and running.
 
 ## Install all required Promises
 
@@ -40,7 +40,7 @@ NAME                   STATUS   AGE
 kratix-worker-system   Active   1h
 ```
 
-We can now install the required Promises on your Platform cluster:
+You can now install the required Promises on your Platform cluster:
 
 <!-- ❓ Do we want people to clone the workshop and kratix or not? -->
 ```bash
@@ -51,7 +51,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 
 ## Request all the resources
 
-At this stage, the required Promises are all installed on your platform cluster:
+At this stage, the required Promises are all installed on your Platform cluster:
 
 ```console
 $ kubectl --context kind-platform get promises
@@ -61,7 +61,7 @@ jenkins-promise           1h
 knative-serving-promise   1h
 ```
 
-You can now request a Knative Serving, a Jenkins instance and a Postgres
+You can now request a Knative Serving component, a Jenkins instance and a Postgres
 database:
 
 ```bash
@@ -72,7 +72,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 
 ## Deploy the app using Jenkins
 
-You should have all the necessary resources now up and running:
+You should now have all the necessary resources up and running:
 
 ```console
 $ kubectl --context kind-worker get pods
@@ -91,8 +91,8 @@ kourier-system         Active   1h
 
 ### Startup Jenkins
 
-Jenkins runs a few tasks on the first login, so let's get that started. First,
-you'll need to open access to the instance by running the following on a
+Jenkins runs a few tasks on first login, so let's get that started. First,
+you'll need to open access to the instance by running the following command on a
 dedicated terminal:
 
 ```bash
@@ -110,8 +110,8 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-example -o
 
 <!-- This could later be added to the existing jenkins Promise to simplify this step  -->
 
-To deploy the app on the worker cluster, you need to setup a Service Account
-with the right permissions:
+To deploy the app on the worker cluster, you need to set up a Service Account
+with the correct permissions:
 
 ```bash
 kubectl --context kind-worker apply --filename https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/k8s/deploy-rbac.yaml
@@ -136,7 +136,7 @@ https://user-images.githubusercontent.com/201163/175933452-853af525-7fff-4dca-9b
 
 ## Validate the deployment
 
-At this stage, the Knative Service for the application should be ready:
+At this stage, the Knative Service for the application is ready:
 
 ```console
 $ kubectl --context kind-worker get services.serving.knative.dev
@@ -151,7 +151,7 @@ the app by port-forwarding the kourier service:
 kubectl --context kind-worker --namespace kourier-system port-forward svc/kourier 8081:80
 ```
 
-You should new be able to curl the app:
+You can now curl the app:
 
 ```
 curl -H "Host: todo.default.example.com" localhost:8081
