@@ -26,16 +26,16 @@ Table of Contents
 
 ## What will I learn?
 
-This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of community available Promises, you may require slightly different configuration options unique to your business.
+This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of Promises available in the community, you may require different configuration options for your business.
 
-Once we identify a Promise that satisfy our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer, and request a Postgres database instance complete with our business specific customisations.
+Once we identify a Promise that meets our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer, and request a Postgres database instance complete with our business specific customisations.
 
 
 ## Platform team providing an enhanced Postgres Promise
 
-We will first assume the role of a Platform engineer who, after discussing with teams internal to their organisation, decided to provide Postgres-as-a-Service in their internal Kratix platform. To be compliant with other parts of the business, this engineer knows that any resources created need to be traceable back to a cost centre, so departments can be properly charged.
+We will first assume the role of a Platform engineer who, after discussing with teams internal to their organisation, decides to provide Postgres-as-a-Service in their internal Kratix platform. To be compliant with other parts of the business, this engineer knows that any resources created need to be traceable back to a cost centre, so departments can be properly charged.
 
-We can consider how resources are scanned for costs out of scope for this workshop. We can assume that there is already a process in place to scan for a `costCentre` label and do the charge back. Therefore, to satisfy our finance team requirements, we will need to ensure that any database created through our Postgres Promise contains that label. In order to do that, in this workshop, we will:
+We can consider how resources are scanned for costs out of scope for this workshop. We can assume that there is already a process in place to scan for a `costCentre` label and manage the charge back. Therefore, to satisfy our finance team requirements, we will need to ensure that any database created through our Postgres Promise contains that label. In order to do that, in this workshop, we will:
 
 1. Identify a good base Postgres Promise.
 1. Define the contract with our users.
