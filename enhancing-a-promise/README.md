@@ -57,7 +57,7 @@ cd kratix/samples/postgres/
 
 In this directory you will see a complete Promise as well as an example resource request. If you have not yet worked with Promises, you can learn more about the basic structure in Kratix's [Writing a Promise](https://github.com/syntasso/kratix/blob/main/docs/writing-a-promise.md) documentation.
 
-The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. A Promise is made of three parts:
+The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. A Promise consists of three parts:
 
 * `xaasCrd`: this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the consumers of the platform. Here is where we will introduce a `costCentre` property.
 * `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll set the value for the `costCentre` label based on the user input.
