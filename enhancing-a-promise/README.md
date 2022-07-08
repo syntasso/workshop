@@ -63,7 +63,7 @@ The Promise that will get installed into our Kubernetes cluster is in the `postg
 * `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll set the value for the `costCentre` label based on the user input.
 * `workerClusterResources`: this contains all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. This is where we will tell the Postgres Operator to create instances with a `costCentre` label.
 
-The `postgres-resource-request.yaml` file is an example of how to request an postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
+The `postgres-resource-request.yaml` file is an example of how to request a postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
 
 
 ### Adding a new property to the xaasCrd
@@ -136,9 +136,9 @@ xaasCrd:
 
 ### Changing the cluster resources to include a new label
 
-When installing a Promise, there are two sides of the coin. On one side, we the platform team, are providing access to a capability via the `workerClusterResources`. On the other side, our users (the application developers), will request a personal instance of that capability via the `xaasPipeline` outputs.
+When installing a Promise, there are two sides. On one side, the platform team is providing access to a capability via the `workerClusterResources`. On the other side, the platform users (the application developers), will request an instance of that capability via the `xaasPipeline` outputs.
 
-The Postgres Promise we are using leverages [Zalando's Postgres Operator](https://github.com/zalando/postgres-operator) to provide Postgres-as-a-Service. This operator packages up the complexities of configuring Postgres into a more manageable configuration format. One of its configuration options allows certain labels to be set on the resulting Pods. This is exactly the behaviour we want when delivering cost tracking across instances.
+The Postgres Promise we are using leverages [Zalando's Postgres Operator](https://github.com/zalando/postgres-operator) to provide Postgres-as-a-Service. This operator packages up the complexities of configuring Postgres into a manageable configuration format. One of its configuration options allows certain labels to be set on the resulting Pods. This is exactly the behaviour we require when delivering cost tracking across instances.
 
 To enable the label feature, we need to set any desired labels in the [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels) option in the Operators config. The value is a comma delimited list of labels that all instances created by the Operator are permitted to be set.
 
@@ -214,10 +214,10 @@ Update the `workerClusterResources` section of the `postgres-promise.yaml` file 
 
 While the `xaasCrd` allows us to accept a custom cost centre ID as input, we will need to use our custom request pipeline to add the correct cost centre ID as a label for our finance team to track costs.
 
-The Postgres request pipeline has three parts, which you can find in the `request-pipeline-image` directory. Namely:
+The Postgres request pipeline has three parts, which you can find in the `request-pipeline-image` directory:
 
 * `Dockerfile`: the image Kratix will execute when a new Postgres gets requested.
-* `execute-pipeline.sh`: this is the script that will be executed (see the contents of the Dockerfile), where any logic or substitution we need should live.
+* `execute-pipeline.sh`: the script that will be executed (see the contents of the Dockerfile), where any logic or substitution lives.
 * `minimal-postgres-manifest.yaml`: a basic Postgres manifest that can be understood by the Postgres operator. That's the pipeline basic template for a Postgres instance.
 
 We will in turn take a look at all those files.
@@ -225,7 +225,7 @@ We will in turn take a look at all those files.
 
 #### Introducing a new resource label to the Postgres manifest
 
-When a new Postgres is requested, we need to generate a `postgresql` resource. The template for this resources is stored as `minimal-postgres-manifest.yaml`. In order to allow customisation of a label, we first need to set the label in this template by updating the metadata. Go ahead and add the following under `metadata`, taking care that it's correctly indented:
+When a new Postgres is requested, we need to generate a `postgresql` resource. The template for this resource is stored as `minimal-postgres-manifest.yaml`. In order to allow customisation of a label, we first need to set the label in this template by updating the metadata. Go ahead and add the following under `metadata`, taking care that it's correctly indented:
 
 ```yaml
 labels:
@@ -250,7 +250,7 @@ This manifest file will act as the "input" to the request pipeline script where 
 
 #### Updating the pipeline script to set the new resource label from user input
 
-As defined in the Dockerfile for the request pipeline, the `execute-pipeline.sh` script is where the pipeline logic lives. We will need to update this script to read the user input and set the right resource label. Looking at the current logic, we can see we are already parsing our resource request to identify key user variables, then using [yq](https://github.com/mikefarah/yq) to process the template file and replace certain fields with the user inputted values.
+As defined in the Dockerfile for the request pipeline, the `execute-pipeline.sh` script is where the pipeline logic lives. We need to update this script to read the user input and set the right resource label. Looking at the current logic, we can see we are already parsing our resource request to identify key user variables, then using [yq](https://github.com/mikefarah/yq) to process the template file and replace certain fields with the user inputted values.
 
 Therefore, we can extend this script to also process the new cost centre ID. To do this, we will need to export another environment variable to store it (`export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)`) and a new line to process the replacement as a part of the pipeline (`.metadata.labels.costCentre = env(COST_CENTRE) |`).
 
@@ -284,7 +284,7 @@ cat /input/minimal-postgres-manifest.yaml |  \
 
 #### Testing it all together locally
 
-Since a pipeline is just the manipulation of an input value to generate an output file, it can be easily validate locally by building and running the docker image with the correct volume mounts.
+Since a pipeline is just the manipulation of an input value to generate an output file, it can be easily validated locally by building and running the docker image with the correct volume mounts.
 
 To set up this test, we will create two directories inside `request-pipeline-image`: `input` and `output`. Inside `input`, then we will add our expected input file (i.e., the resource request the app developer provides). From the `kratix/samples/postgres` directory, run the following:
 
@@ -305,7 +305,7 @@ spec:
 EOF
 ```
 
-Now we can then build this image with a custom tag:
+Now we can build this image with a custom tag:
 
 _(to run this command, make sure you are within the `request-pipeline-image` directory)_
 ```bash
@@ -313,7 +313,7 @@ docker build . --tag kratix-workshop/postgres-request-pipeline:dev
 docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postgres-request-pipeline:dev
 ```
 
-And finally, you we can validate the `output/output.yaml` file holds the manifest including all customised values. It should look like the example below. If your output is different, go back and check the files we touched. Repeat this process until you're satisfied with the output.
+And finally, we can validate the `output/output.yaml` file holds the manifest including all customised values. It should look like the example below. If your output is different, go back and check the files we touched. Repeat this process until you're satisfied with the output.
 
 <details>
     <summary>Expected output.yaml</summary>
@@ -348,10 +348,10 @@ spec:
 
 #### Preparing your Kubernetes environment
 
-Before moving on, you will want to make sure to have an environment ready to run a Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation. If you have not yet set this up, it is best for you to follow the [Kratix Quick Start: Part I documentation](https://github.com/syntasso/kratix/blob/main/docs/quick-start.md).
+Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation. If you have not yet set this up, follow the [Kratix Quick Start: Part I documentation](https://github.com/syntasso/kratix/blob/main/docs/quick-start.md).
 
 <details>
-  <summary>Not sure if you are properly set up? Click here to see some commands to verify a local KinD deployment</summary>
+  <summary>Not sure if you are properly set up? Click here to see commands to verify a local KinD deployment</summary>
 
 To verify your have at least the two necessary clusters:
 ```console
@@ -444,7 +444,7 @@ Until now, we have been acting as a platform engineer designing, updating, and r
 
 ### Submitting the resource request
 
-As an application developer, we will need create a resource request in the platform cluster. Like all Kubernetes resources, this request needs to include:
+As an application developer, we will need to create a resource request in the platform cluster. Like all Kubernetes resources, this request needs to include:
 
 1. An API that the resource can be found under. This is `example.promise.syntasso.io/v1` in our Postgres promise (see `spec.xaasCrd.spec.group` in the Promise manifest).
 1. A kind which points to a specific promise. In this case it will be `postgres` (see `spec.xaasCrd.spec.name` in the Promise manifest).
@@ -506,7 +506,7 @@ acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-In addition, the pods will provide cost tracking for the finance team through a new label. This can be confirm by only selecting pods that contain the provided cost centre value:
+In addition, the pods will provide cost tracking for the finance team through a new label. This can be confirmed by only selecting pods that contain the provided cost centre value:
 
 ```console
 $  kubectl --context kind-worker get pods --selector costCentre=rnd-10002
@@ -520,11 +520,11 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
 
 We started by extending the Promise's `xaasCrd`, which acts as the contract between the platform team and their users, to accept a new property: `costCentre`. We defined its type and added some basic validations using the Schema object in the OpenAPI V3 specification.
-Next, we set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardise how Postgres instances are created for each app development team. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all created Postgreses.
+We set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardises the creation of Postgres instances for each application development team. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all Postgres instances created.
 
-Once the Promise's contract was updated to accept the `costCentre` property, and the Postgres Operator was updated to use a custom label, we moved our attention to the Promise's `xaasRequestPipeline`. It's the pipeline that takes the resource request and outputs the set of resources that will be created in the worker cluster. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
+Once the Promise's contract was updated to accept the `costCentre` property, and the Postgres Operator was updated to use a custom label, we moved our attention to the Promise's `xaasRequestPipeline`. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
 
-We then switched hats and, as a member of an app development team, sent out a resource request for a new Postgres instance. The request was straightforward, we only had to add the new required property to the `spec` session of our resource requests.
+We then switched hats and, as a member of an application development team, sent out a resource request for a new Postgres instance. The request was straightforward, we only had to add the new required property to the `spec` session of our resource requests.
 
 Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
 
@@ -537,9 +537,9 @@ One option is to continue refining exising promises to see how Kratix can suppor
 
 Furthermore, instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. This would allow you to re-use the logic in all other Promises you publish in your platform.
 
-We also added validations that are executed when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, like only accepting certain values. A more complete list of the possible validation can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
+We added validations that are executed when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, such as only accepting specific values. A more complete list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
 
-Another option is to dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your clients to ensure you're providing the products they need. If this is a new concept for you, you may want to learn more by watching a short talk on the topic by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
+You can also dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your platform users and stakeholders to ensure you're providing the products they need. If this is a new concept for you, you may want to learn more by watching a short talk on the topic by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
 
 If that sounds intriguing and you'd like to chat with us about anything Platform, we'd love to hear from you. Please reach out on https://www.syntasso.io/ and we'll be happy to schedule a call.
 
