@@ -1,1 +1,0 @@
-Shared instructions for quick start and using multiple promises
