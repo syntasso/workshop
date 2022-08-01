@@ -8,6 +8,16 @@ _To install on a single cluster use the [Single Cluster Quick Start Guide](https
 1. A **Docker Hub account** with push permissions (or similar registry).
 1. **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images.
 
+### Configure Docker
+In order to complete all tutorials in this series, you must allocate enough resources to Docker.
+
+Docker requires:
+* 5 CPU
+* 12GB Memory
+* 4GB swap
+
+This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
+
 ### Clone Kratix
 ```
 git clone https://github.com/syntasso/kratix.git

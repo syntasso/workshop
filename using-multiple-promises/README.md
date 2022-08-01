@@ -7,23 +7,12 @@ If you wish to run this app locally, please check the necessary
 environment variables 
 [here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
 
-## Set up the Kratix Platform and Worker clusters with KinD
-
-In order to run the three applications necessary for this workshop, you must allocate enough resources to docker.
-
-Docker requires:
-* 5 CPU
-* 12GB Memory
-* 4GB swap
-
-This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
-
-You can follow the [Part I on the Kratix quick start](https://github.com/syntasso/kratix/blob/main/docs/quick-start.md#part-1-kratix-multi-cluster-install)
-for details on how to get this up and running.
+## Pre-requisite 
+* [Install Kratix across two KinD clusters](/installing-kratix/)
 
 ## Install all required Promises
 
-At this stage, you should have Kratix installed and a couple of clusters:
+At this stage, you should have Kratix installed across two clusters:
 
 ```console
 $ kubectl config get-clusters
