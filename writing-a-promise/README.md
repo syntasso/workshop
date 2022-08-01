@@ -1,0 +1,1 @@
+Move over from [here](https://github.com/syntasso/kratix/blob/main/docs/writing-a-promise.md)
