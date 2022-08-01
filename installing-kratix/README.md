@@ -154,6 +154,3 @@ We can see the Jenkins UI in our browsers (all commands on worker cluster):
 ## Feedback
 
 Please help to improve Kratix. Give feedback [via email](mailto:feedback@syntasso.io?subject=Kratix%20Feedback) or [google form](https://forms.gle/WVXwVRJsqVFkHfJ79). Alternatively, open an issue or pull request.
-
-## Challenge 
-[Write your own Promise](./writing-a-promise.md), with a custom pipeline image, and share it with the world!
