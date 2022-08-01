@@ -6,7 +6,7 @@ In this tutorial we will learn how to:
 3. Issue Jenkins instances on-demand.
 
 ## Part 1: Kratix Multi-Cluster Install
-_To install on a single cluster use the [Single Cluster Quick Start Guide](https://github.com/syntasso/kratix/blob/main/docs/single-cluster.md)._
+_To install on a single cluster use the [Single Cluster Quick Start Guide](https://github.com/syntasso/kratix/blob/main/docs/single-cluster.md) in the Kratix docs._
 
 ### Install KinD
 
@@ -163,4 +163,4 @@ We can see the Jenkins UI in our browsers (all commands on worker cluster):
 Please help to improve Kratix. Give feedback [via email](mailto:feedback@syntasso.io?subject=Kratix%20Feedback) or [google form](https://forms.gle/WVXwVRJsqVFkHfJ79). Alternatively, open an issue or pull request.
 
 ## Challenge 
-[Write your own Promise](../writing-a-promise.md), with a custom pipeline image, and share it with the world!
+[Write your own Promise](../writing-a-promise), with a custom pipeline image, and share it with the world!
