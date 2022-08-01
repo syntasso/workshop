@@ -1,3 +1,6 @@
+This is Part 5, the final part, of [a series](./README.md) illustrating how Kratix works. 
+Previously: [Writing and installing a Kratix Promise](/writing-a-promise/)
+
 # Enhancing the sample Postgres Promise
 
 Table of Contents

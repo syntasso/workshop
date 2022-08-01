@@ -1,3 +1,7 @@
+This is Part 3 of [a series](./README.md) illustrating how Kratix works. 
+Previously: [Quick Start: Install a Kratix Promise](/installing-a-promise/)
+Up next: [Using multiple Kratix Promises](/using-multiple-promises/)
+
 # Deploying a web app using multiple Kratix Promises
 
 This sample application workflow shows how to combine Kratix Promises

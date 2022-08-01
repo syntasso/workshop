@@ -1,3 +1,7 @@
+This is Part 2 of [a series](./README.md) illustrating how Kratix works. 
+Previously: [Quick Start: Install Kratix](/installing-kratix/)
+Up next: [Using multiple Kratix Promises](/using-multiple-promises/)
+
 # Kratix Quick Start
 
 In this tutorial we will learn how to:

@@ -1,3 +1,7 @@
+This is Part 4 of [a series](./README.md) illustrating how Kratix works. 
+Previously: [Using multiple Kratix Promises](/using-multiple-promises/)
+Up next: [Enhancing a Kratix Promise](/enhancing-a-promise/)
+
 # Writing your own Kratix Promise
 
 - [Writing your own Kratix Promise](#writing-your-own-promise)
