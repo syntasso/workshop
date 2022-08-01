@@ -1,5 +1,4 @@
 # Kratix Multi-Cluster Install
-_To install on a single cluster use the [Single Cluster Quick Start Guide](https://github.com/syntasso/kratix/blob/main/docs/single-cluster.md)._
 
 ### Prerequisites:
 1. **Kubernetes-in-Docker(KinD)** See [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
