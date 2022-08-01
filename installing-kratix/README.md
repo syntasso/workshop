@@ -1,10 +1,10 @@
 # Kratix Multi-Cluster Install
 
 ### Prerequisites:
-1. **Kubernetes-in-Docker(KinD)** See [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
-    - Ensure no KinD clusters are currently running. `kind get clusters` should return "No kind clusters found."
-1. **Kubectl** See [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl). Tested on 1.16.13 and 1.21.2.
-1. A **Docker Hub account** with push permissions (or similar registry).
+1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
+1. Ensure no KinD clusters are currently running: `kind get clusters` should return `No kind clusters found.`
+1. **Kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl). Tested on 1.16.13 and 1.21.2.
+1. A **Docker Hub account** with push permissions.
 1. **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images.
 
 ### Configure Docker
