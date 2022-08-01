@@ -543,7 +543,3 @@ You can also dive right in to designing your platform. This requires thinking ab
 
 If that sounds intriguing and you'd like to chat with us about anything Platform, we'd love to hear from you. Please reach out on https://www.syntasso.io/ and we'll be happy to schedule a call.
 
-
-## Feedback
-
-If you have any feedback about this workshop, we would love to hear about it. Please send it [here](https://docs.google.com/forms/d/1-7NyYMBw98dPnQZXa9ZNb97U1wlDCQhohMYjmfLOO4o/viewform).

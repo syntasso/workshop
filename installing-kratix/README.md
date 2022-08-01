@@ -77,7 +77,3 @@ kratix-worker-system   Active   4m2s
 ```
 
 Congratulations! Kratix is now installed.
-
-## Feedback
-
-Please help to improve Kratix. Give feedback [via email](mailto:feedback@syntasso.io?subject=Kratix%20Feedback) or [google form](https://forms.gle/WVXwVRJsqVFkHfJ79). Alternatively, open an issue or pull request.

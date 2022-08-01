@@ -91,10 +91,3 @@ We can see the Jenkins UI in our browsers (all commands on worker cluster):
 1. We created an internal platform API, and a worker cluster to host workloads. 
 2. We then decorated our platform API by Promising Jenkins-as-a-service.
 3. We adopted the role of an application team member and requested a Jenkins instance from the platform. The Jenkins instance was created on the worker cluster.
-
-## Feedback
-
-Please help to improve Kratix. Give feedback [via email](mailto:feedback@syntasso.io?subject=Kratix%20Feedback) or [google form](https://forms.gle/WVXwVRJsqVFkHfJ79). Alternatively, open an issue or pull request.
-
-## Challenge 
-[Write your own Promise](../writing-a-promise), with a custom pipeline image, and share it with the world!
