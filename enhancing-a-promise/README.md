@@ -4,14 +4,30 @@ This is Part 5, the final part, of [a series](../README.md) illustrating how Kra
 <hr> 
 
 ### In this tutorial, you will 
-1. [learn more about the power in leveraging customised Kratix Promises](https://github.com/syntasso/workshop/blob/main/enhancing-a-promise/README.md#enhancing-an-off-the-shelf-postgres-promise)
-1. [enhance an off-the-shelf Postgres Promise](https://github.com/syntasso/workshop/blob/main/enhancing-a-promise/README.md#enhancing-an-off-the-shelf-postgres-promise)
+1. [learn more about the power in leveraging customised Kratix Promises]()
+1. [enhance an off-the-shelf Postgres Promise]()
 
 # How do I make Kratix work for my organisation?
 
-...
+As [we've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
 
-Now that you know more about how Kratix Promises can be tailored to your context, let's enhance an off-the-shelf Kratix Promise.
+The reality is that we have not worked with any organisation that is comfortable running production instances of these kinds of services without custom configuration&mdash;business rules like compliance, security, and billing need to live as configuration in these services.
+
+As we'll see in the next hands-on section, Kratix and its Promises make these and other types of required configuration easy. 
+
+### By using Kratix to build your platform, you can:
+- save toil time in maintaining your own custom platform infrastructure.
+- create a Platform as a Product that offers your "blessed" Golden Path services on demand.
+- create your on-demand services from lower-level Kubernetes "operators".
+- build and maintain your platform using familiar Kubernetes tools and native constructs.
+- start small on a laptop and expand to multi-team, multi-cluster, multi-region, and multi-cloud with a consistent API everywhere.
+
+### By offering a Kratix-built platform to your application teams, you allow developers to:
+- discover available services that are already fit-for-purpose.
+- consume services on demand using standard Kubernetes APIs.
+- move focus away from infrastructure toward adding product value.
+
+Now that you know more about how a customised Kratix platform can add value, let's enhance an off-the-shelf Kratix Promise following a set of business requirements.
 
 <br>
 <hr>

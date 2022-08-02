@@ -1,16 +1,46 @@
-## What's next?
+# What's next?
 
-One option is to continue refining exising promises to see how Kratix can support scaled and complex scenarios. For example, while our pipeline example is quite simple, you could:
+Our last hands-on session went through how to [enhance a Kratix Promise](/enhancing-a-promise/README.md). 
 
-1. Send a request to an external API to validate the user sending the request has permission to bill that particular cost centre.
-2. Verify any quotas that may have been setup, and fire an email to inform an interested party of this action
+Thinking back to the questions from the start of the workshop, you are the best person to decide what is most valuable to continue exploration in Kratix. 
 
-Furthermore, instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. This would allow you to re-use the logic in all other Promises you publish in your platform.
+In your context, what were the answers to these questions:
 
-We added validations that are executed when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, such as only accepting specific values. A more complete list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
+* What's the highest value service your platform provides to your application development teams? 
+* How easy is it for you to provide and maintain that service?
+* How easy is it for application developers to use that service?
+* What are the possible opportunities available to you to enable your application developers better flow at a lower cost to you and your platform team?
 
-You can also dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your platform users and stakeholders to ensure you're providing the products they need. If this is a new concept for you, you may want to learn more by watching a short talk on the topic by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
+## Opportunities
 
-If that sounds intriguing and you'd like to chat with us about anything Platform, we'd love to hear from you. 
+### Configuring your platform offerings with business requirements
 
-💭&nbsp;&nbsp; Please reach out on https://www.syntasso.io/ and we'll be happy to schedule a call.
+We saw that Postgres could be configured to identify cost centres. Perhaps you have more complex billing scenarios. Or perhaps there are quotas associated with your platform's Golden Path offerings. 
+
+Imagine customising the pipeline for one of your services, like we did with Postgres, so that it:
+* sends a request to an external API to validate the user sending the request has permission to bill that particular cost centre.
+* verifies any quotas that may have been setup and sends an email to inform interested parties.
+
+### Securing your platform
+As an enhancement to our Postgres Promise, we added validations that are executed when a new resource request is received by the platform cluster. 
+
+Imagine customising your platform to have more rigorous validation so that it:
+* has more robust validations for resource requests coming to production environments&mdash;for example, only specific values are accepted in the request. A list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
+
+### Optimising your platform
+
+It's easy to imagine improvements to your service request pipeline and pipeline assets to make the platform more consistent and extensible.
+
+Imagine customising the pipeline for one of your services, like we did with Postgres, so that it:
+* has reusable logic in all the Promises you publish in your platform. Instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. 
+
+### Designing the right platform for your users
+Core to designing the right platform in a platform team is understanding your users and what they need&mdash;you need to treat your platform as a product. 
+
+Imagine discovering that four application teams all use the same database but each team has different backup strategies, different levels of monitoring and different ways of seeing what's happening on the database. 
+
+With Kratix, you can easily design this database as an offering on your platform, and your service request pipeline defines that service so that every database includes the Golden Path backup strategy, monitoring dashboard, and UI client. 
+
+If the idea of treating your platform as a product is new concept to you, watch this short talk by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
+
+💭&nbsp;&nbsp; If learning about Kratix and thinking about platforms as products sound intriguing and you'd like to chat with us, we'd love to hear from you. Please reach out on https://www.syntasso.io/.
