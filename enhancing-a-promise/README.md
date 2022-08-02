@@ -1,11 +1,11 @@
-This is Part 5, the final part, of [a series](./README.md) illustrating how Kratix works. 
-* Previous: [Writing and installing a Kratix Promise](/writing-a-promise/)
+This is Part 5, the final part, of [a series](../README.md) illustrating how Kratix works.  <br/>
+👈🏾&nbsp;&nbsp; Previous: [Writing and installing a Kratix Promise](/writing-a-promise/)
 
 <hr> 
 
 ### In this tutorial, you will 
-1. [learn more about Kratix Promises](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#what-is-a-kratix-promise)
-1. [install Jenkins as a Kratix Promise](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#quick-start-installing-Jenkins-as-a-kratix-promise)
+1. [learn more about how to enhance Kratix Promises](https://github.com/syntasso/workshop/tree/main/enhancing-a-promise/README.md#how-do-i-make-kratix-work-for-my-organisation)
+1. [enhance an off-the-shelf Postgres Promise](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#enhancing-an-off-the-shelf -postgres-promise)
 
 # How do I make Kratix work for my organisation?
 
@@ -17,9 +17,7 @@ Now that you know more about how Kratix Promises can be tailored to your context
 <hr>
 <br>
 
-
-
-## Enhancing the sample Postgres Promise
+## Enhancing an off-the-shelf Postgres Promise
 
 Table of Contents
 =================

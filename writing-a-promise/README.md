@@ -1,6 +1,23 @@
-This is Part 4 of [a series](./README.md) illustrating how Kratix works. 
-* Previous: [Using multiple Kratix Promises](/using-multiple-promises/)
-* Up next: [Enhancing a Kratix Promise](/enhancing-a-promise/)
+This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br/>
+👈🏾&nbsp;&nbsp; Previous: [Using multiple Kratix Promises](/using-multiple-promises/) <br/>
+👉🏾&nbsp;&nbsp; Next: [Enhancing a Kratix Promise](/enhancing-a-promise/)
+
+<hr> 
+
+### In this tutorial, you will 
+1. [learn more about what's inside a Kratix Promise](https://github.com/syntasso/workshop/tree/main/writing-a-promise/README.md#whats-inside-a-kratix-promise)
+1. [write and install your own Kratix Promise](https://github.com/syntasso/workshop/tree/main/writing-a-promise/README.md#writing-your-own-kratix-promise)
+
+# What's inside a Kratix Promise?
+
+...
+
+Now that you know more about how Kratix works, let's write and deploy our own Kratix Promise.
+
+<br>
+<hr>
+<br>
+
 
 # Writing your own Kratix Promise
 
