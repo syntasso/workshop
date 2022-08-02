@@ -1,12 +1,44 @@
 This is Part 1 of [a series](./README.md) illustrating how Kratix works. 
 * Up next: [Quick Start: Install a Kratix Promise](/installing-a-promise/)
 
-# Kratix Multi-Cluster Install
+<hr>
+
+
+# What is Kratix?
+<figure style="float: right; margin: 0 0 10px 30px; width: 300px;" >
+  <img  src="../assets/images/white_logo_color_background_300.jpeg" alt="Kratix logo" >
+  <figcaption style="font-weight: bold;">
+    What Promises can Kratix help you make for your organisation?
+  </figcaption>
+</figure>
+
+Kratix is a framework that enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. Using the GitOps workflow and Kubernetes-native constructs, Kratix provides a flexible solution to empower your platform team to curate an API-driven, bespoke platform that can easily be kept secure and up-to-date, as well as evolving as business needs change.
+
+## Promises:
+- provide the right abstractions to make your developers as productive, efficient, and secure as possible. Any capability can be encoded and delivered via a Promise, and once “Promised” the capability is available on-demand, at scale, across the organisation.
+- codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
+- can be shared and reused between platforms, teams, business units, even other organisations.
+- are easy to build, deploy, and update. Bespoke business logic can be added to each Promise’s pipeline.
+- can create “Workloads”, which are deployed, via the GitOps Toolkit, across fleets of Kubernetes clusters.
+
+## Promise anatomy
+A Promise is comprised of three elements:
+- Custom Resource Definition: input from an app team to create instances of a capability.
+- Worker Cluster Resources: dependencies necessary for any created Workloads.
+- Request Pipeline: business logic required when an instance of a capability is requested.
+
+Now that you know more about Kratix, let's install Kratix locally.
+
+<hr>
+
+## Installing a multi-cluster Kratix using KinD
 
 ### Prerequisites:
 1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
-1. Ensure no KinD clusters are currently running: `kind get clusters` should return `No kind clusters found.`
-1. **Kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl). Tested on 1.16.13 and 1.21.2.
+1. Ensure no KinD clusters are currently running.<br>
+  `kind get clusters`<span>&nbsp;</span><span>&nbsp;</span> should return<span>&nbsp;</span><span>&nbsp;</span> `No kind clusters found.`<br>
+  Any existing clusters can be deleted using the<span>&nbsp;</span><span>&nbsp;</span> `kind delete`<span>&nbsp;</span><span>&nbsp;</span> command
+1. **kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl). Tested on 1.16.13 and 1.21.2.
 1. A **Docker Hub account** with push permissions.
 1. **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images.
 
@@ -25,7 +57,7 @@ This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, e
 git clone https://github.com/syntasso/kratix.git
 ```
 
-### Set up Platform Cluster
+### Set up your platform cluster
 
 The below commands will create our platform cluster and install Kratix.
 
