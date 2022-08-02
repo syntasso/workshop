@@ -13,7 +13,7 @@ This is Part 1 of [a series](./README.md) illustrating how Kratix works.
 
 Kratix is a framework that enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. Using the GitOps workflow and Kubernetes-native constructs, Kratix provides a flexible solution to empower your platform team to curate an API-driven, bespoke platform that can easily be kept secure and up-to-date, as well as evolving as business needs change.
 
-## Promises:
+## Promises
 - provide the right abstractions to make your developers as productive, efficient, and secure as possible. Any capability can be encoded and delivered via a Promise, and once “Promised” the capability is available on-demand, at scale, across the organisation.
 - codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
 - can be shared and reused between platforms, teams, business units, even other organisations.
@@ -28,17 +28,23 @@ A Promise is comprised of three elements:
 
 Now that you know more about Kratix, let's install Kratix locally.
 
+<br>
 <hr>
+<br>
 
 ## Installing a multi-cluster Kratix using KinD
 
-### Prerequisites:
+### Install Kratix prerequisites
 1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
+
 1. Ensure no KinD clusters are currently running.<br>
   `kind get clusters`<span>&nbsp;</span><span>&nbsp;</span> should return<span>&nbsp;</span><span>&nbsp;</span> `No kind clusters found.`<br>
   Any existing clusters can be deleted using the<span>&nbsp;</span><span>&nbsp;</span> `kind delete`<span>&nbsp;</span><span>&nbsp;</span> command
+
 1. **kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl). Tested on 1.16.13 and 1.21.2.
+
 1. A **Docker Hub account** with push permissions.
+
 1. **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images.
 
 ### Configure Docker
@@ -80,7 +86,7 @@ promises.platform.kratix.io   2022-05-10T11:10:57Z
 works.platform.kratix.io      2022-05-10T11:10:57Z
 ```
 
-### Multi-Cluster Networking
+### Adjust multi-cluster networking for KinD
 Some KinD installations use non-standard networking. To ensure cross-cluster communication we need to run this script: 
 
 ```
@@ -88,7 +94,7 @@ PLATFORM_CLUSTER_IP=`docker inspect platform-control-plane | grep '"IPAddress": 
 sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resources.yaml
 ```
 
-### Set up Worker Cluster
+### Set up your worker cluster
 This will create a cluster for running the X-as-a-service workloads:
 
 ```
@@ -110,4 +116,4 @@ NAME                   STATUS   AGE
 kratix-worker-system   Active   4m2s
 ```
 
-Congratulations! Kratix is now installed.
+### 🎉 &nbsp; Congratulations! Kratix is now installed.
