@@ -2,18 +2,54 @@ This is Part 2 of [a series](./README.md) illustrating how Kratix works.
 * Previous: [Quick Start: Install Kratix](/installing-kratix/)
 * Up next: [Using multiple Kratix Promises](/using-multiple-promises/)
 
-# Kratix Quick Start
+<hr> 
 
-In this tutorial we will learn how to:
-1. Install a Jenkins Promise.
-1. Issue Jenkins instances on-demand.
+### In this tutorial, you will 
+1. [learn more about Kratix Promises](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#what-is-a-kratix-promise)
+1. [install Jenkins as a Kratix Promise](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#quick-start-installing-Jenkins-as-a-kratix-promise)
 
-## Pre-requisite 
+# What is a Kratix Promise?
+
+## What's the Problem? 
+Syntasso understands being a Platform team member is challenging. These teams relentlessly feel tensions from many directions, and often face: 
+* Demands from their customers, who increasingly expect software served from internal platforms be as simple, quick to consume, and performant as commodity public-cloud services.
+* Steep learning curves as they take software from large vendors, figure out how to tweak the seemingly endless configuration options to introduce the "right" level of opinions: not too opinionated to reduce utility for their users, but opinionated enough to meet their own internal SLI/SLO requirements.
+* Demands from their own internal security, audit, and compliance teams who expect all internal software to be secure, traceable, up-to-date, and compliant with industry regulations.  
+
+## What's the Solution? 
+This is where Promises can help. The aim of a Promise is simple: 
+* To enable Platform teams to take complex software, modify the settings needed to meet their internal requirements, inject their own organisational opinions, and finally to expose a simplified API to _their_ users to enable frictionless creation and consumption of services that meet the needs of all stakeholders.  
+   
+The more Promises a platform can deliver, the richer that platform becomes. While commercial entities will provide high-quality Promises that meet the demands of a broad base of platform teams, it is inevitable any team, in an organisation at scale, will have to respond to requests to add further custom as-a-Service capabilities. 
+
+### It's not just about Data Services
+We are seeing an increase in demand for Platform teams to ship capabilities that provide higher value than simple, atomic, as-a-Service data services such as Redis or your favourite DbaaS. Data service capabilities are table stakes for a modern platform. Platform users are now demanding increasingly complex patterns of the technologies they need, on-demand, so they can be immediately productive. In other words: they want _their_ required technologies, and they want them wired together, so they can get on with delivering value to _their_ customers! These complex patterns are frequently referred to as [Golden paths](https://engineering.atspotify.com/2020/08/17/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/) or [Paved Paths](https://medium.com/codex/what-is-a-paved-path-b2294463a3a9). 
+
+As Promises are the unit that allow platforms to be built incrementally, platform teams can easily add low-level Promises (such as a Jenkins DBaaS, Redis etc.), and then simply wire them together into a single high-level Promise. This raises the "Value Line", reducing the cognitive load for platform users. 
+
+Consider a Promise such as 'ACME Java Development Environment': setting up development environments is repetitive and requires many cookie-cutter steps. This Promise can encapsulate the required steps, and handle the toil of wiring up the Git repos, spinning up a CI/CD server, creating a PaaS to run the applications, instructing CI/CD to listen to the Git repos and push successful builds into the PaaS, and finally wiring applications to their required data services. All of this complexity can easily be encapsulated within a single Promise. 
+
+### Promise Basics
+A Promise is comprised of three elements:
+
+1. `xaasCrd`: this is the CRD that is exposed to the users of the Promise. Imagine the order form for a product. What do you need to know from your customer? Size? Location? Name?
+2. `xaasRequestPipeline`: this is the pipeline that will create the Jenkins resources required to run Jenkins on a worker cluster decorated with whatever you need to run Jenkins from your own Platform. Do you need to scan images? Do you need to send a request to an external API for approval? Do you need to inject resources for storage, mesh, networking, etc.? These activities happen in the pipeline.
+3. `workerClusterResources`: this contains all of the Kubernetes resources required on a cluster for it to be able to run an instance Jenkins such as CRDs, Operators and Deployments. Think about the required prerequisites necessary on the worker cluster, so that the resources declared by your pipeline are able to converge.
+
+Now that you know more about Kratix Promises, let's install a Kratix Promise locally.
+
+<br>
+<hr>
+<br>
+
+## Quick Start: installing Jenkins as a Kratix Promise
+
+### Prerequisites 
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
 ## Part 1: Install a Jenkins Promise 
 
-For the purpose of this walkthrough let's install the provided Jenkins-as-a-service Promise.
+For the purpose of this walkthrough let's install the provided Jenkins-as-a-service Kratix Promise.
 
 ```
 kubectl config use-context kind-platform
@@ -79,8 +115,6 @@ jenkins-example                     1/1     Running   0          113s
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
 ```
 
-Congratulations! You have now created an instance of Jenkins.
-
 ### Using your Jenkins instance
 
 We can see the Jenkins UI in our browsers (all commands on worker cluster):
@@ -90,8 +124,4 @@ We can see the Jenkins UI in our browsers (all commands on worker cluster):
 4. Navigate to http://localhost:8080 and login using the username and password captured in steps one and two. 
 5. You should see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster. 
 
-## What have we learned?
-
-1. We created an internal platform API, and a worker cluster to host workloads. 
-2. We then decorated our platform API by Promising Jenkins-as-a-service.
-3. We adopted the role of an application team member and requested a Jenkins instance from the platform. The Jenkins instance was created on the worker cluster.
+### 🎉 &nbsp; Congratulations! You have installed a Kratix Promise and used it to create on-demand instances of a service.

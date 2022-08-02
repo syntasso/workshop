@@ -1,7 +1,11 @@
 This is Part 1 of [a series](./README.md) illustrating how Kratix works. 
 * Up next: [Quick Start: Install a Kratix Promise](/installing-a-promise/)
 
-<hr>
+<hr> 
+
+### In this tutorial, you will 
+* [learn more about Kratix as a framework](https://github.com/syntasso/workshop/tree/main/installing-kratix/README.md#what-is-kratix)
+* [install a multi-cluster Kratix using KinD](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#quick-start-installing-a-multi-cluster-kratix-using-kind)
 
 # What is Kratix?
 
@@ -32,7 +36,7 @@ Now that you know more about Kratix, let's install Kratix locally.
 <hr>
 <br>
 
-## Installing a multi-cluster Kratix using KinD
+## Quick Start: installing a multi-cluster Kratix using KinD
 
 ### Install Kratix prerequisites
 1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
