@@ -35,4 +35,4 @@ Write a Jenkins Promise and deploy it to Kratix
 1. [Enhancing a Kratix Promise](/enhancing-a-promise/) <br>
 Extend an existing off-the-shelf Postgres Promise by configuring specifically for you, your team, and your organisation
 
-## 🥁 &nbsp; &nbsp; Let's get started by <a href="/installing-kratix/">installing multi-cluster Kratix on KinD</a>!
+### 🥁 &nbsp; &nbsp; Let's get started by <a href="/installing-kratix/">installing multi-cluster Kratix on KinD</a>!
