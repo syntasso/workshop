@@ -7,10 +7,6 @@ This is Part 3 of [a series](./README.md) illustrating how Kratix works.
 This sample application workflow shows how to combine Kratix Promises
 to deploy a web app.
 
-If you wish to run this app locally, please check the necessary
-environment variables 
-[here](https://github.com/syntasso/workshop/blob/fd5188b89164da9be70e664d1048d897dcf202f0/sample-todo-app/main.go#L21-L25).
-
 ## Pre-requisite 
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
