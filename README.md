@@ -1,4 +1,6 @@
-# Kratix workshop
+# Introducing Kratix 🎉
+
+<img align="right" src="assets/images/white_logo_color_background_300.jpeg" alt="Kratix logo" style="margin-left:20px; margin-bottom: 40px">
 
 Before beginning this workshop, consider your answers to the following questions:
 
@@ -8,6 +10,8 @@ Before beginning this workshop, consider your answers to the following questions
 * What are the possible opportunities available to you to enable your application developers better flow at a lower cost to you and your platform team.
 
 This workshop introduces you to the [Kratix](https://www.kratix.io) framework. There is a series of tutorials that build up your understanding of what Kratix is, how Kratix works, and how Kratix can be tailored to your needs. 
+
+## The series
 
 1. [Quick Start: Install Kratix](/installing-kratix/) -- install Kratix using KinD
 1. [Quick Start: Install a Kratix Promise](/installing-a-promise/) -- install a simple Jenkins Promise
