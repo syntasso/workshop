@@ -5,7 +5,7 @@ This is Part 1 of [a series](./README.md) illustrating how Kratix works.
 
 
 # What is Kratix?
-<img  alight=right src="../assets/images/white_logo_color_background_300.jpeg" alt="Kratix logo" >
+<img alight="right" src="../assets/images/white_logo_color_background_300.jpeg" alt="Kratix logo" >
 
 Kratix is a framework that enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. Using the GitOps workflow and Kubernetes-native constructs, Kratix provides a flexible solution to empower your platform team to curate an API-driven, bespoke platform that can easily be kept secure and up-to-date, as well as evolving as business needs change.
 
