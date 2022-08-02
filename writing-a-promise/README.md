@@ -30,14 +30,8 @@ You will learn how to:
 ![Writing a Promise Step One](../assets/images/writing-a-promise-1.png)
 
 ### Prerequisites:
-1. [Install Kratix across 2 Kind clusters](../installing-kratix/)
-2. Install Kubernetes-in-Docker(KinD). See [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
-    - Ensure no KinD clusters are currently running. `kind get clusters` should return "No kind clusters found."
-3. Install Kubectl. See [the install guide](https://kubernetes.io/docs/tasks tools/#kubectl). Tested on 1.16.13 and 1.21.2.
-4. A Docker Hub account with push permissions (or similar registry).
-5. [The Docker cli](https://docs.docker.com/get-docker/) -- to build and push images.
-
-To begin writing a Promise we will need a basic directory structure to work in.
+* [Install Kratix across two KinD clusters](/installing-kratix/)
+* To begin writing a Promise we will need a basic directory structure to work in:
 
  ```
 mkdir -p jenkins-promise/{resources,request-pipeline-image}
