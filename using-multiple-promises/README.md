@@ -2,15 +2,30 @@ This is Part 3 of [a series](./README.md) illustrating how Kratix works.
 * Previous: [Quick Start: Install a Kratix Promise](/installing-a-promise/)
 * Up next: [Writing and installing a Kratix Promise](/writing-a-promise/)
 
-# Deploying a web app using multiple Kratix Promises
+<hr> 
+
+### In this tutorial, you will 
+1. [learn more about how Kratix works](https://github.com/syntasso/workshop/tree/main/using-multiple-promises/README.md#how-does-kratix-work)
+1. [deploy a web app that uses multiple Kratix Promises](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#deploying-a-web-app-using-multiple-kratix-promises)
+
+# How does Kratix work?
+...
+
+Now that you know more about how Kratix works, let's deploy a web app that uses multiple Kratix promises.
+
+<br>
+<hr>
+<br>
+
+## Deploying a web app using multiple Kratix Promises
 
 This sample application workflow shows how to combine Kratix Promises
 to deploy a web app.
 
-## Pre-requisite 
+### Pre-requisite 
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
-## Install all required Promises
+### Install all required Promises
 
 At this stage, you should have Kratix installed across two clusters:
 
@@ -38,7 +53,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/jenkins/jenkins-promise.yaml
 ```
 
-## Request all the resources
+### Request all the resources
 
 At this stage, the required Promises are all installed on your Platform cluster:
 
@@ -59,7 +74,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/jenkins/jenkins-resource-request.yaml
 ```
 
-## Deploy the app using Jenkins
+### Deploy the app using Jenkins
 
 You should now have all the necessary resources up and running:
 
@@ -78,7 +93,7 @@ kourier-system         Active   1h
 ...
 ```
 
-### Startup Jenkins
+### Start up Jenkins
 
 Jenkins runs a few tasks on first login, so let's get that started. First,
 you'll need to open access to the instance by running the following command on a
@@ -95,7 +110,7 @@ You can now navigate to http://localhost:8080 and login. The username is
 kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
 ```
 
-### Create a Service Account
+#### Create a Service Account
 
 <!-- This could later be added to the existing jenkins Promise to simplify this step  -->
 
@@ -106,7 +121,7 @@ with the correct permissions:
 kubectl --context kind-worker apply --filename https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/k8s/deploy-rbac.yaml
 ```
 
-### Run the deploy pipeline
+#### Run the deploy pipeline
 
 For the pipeline to work, you'll need the following Service Account:
 
@@ -123,7 +138,7 @@ and execute it.
 
 https://user-images.githubusercontent.com/201163/175933452-853af525-7fff-4dca-9ba9-032c07c8c393.mov
 
-## Validate the deployment
+### Validate the deployment
 
 At this stage, the Knative Service for the application is ready:
 
@@ -145,3 +160,5 @@ You can now curl the app:
 ```
 curl -H "Host: todo.default.example.com" localhost:8081
 ```
+
+### 🎉 &nbsp; Congratulations! You have deployed a web app that uses multiple Kratix Promises. Let's [write our own Jenkins Promise to learn more about how Promises work](/writing-a-promise/README.md).
