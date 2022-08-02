@@ -123,7 +123,7 @@ The contract with each container is simple and straightforward:
 
 In more advanced Promises, each of these 'stages' will take on responsibilities such as vulnerability scanning, licence checking, and secure certificate injection; the possibilities are endless. Look out for partnerships in this space to provide integrations for common services and tooling.
 
-![Writing a Promise Step Four](images/writing-a-promise-4.png)
+![Writing a Promise Step Four](../assets/images/writing-a-promise-4.png)
 
 `cd request-pipeline-image`
 
