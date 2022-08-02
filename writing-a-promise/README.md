@@ -27,7 +27,7 @@ You will learn how to:
 
 ## Writing a Promise
 
-![Writing a Promise Step One](images/writing-a-promise-1.png)
+![Writing a Promise Step One](https://github.com/syntasso/kratix/tree/main/docs/images/writing-a-promise-1.png)
 
 ### Prerequisites:
 1. [Install Kratix across 2 Kind clusters](../installing-kratix/)
@@ -51,7 +51,7 @@ Conceptually a Promise consists of three parts:
 2. `xaasRequestPipeline`: this is the pipeline that will create the Jenkins resources requried to run Jenkins on a worker cluster decorated with whatever you need to run Jenkins from your own Platform. Do you need to scan images? Do you need to send a request to an external API for approval? Do you need to inject resources for storage, mesh, networking, etc.? These activities happen in the pipeline.
 3. `workerClusterResources`: this contains all of the Kubernetes resources required on a cluster for it to be able to run an instance Jenkins such as CRDs, Operators and Deployments. Think about the required prerequisites necessary on the worker cluster, so that the resources declared by your pipeline are able to converge.
 
-![Writing a Promise Step Two](images/writing-a-promise-2.png)
+![Writing a Promise Step Two](https://github.com/syntasso/kratix/tree/main/docs/images/writing-a-promise-2.png)
 
 ### Promise template
 
@@ -76,7 +76,7 @@ We will fill the `spec` scalars as we progress through the tutorial.
 ### X-as-a-Service Custom Resource Definition
 This is the user-facing API. For the purpose of this tutorial we will create an API that accepts a single `string` parameter called `name`. This API can be as complex or as simple as you design it to be.
 
-![Writing a Promise Step Three](images/writing-a-promise-3.png)
+![Writing a Promise Step Three](https://github.com/syntasso/kratix/tree/main/docs/images/writing-a-promise-3.png)
 
 Add the below to the `xaasCrd` scalar in `jenkins-promise-template.yaml`. Ensure the indentation is correct (`xaasCrd` is nested under `spec`).
 
@@ -321,7 +321,7 @@ We have:
 
 ### Worker Cluster Resources
 
-![Writing a Promise Step Five](images/writing-a-promise-5.png)
+![Writing a Promise Step Five](https://github.com/syntasso/kratix/tree/main/docs/images/writing-a-promise-5.png)
 
  Jenkins.io has a [great Operator](https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/installing-the-operator/) that ships in two files.
 1. [Jenkins CRDs](https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/master/config/crd/bases/jenkins.io_jenkins.yaml)
@@ -364,7 +364,7 @@ See a Jenkins Operator.
 
 ### Create and submit a resource request
 
-![Writing a Promise Summary](images/writing-a-promise-1.png)
+![Writing a Promise Summary](https://github.com/syntasso/kratix/tree/main/docs/images/writing-a-promise-1.png)
 
 Next, we change hats from Platform team member and become the customer of the Platform team. We should now be able to request instances of Jenkins on-demand.
 
