@@ -1,13 +1,12 @@
 # Introducing Kratix 🎉
 
-<figure style="float: right; margin: 0 0 10px 30px; width: 300px;" >
-  <img  src="assets/images/white_logo_color_background_300.jpeg" alt="Kratix logo" />
-  <figcaption style="font-weight: bold;">
-    Kratix helps you build the best platform for your organisation
-  </figcaption>
-</figure>
-
 ## Welcome!
+
+<img 
+  align="right" 
+  src="assets/images/logo_300_with-padding.png" 
+  alt="Kratix logo" 
+/>
 
 This workshop introduces you to the [Kratix](https://www.kratix.io) framework. We have created a series of tutorials that build up your understanding of what Kratix is, how Kratix works, and how you can use Kratix to deliver a first-class platform to your organisation. 
 
