@@ -162,5 +162,5 @@ curl -H "Host: todo.default.example.com" localhost:8081
 ```
 
 ### 🎉 &nbsp; Congratulations! 
-✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. 
+✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. <br/> 
 👉🏾&nbsp;&nbsp; Let's [write our own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).

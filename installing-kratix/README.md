@@ -121,5 +121,5 @@ kratix-worker-system   Active   4m2s
 ```
 
 ### 🎉 &nbsp; Congratulations! 
-✅&nbsp;&nbsp; Kratix is now installed. 
+✅&nbsp;&nbsp; Kratix is now installed. <br/>
 👉🏾&nbsp;&nbsp; Let's [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).

@@ -125,5 +125,5 @@ We can see the Jenkins UI in our browsers (all commands on worker cluster):
 5. You should see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster. 
 
 ### 🎉 &nbsp; Congratulations! 
-✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. 
+✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br/> 
 👉🏾&nbsp;&nbsp; Let's [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
