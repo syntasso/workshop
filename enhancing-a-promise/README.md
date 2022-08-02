@@ -58,7 +58,7 @@ git clone https://github.com/syntasso/kratix.git
 cd kratix/samples/postgres/
 ```
 
-In this directory you will see a complete Promise as well as an example resource request. If you have not yet worked with Promises, you can learn more about the basic structure in Kratix's [Writing a Promise](https://github.com/syntasso/kratix/blob/main/docs/writing-a-promise.md) documentation.
+In this directory you will see a complete Promise as well as an example resource request. If you have not yet worked with Promises, you can learn more about the basic structure in [Writing a Promise](../writing-a-promise/README.md), which is the previous step in this series.
 
 The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. A Promise consists of three parts:
 
