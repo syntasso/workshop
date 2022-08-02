@@ -9,7 +9,7 @@ Before beginning this workshop, consider your answers to the following questions
 * How easy is it for application developers to use that service?
 * What are the possible opportunities available to you to enable your application developers better flow at a lower cost to you and your platform team.
 
-This workshop introduces you to the [Kratix](https://www.kratix.io) framework. There is a series of tutorials that build up your understanding of what Kratix is, how Kratix works, and how Kratix can be tailored to your needs. 
+This workshop introduces you to the [Kratix](https://www.kratix.io) framework. There is a series of tutorials that build up your understanding of what Kratix is, how Kratix works, and how you can use Kratix to deliver a first-class platform to your organisation. 
 
 ## The series
 
