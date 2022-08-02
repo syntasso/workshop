@@ -4,8 +4,8 @@ This is Part 5, the final part, of [a series](../README.md) illustrating how Kra
 <hr> 
 
 ### In this tutorial, you will 
-1. [learn more about how to enhance Kratix Promises](https://github.com/syntasso/workshop/tree/main/enhancing-a-promise/README.md#how-do-i-make-kratix-work-for-my-organisation)
-1. [enhance an off-the-shelf Postgres Promise](https://github.com/syntasso/workshop/tree/main/enhancing-a-promise/README.md#enhancing-an-off-the-shelf-postgres-promise)
+1. [learn more about how to enhance Kratix Promises](https://github.com/syntasso/workshop/blob/main/enhancing-a-promise/README.md#enhancing-an-off-the-shelf-postgres-promise)
+1. [enhance an off-the-shelf Postgres Promise](https://github.com/syntasso/workshop/blob/main/enhancing-a-promise/README.md#enhancing-an-off-the-shelf-postgres-promise)
 
 # How do I make Kratix work for my organisation?
 
