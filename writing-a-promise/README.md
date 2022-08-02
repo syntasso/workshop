@@ -18,7 +18,7 @@ This is Part 4 of [a series](./README.md) illustrating how Kratix works.
   - [Where Next?](#where-next)
 
 ## What will I learn?
-We will walk through the steps needed to create your own Promise, configure it for your needs, decorate it with your own opinions, and expose it as-a-Service ready for consumption by your platform users. If you are unsure of what a promise is and what problem it solves, check out [this page](promises.md).
+We will walk through the steps needed to create your own Promise, configure it for your needs, decorate it with your own opinions, and expose it as-a-Service ready for consumption by your platform users. If you are unsure of what a promise is and what problem it solves, check out [this page](https://github.com/syntasso/kratix/blob/main/docs/promises.md).
 
 You will learn how to:
 * Build a Promise for complex software, and expose it via a simple custom API which captures the data needed from users to configure the Promise for consumption "as-a-Service".
