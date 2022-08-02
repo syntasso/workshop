@@ -1,5 +1,6 @@
-This is Part 5, the final part, of [a series](../README.md) illustrating how Kratix works.  <br/>
-👈🏾&nbsp;&nbsp; Previous: [Writing and installing a Kratix Promise](/writing-a-promise/)
+This is Part 5, the final hands-on part, of [a series](../README.md) illustrating how Kratix works. <br/>
+👈🏾&nbsp;&nbsp; Previous: [Writing and installing a Kratix Promise](/writing-a-promise/) <br/>
+👉🏾&nbsp;&nbsp; Next: [Final Thoughts](/final-thoughts/)
 
 <hr> 
 
