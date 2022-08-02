@@ -351,7 +351,7 @@ spec:
 
 #### Preparing your Kubernetes environment
 
-Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation. If you have not yet set this up, follow the [Kratix Quick Start: Part I documentation](https://github.com/syntasso/kratix/blob/main/docs/quick-start.md).
+Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation. If you have not yet set this up, follow the [Quick Start: Install Kratix](../installing-kratix/README.md), which is the first step in this series.
 
 <details>
   <summary>Not sure if you are properly set up? Click here to see commands to verify a local KinD deployment</summary>
