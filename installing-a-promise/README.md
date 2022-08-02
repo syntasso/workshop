@@ -47,7 +47,7 @@ Now that you know more about Kratix Promises, let's install a Kratix Promise loc
 ### Prerequisites 
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
-## Part 1: Install a Jenkins Promise 
+### Part 1: Install a Jenkins Promise 
 
 For the purpose of this walkthrough let's install the provided Jenkins-as-a-service Kratix Promise.
 
@@ -82,7 +82,7 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          4m1s
 
 Congratulations! You have now installed your first Promise. The machinery to issue Jenkins instances on demand by application teams has now been installed.
 
-## Part 2: Request a Jenkins Instance
+### Part 2: Request a Jenkins Instance
 
 ```
 kubectl apply -f samples/jenkins/jenkins-resource-request.yaml
@@ -100,7 +100,7 @@ NAME                   AGE
 my-jenkins   27s
 ```
 
-### Review created Jenkins instance on the worker cluster
+#### Review created Jenkins instance on the worker cluster
 
 Once Kratix has applied the new configuration to the worker cluster (this will take a few minutes), the Jenkins instance will be created.
 
@@ -115,7 +115,7 @@ jenkins-example                     1/1     Running   0          113s
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
 ```
 
-### Using your Jenkins instance
+#### Using your Jenkins instance
 
 We can see the Jenkins UI in our browsers (all commands on worker cluster):
 1. Get the Jenkins username: `kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d`
