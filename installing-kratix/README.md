@@ -120,4 +120,6 @@ NAME                   STATUS   AGE
 kratix-worker-system   Active   4m2s
 ```
 
-### 🎉 &nbsp; Congratulations! Kratix is now installed. Let's [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).
+### 🎉 &nbsp; Congratulations! 
+✅&nbsp;&nbsp; Kratix is now installed. 
+👉🏾&nbsp;&nbsp; Let's [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).

@@ -124,4 +124,6 @@ We can see the Jenkins UI in our browsers (all commands on worker cluster):
 4. Navigate to http://localhost:8080 and login using the username and password captured in steps one and two. 
 5. You should see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster. 
 
-### 🎉 &nbsp; Congratulations! You have installed a Kratix Promise and used it to create on-demand instances of a service. Let's [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
+### 🎉 &nbsp; Congratulations! 
+✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. 
+👉🏾&nbsp;&nbsp; Let's [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).

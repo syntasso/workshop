@@ -1,7 +1,25 @@
 This is Part 5, the final part, of [a series](./README.md) illustrating how Kratix works. 
 * Previous: [Writing and installing a Kratix Promise](/writing-a-promise/)
 
-# Enhancing the sample Postgres Promise
+<hr> 
+
+### In this tutorial, you will 
+1. [learn more about Kratix Promises](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#what-is-a-kratix-promise)
+1. [install Jenkins as a Kratix Promise](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#quick-start-installing-Jenkins-as-a-kratix-promise)
+
+# How do I make Kratix work for my organisation?
+
+...
+
+Now that you know more about how Kratix Promises can be tailored to your context, let's enhance an off-the-shelf Kratix Promise.
+
+<br>
+<hr>
+<br>
+
+
+
+## Enhancing the sample Postgres Promise
 
 Table of Contents
 =================
@@ -27,14 +45,14 @@ Table of Contents
 * [Feedback](#feedback)
 
 
-## What will I learn?
+### What will I learn?
 
 This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of Promises available in the community, you may require different configuration options for your business.
 
 Once we identify a Promise that meets our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer, and request a Postgres database instance complete with our business specific customisations.
 
 
-## Platform team providing an enhanced Postgres Promise
+### Platform team providing an enhanced Postgres Promise
 
 We will first assume the role of a Platform engineer who, after discussing with teams internal to their organisation, decides to provide Postgres-as-a-Service in their internal Kratix platform. To be compliant with other parts of the business, this engineer knows that any resources created need to be traceable back to a cost centre, so departments can be properly charged.
 
@@ -49,7 +67,7 @@ We can consider how resources are scanned for costs out of scope for this worksh
 The goal for this section is to get you familiar with the Promise components, and give you the confidence to build and test a Promise from scratch.
 
 
-### Getting the sample Promise
+#### Getting the sample Promise
 
 We will use a sample Postgres Promise provided in the Kratix repository as the base of our custom Promise. For that, you will need to clone the repository and navigate to `samples/postgres` directory.
 
@@ -69,7 +87,7 @@ The Promise that will get installed into our Kubernetes cluster is in the `postg
 The `postgres-resource-request.yaml` file is an example of how to request a postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
 
 
-### Adding a new property to the xaasCrd
+#### Adding a new property to the xaasCrd
 
 The contract with the app developers, i.e. the consumers of the platform, is defined by a number of properties in the `postgres-promise.yaml` file in the `xaasCrd` section. These properties are defined within a versioned schema and can have different types and validations. It's in this section that the platform team defines what are the required and optional configuration options exposed to the consumers.
 
@@ -137,7 +155,7 @@ xaasCrd:
 </details>
 <br />
 
-### Changing the cluster resources to include a new label
+#### Changing the cluster resources to include a new label
 
 When installing a Promise, there are two sides. On one side, the platform team is providing access to a capability via the `workerClusterResources`. On the other side, the platform users (the application developers), will request an instance of that capability via the `xaasPipeline` outputs.
 
@@ -226,7 +244,7 @@ The Postgres request pipeline has three parts, which you can find in the `reques
 We will in turn take a look at all those files.
 
 
-#### Introducing a new resource label to the Postgres manifest
+##### Introducing a new resource label to the Postgres manifest
 
 When a new Postgres is requested, we need to generate a `postgresql` resource. The template for this resource is stored as `minimal-postgres-manifest.yaml`. In order to allow customisation of a label, we first need to set the label in this template by updating the metadata. Go ahead and add the following under `metadata`, taking care that it's correctly indented:
 
@@ -251,7 +269,7 @@ metadata:
 This manifest file will act as the "input" to the request pipeline script where we will inject the user configuration into the pre-defined fields. Let's proceed in updating the script to do just that.
 <br />
 
-#### Updating the pipeline script to set the new resource label from user input
+##### Updating the pipeline script to set the new resource label from user input
 
 As defined in the Dockerfile for the request pipeline, the `execute-pipeline.sh` script is where the pipeline logic lives. We need to update this script to read the user input and set the right resource label. Looking at the current logic, we can see we are already parsing our resource request to identify key user variables, then using [yq](https://github.com/mikefarah/yq) to process the template file and replace certain fields with the user inputted values.
 
@@ -518,11 +536,12 @@ acid-minimal-cluster-0   1/1     Running   0          1h
 acid-minimal-cluster-1   1/1     Running   0          1h
 ```
 
-## Summary
+### Summary
 
 In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
 
 We started by extending the Promise's `xaasCrd`, which acts as the contract between the platform team and their users, to accept a new property: `costCentre`. We defined its type and added some basic validations using the Schema object in the OpenAPI V3 specification.
+
 We set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardises the creation of Postgres instances for each application development team. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all Postgres instances created.
 
 Once the Promise's contract was updated to accept the `costCentre` property, and the Postgres Operator was updated to use a custom label, we moved our attention to the Promise's `xaasRequestPipeline`. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
@@ -531,18 +550,8 @@ We then switched hats and, as a member of an application development team, sent 
 
 Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
 
-## What's next?
 
-One option is to continue refining exising promises to see how Kratix can support scaled and complex scenarios. For example, while our pipeline example is quite simple, you could:
-
-1. Send a request to an external API to validate the user sending the request has permission to bill that particular cost centre.
-2. Verify any quotas that may have been setup, and fire an email to inform an interested party of this action
-
-Furthermore, instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. This would allow you to re-use the logic in all other Promises you publish in your platform.
-
-We added validations that are executed when a new resource request is received by the platform cluster. In a production environment, we will want to put more robust validations in place, such as only accepting specific values. A more complete list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
-
-You can also dive right in to designing your platform. This requires thinking about the right level of abstraction for the capabilities you want to deliver. For example, you may want every database to include a backup strategy, a monitoring dashboard, and a UI client. You'll need to treat your platform as a product, and reach out to your platform users and stakeholders to ensure you're providing the products they need. If this is a new concept for you, you may want to learn more by watching a short talk on the topic by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
-
-If that sounds intriguing and you'd like to chat with us about anything Platform, we'd love to hear from you. Please reach out on https://www.syntasso.io/ and we'll be happy to schedule a call.
+### 🎉 &nbsp; Congratulations! 
+✅&nbsp;&nbsp; You have enhanced a Kratix Promise to suit your organisation's needs. This concludes our introduction to Kratix.
+👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).
 
