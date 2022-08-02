@@ -1,3 +1,5 @@
+👈🏾&nbsp;&nbsp; Previous: [Enhancing a Kratix Promise](/enhancing-a-promise/) <br/>
+
 # What's next?
 
 Our last hands-on session went through how to [enhance a Kratix Promise](/enhancing-a-promise/README.md). 
