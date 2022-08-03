@@ -24,15 +24,19 @@ Kratix and Promises _only exist_ to help platform teams to minimise these pains 
 
 We spoke about Kratix as the framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of the Kratix Promise.
 
+Conceptually, Promises are the part of Kratix thing that allows you to build your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md).
+
 ## Kratix Promises
 
-* provide the right abstractions to make your developers as productive, efficient, and secure as possible. Any capability can be encoded and delivered via a Promise, and once “Promised” the capability is available on-demand, at scale, across the organisation.
+* enable you to build your platform incrementally and in response to the needs of your users.
 
 * codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
 
-* can be shared and reused between platforms, teams, business units, even other organisations.
+* are easy to build, deploy, and update.
 
-* are easy to build, deploy, and update. Bespoke business logic can be added to each Promise’s pipeline.
+* are sharable and reusable between platforms, teams, business units, and other organisations.
+
+* add up to a frictionless experience when platform users want to the create services that they need to deliver value.
 
 ## Kratix Promise anatomy
 
@@ -43,7 +47,7 @@ A Promise is comprised of three elements:
 
 * **Request Pipeline**: business logic required when an instance of a capability is requested.
 
-We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md). For now, let's install an off-the-shelf Kratix Promise locally.
+Let's install an off-the-shelf Kratix Promise locally.
 
 <br>
 <hr>
