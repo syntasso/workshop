@@ -112,28 +112,7 @@ You can now navigate to http://localhost:8080 and login. The username is
 ```bash
 kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
 ```
-
-#### Create a Service Account
-
-<!-- This could later be added to the existing jenkins Promise to simplify this step  -->
-
-To deploy the app on the worker cluster, you need to set up a Service Account
-with the correct permissions:
-
-```bash
-kubectl --context kind-worker apply --filename https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/k8s/deploy-rbac.yaml
-```
-
 #### Run the deploy pipeline
-
-For the pipeline to work, you'll need the following Service Account:
-
-```console
-$ kubectl --context kind-worker get serviceaccounts
-NAME                       SECRETS   AGE
-knative-jenkins-deployer   0         2s
-...
-```
 
 Create a new pipeline using this
 [Jenkinsfile](https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/ci/Jenkinsfile)

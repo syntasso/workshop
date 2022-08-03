@@ -2,7 +2,7 @@ podTemplate(yaml: '''
               apiVersion: v1
               kind: Pod
               spec:
-                serviceAccountName: knative-jenkins-deployer
+                serviceAccountName: example-knative-jenkins-deployer
                 containers:
                 - name: kubectl
                   image: bitnami/kubectl
