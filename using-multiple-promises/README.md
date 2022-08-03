@@ -164,6 +164,14 @@ You can now curl the app:
 curl -H "Host: todo.default.example.com" localhost:8081
 ```
 
+### Tearing it all down
+
+The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
+
+```bash
+kind delete clusters platform worker
+```
+
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. <br/>
 👉🏾&nbsp;&nbsp; Let's [write our own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).

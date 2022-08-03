@@ -421,9 +421,15 @@ We created the three elements of a Promise for Jenkins:
 - `xaasRequestPipeline`
 - `workerClusterResources`
 
-and added them to the single Jenkins Promise yaml document. You then applied the Jenkins Promise to the platform cluster, which created the Jenkins-as-a-Service API, and configured the worker cluster such that it could create and manage Jenkins instances. Lastly, you assumed the role of a customer, and applied a yaml document to the Platform cluster, triggering the creation of a Jenkins instance on the Worker cluster.
+and added them to the single Jenkins Promise yaml document. You then applied the Jenkins Promise to the platform cluster, which created the Jenkins-as-a-Service API, and configured the worker cluster such that it could create and manage Jenkins instances. Lastly, you assumed the role of a customer, and applied a yaml document to the Platform cluster, triggering the creation of a Jenkins instance on the Worker cluster
+## Tearing it all down
+
+The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
+
+```bash
+kind delete clusters platform worker
+```
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have written a Kratix Promise. <br/>
 👉🏾&nbsp;&nbsp; Let's [see how to tailor Kratix Promises based on organisational context](/enhancing-a-promise/README.md).
-

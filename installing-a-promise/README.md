@@ -10,7 +10,7 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="promise"></a> What is a Kratix Promise?
 
-We've been platform team members. We've worked with many platform team members. We've talked to many platform team members. 
+We've been platform team members. We've worked with many platform team members. We've talked to many platform team members.
 
 We consistently share pains in this role:
 
@@ -20,7 +20,7 @@ We consistently share pains in this role:
 
 * Customers or consumers expect software served from the platform to be as simple, quick to consume, and performant as commodity public-cloud services.
 
-Kratix and Promises _only exist_ to help platform teams to minimise these pains and deliver value more easily. 
+Kratix and Promises _only exist_ to help platform teams to minimise these pains and deliver value more easily.
 
 We spoke about Kratix as the framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of the Kratix Promise.
 
@@ -132,6 +132,14 @@ You can access the Jenkins UI in a browser. For that, you need the credentials:
 3. `kubectl --context kind-worker port-forward jenkins-example 8080:8080`
 4. Navigate to http://localhost:8080 and login using the username and password captured in steps one and two.
 5. You should see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster.
+
+### Tearing it all down
+
+The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
+
+```bash
+kind delete clusters platform worker
+```
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br/>
