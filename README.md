@@ -8,14 +8,14 @@
   alt="Kratix logo"
 />
 
-This workshop introduces you to the [Kratix](https://www.kratix.io) framework. We have created a series of tutorials that build up your understanding of what Kratix is, how Kratix works, and how you can use Kratix to deliver a first-class platform to your organisation.
+This workshop introduces you to the [Kratix](https://www.kratix.io) framework. We have created a series of tutorials that build up your understanding of what Kratix is, how Kratix works, and how you can use Kratix to deliver a first-class platform within your organisation.
 
 Before beginning this workshop, consider your answers to the following questions:
 
-* What's the highest value service your platform provides to your application development teams?
+* What is the highest value service your platform provides to your application development teams?
 * How easy is it for you to provide and maintain that service?
 * How easy is it for application developers to use that service?
-* What are the possible opportunities available to you to enable your application developers better flow at a lower cost to you and your platform team?
+* What are the opportunities to enhance flow for your application developers at a lower cost to you and your platform team?
 
 
 ## The series
