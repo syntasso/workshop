@@ -16,10 +16,6 @@ Now that you know more about how Kratix works, let's write and deploy our own Kr
 
 In a nutshell, a Promise is a YAML document that defines a contract between the Platform and its users. It is the piece that allows platforms to be built incrementally. They enable Platform teams to take complex software, modify the settings needed to meet their internal requirements, inject their own organisational opinions, and to expose a simplified API to their users to enable frictionless creation and consumption of services that meet the needs of all stakeholders.
 
-By writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can wire together simpler, low-level Promises to provide a single, unified high-level Promise, more customised to their users needs.
-
-Consider the task of setting up development environments. This task is usually repetitive and requires many cookie-cutter steps. A Promise can encapsulate all the required steps, and handle the toil of wiring up the Git repos, spinning up a CI/CD server, creating a PaaS to run the applications, instructing CI/CD to listen to the Git repos and push successful builds into the PaaS, and finally wiring applications to their required data services.
-
 ### Promise basics
 
 Conceptually a Promise consists of three parts:
