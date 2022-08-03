@@ -18,8 +18,6 @@ podTemplate(yaml: '''
 
   node(POD_LABEL) {
     stage('Deploy application') {
-      // secret manually added to the jenkins instance
-      // this shouldnt be needed if the example app is a public repository
       git branch: 'main', url: 'https://github.com/syntasso/workshop.git'
       container('kubectl') {
         sh '''
