@@ -15,20 +15,15 @@ This is Part 1 of [a series](../README.md) illustrating how Kratix works. <br/>
   alt="Kratix logo"
 />
 
-Kratix is a framework that enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. Using the GitOps workflow and Kubernetes-native constructs, Kratix provides a flexible solution to empower your platform team to curate an API-driven, bespoke platform that can easily be kept secure and up-to-date, as well as evolving as business needs change.
+Kratix is a framework that:
 
-## Promises
-- provide the right abstractions to make your developers as productive, efficient, and secure as possible. Any capability can be encoded and delivered via a Promise, and once “Promised” the capability is available on-demand, at scale, across the organisation.
-- codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
-- can be shared and reused between platforms, teams, business units, even other organisations.
-- are easy to build, deploy, and update. Bespoke business logic can be added to each Promise’s pipeline.
-- can create “Workloads”, which are deployed, via the GitOps Toolkit, across fleets of Kubernetes clusters.
+* uses the GitOps workflow and Kubernetes-native constructs.
 
-## Promise anatomy
-A Promise is comprised of three elements:
-- Custom Resource Definition: input from an app team to create instances of a capability.
-- Worker Cluster Resources: dependencies necessary for any created Workloads.
-- Request Pipeline: business logic required when an instance of a capability is requested.
+* enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md) 
+
+* offers a flexible solution to create your platform with Golden Paths&mdash;you can curate an API-driven, bespoke platform that can easily be kept secure and up-to-date
+
+* allows you to evolve your platform easily as your business needs change.
 
 Now that you know more about Kratix, let's install Kratix locally.
 

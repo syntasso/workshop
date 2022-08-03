@@ -10,26 +10,38 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="promise"></a> What is a Kratix Promise?
 
-As a platform team member
-* Do you ever find your work challenging, but for the wrong reasons?
-* Do you ever feel tension from many teams, parts of the business, and key stakeholders?
-* Do you ever face demands from your customers who expect software served from your platform to be as simple, quick to consume, and performant as commodity public-cloud services?
+We've been platform team members. We've worked with many platform team members. We've talked to many platform team members. 
 
-Kratix and Promises _only exist_ to help you in your context deliver value more easily. 
+We consistently share pains in this role:
+
+* Work can be hard, but for the wrong reasons.
+
+* Work involves managing tension from many teams, parts of the business, and key stakeholders.
+
+* Customers or consumers expect software served from the platform to be as simple, quick to consume, and performant as commodity public-cloud services.
+
+Kratix and Promises _only exist_ to help platform teams to minimise these pains and deliver value more easily. 
 
 We spoke about Kratix as the framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of the Kratix Promise.
 
 ## Kratix Promises
-- provide the right abstractions to make your developers as productive, efficient, and secure as possible. Any capability can be encoded and delivered via a Promise, and once “Promised” the capability is available on-demand, at scale, across the organisation.
-- codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
-- can be shared and reused between platforms, teams, business units, even other organisations.
-- are easy to build, deploy, and update. Bespoke business logic can be added to each Promise’s pipeline.
+
+* provide the right abstractions to make your developers as productive, efficient, and secure as possible. Any capability can be encoded and delivered via a Promise, and once “Promised” the capability is available on-demand, at scale, across the organisation.
+
+* codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
+
+* can be shared and reused between platforms, teams, business units, even other organisations.
+
+* are easy to build, deploy, and update. Bespoke business logic can be added to each Promise’s pipeline.
 
 ## Kratix Promise anatomy
+
 A Promise is comprised of three elements:
-- **Custom Resource Definition**: input from an app team to create instances of a capability.
-- **Worker Cluster Resources**: dependencies necessary for any created Workloads.
-- **Request Pipeline**: business logic required when an instance of a capability is requested.
+* **Custom Resource Definition**: input from an app team to create instances of a capability.
+
+* **Worker Cluster Resources**: dependencies necessary for any created Workloads.
+
+* **Request Pipeline**: business logic required when an instance of a capability is requested.
 
 We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md). For now, let's install an off-the-shelf Kratix Promise locally.
 
