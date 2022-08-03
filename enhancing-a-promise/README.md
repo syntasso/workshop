@@ -13,7 +13,7 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 
 As [we've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
 
-The reality is that we have not worked with any organisation that is comfortable running production instances of these kinds of services without custom configuration&mdash;business rules like compliance, security, and billing need to live as configuration in these services.
+The reality is that most organisations running production instances of these kinds of services need custom configuration&mdash;business rules such as compliance, security, and billing are required.
 
 As we'll see in the next hands-on section, Kratix and its Promises make these and other types of required configuration easy.
 
