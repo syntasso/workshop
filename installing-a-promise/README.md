@@ -12,7 +12,7 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 If you are, or have been, a member of a platform team, you'll know how hard it can be. We've been platform team members, we've worked with many platform teams, and we've consistently experience shared pains in this role:
 
-* Work can be hard, but for the wrong reasons.
+* Work is hard, but for the wrong reasons.
 
 * Work involves managing tension from many teams, parts of the business, and key stakeholders.
 
@@ -22,7 +22,7 @@ Kratix and Promises _exist_ to help platform teams to minimise these pains and d
 
 We described the Kratix framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of a Kratix Promise.
 
-Conceptually, Promises are the part of Kratix thing that allows you to build your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md).
+Conceptually, Promises are the building blocks of Kratix that allow you to develop your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md).
 
 ## Kratix Promises
 
@@ -34,7 +34,7 @@ Conceptually, Promises are the part of Kratix thing that allows you to build you
 
 * are sharable and reusable between platforms, teams, business units, and other organisations.
 
-* add up to a frictionless experience when platform users want to the create services that they need to deliver value.
+* add up to a frictionless experience when platform users want to create services that they need to deliver value.
 
 ## Kratix Promise anatomy
 
@@ -58,7 +58,7 @@ Let's install an off-the-shelf Kratix Promise locally.
 
 ### Part 1: Install a Jenkins Promise
 
-For the purpose of this walkthrough let's install the provided Jenkins-as-a-service Kratix Promise.
+For the purpose of this tutorial let's install the provided Jenkins-as-a-service Kratix Promise.
 
 ```
 kubectl config use-context kind-platform
@@ -133,7 +133,7 @@ You can access the Jenkins UI in a browser. For that, you need the credentials:
 2. Get the Jenkins password: `kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d`
 3. `kubectl --context kind-worker port-forward jenkins-example 8080:8080`
 4. Navigate to http://localhost:8080 and login using the username and password captured in steps one and two.
-5. You should see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster.
+5. You will see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster.
 
 ### Tearing it all down
 
