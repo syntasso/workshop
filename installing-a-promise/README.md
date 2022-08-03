@@ -10,19 +10,17 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="promise"></a> What is a Kratix Promise?
 
-We've been platform team members. We've worked with many platform team members. We've talked to many platform team members.
-
-We consistently share pains in this role:
+If you are, or have been, a member of a platform team, you'll know how hard it can be. We've been platform team members, we've worked with many platform teams, and we've consistently experience shared pains in this role:
 
 * Work can be hard, but for the wrong reasons.
 
 * Work involves managing tension from many teams, parts of the business, and key stakeholders.
 
-* Customers or consumers expect software served from the platform to be as simple, quick to consume, and performant as commodity public-cloud services.
+* Customers or users expect software served from the platform to be as simple, quick to consume, and performant as commodity public-cloud services.
 
-Kratix and Promises _only exist_ to help platform teams to minimise these pains and deliver value more easily.
+Kratix and Promises _exist_ to help platform teams to minimise these pains and deliver value more easily.
 
-We spoke about Kratix as the framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of the Kratix Promise.
+We described the Kratix framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of a Kratix Promise.
 
 Conceptually, Promises are the part of Kratix thing that allows you to build your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md).
 
