@@ -1,18 +1,18 @@
 This is Part 1 of [a series](../README.md) illustrating how Kratix works. <br/>
 👉🏾&nbsp;&nbsp; Next: [Quick Start: Install a Kratix Promise](/installing-a-promise/)
 
-<hr> 
+<hr>
 
-### In this tutorial, you will 
-* [learn more about Kratix as a framework](https://github.com/syntasso/workshop/tree/main/installing-kratix/README.md#what-is-kratix)
-* [install a multi-cluster Kratix using KinD](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#quick-start-installing-a-multi-cluster-kratix-using-kind)
+### In this tutorial, you will
+* [learn more about Kratix as a framework](#what-is-kratix)
+* [install a multi-cluster Kratix using KinD](#install-kratix)
 
-# What is Kratix?
+# <a name="what-is-kratix"></a> What is Kratix?
 
-<img 
-  align="right" 
-  src="../assets/images/logo_300_with-padding.png" 
-  alt="Kratix logo" 
+<img
+  align="right"
+  src="../assets/images/logo_300_with-padding.png"
+  alt="Kratix logo"
 />
 
 Kratix is a framework that enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. Using the GitOps workflow and Kubernetes-native constructs, Kratix provides a flexible solution to empower your platform team to curate an API-driven, bespoke platform that can easily be kept secure and up-to-date, as well as evolving as business needs change.
@@ -36,7 +36,7 @@ Now that you know more about Kratix, let's install Kratix locally.
 <hr>
 <br>
 
-## Quick Start: installing a multi-cluster Kratix using KinD
+## <a name="install-kratix"></a> Quick Start: installing a multi-cluster Kratix using KinD
 
 ### Install Kratix prerequisites
 1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
@@ -91,10 +91,10 @@ works.platform.kratix.io      2022-05-10T11:10:57Z
 ```
 
 ### Adjust multi-cluster networking for KinD
-Some KinD installations use non-standard networking. To ensure cross-cluster communication we need to run this script: 
+Some KinD installations use non-standard networking. To ensure cross-cluster communication we need to run this script:
 
-```
-PLATFORM_CLUSTER_IP=`docker inspect platform-control-plane | grep '"IPAddress": "172' | awk '{print $2}' | awk -F '"' '{print $2}'` 
+```bash
+PLATFORM_CLUSTER_IP=`docker inspect platform-control-plane | grep '"IPAddress": "172' | awk '{print $2}' | awk -F '"' '{print $2}'`
 sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resources.yaml
 ```
 
@@ -120,6 +120,6 @@ NAME                   STATUS   AGE
 kratix-worker-system   Active   4m2s
 ```
 
-### 🎉 &nbsp; Congratulations! 
+### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; Kratix is now installed. <br/>
 👉🏾&nbsp;&nbsp; Let's [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).
