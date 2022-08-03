@@ -9,7 +9,7 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 1. grow confidence with the components of a Promise
 1. enhance an off-the-shelf Postgres Promise
 
-# Using Kratix to support my organisation
+# Using Kratix to support your organisation
 
 As [we've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
 
