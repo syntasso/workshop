@@ -2,27 +2,32 @@ This is Part 3 of [a series](../README.md) illustrating how Kratix works. <br/>
 👈🏾&nbsp;&nbsp; Previous: [Quick Start: Install a Kratix Promise](/installing-a-promise/) <br/>
 👉🏾&nbsp;&nbsp; Next: [Writing and installing a Kratix Promise](/writing-a-promise/)
 
-<hr> 
+<hr>
 
-### In this tutorial, you will 
-1. [learn more about how Kratix works](https://github.com/syntasso/workshop/tree/main/using-multiple-promises/README.md#how-does-kratix-work)
-1. [deploy a web app that uses multiple Kratix Promises](https://github.com/syntasso/workshop/tree/main/installing-a-promise/README.md#deploying-a-web-app-using-multiple-kratix-promises)
+### In this tutorial, you will
+1. [learn more about the power of Promises](#power-of-promises)
+1. [deploy a web app that uses multiple Kratix Promises](#deploy)
 
-# How does Kratix work?
-...
+# <a name="power-of-promises"></a> The power of Promises
 
-Now that you know more about how Kratix works, let's deploy a web app that uses multiple Kratix Promises.
+As covered in previous sections, Promises are the blocks that enable teams to build platforms customised to their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can wire together simpler, low-level Promises to provide a single, unified high-level Promise, more customised to their users needs.
+
+Consider the task of setting up development environments for application teams. This task is usually repetitive and requires many cookie-cutter steps. It may involve wiring up Git repos, spinning up a CI/CD server, creating a PaaS to run the applications, instructing CI/CD to listen to the Git repos and push successful builds into the PaaS, and finally wiring applications to their required data services.
+
+A Promise can encapsulate all the required steps, and handle the toil of running those low-level tasks. It could be designed as a single Promise that does it all, or as a collection of Promises that, combined, deliver the desired functionality. For the user, all they do is to request a new environment. Behind the scenes, multiple Promises are working together, each with their own responsibility.
+
+Let's demonstrate the power of Promises by deploying a web app that uses multiple Kratix Promises.
 
 <br>
 <hr>
 <br>
 
-## Deploying a web app using multiple Kratix Promises
+## <a name="deploy"></a> Deploying a web app using multiple Kratix Promises
 
 This sample application workflow shows how to combine Kratix Promises
 to deploy a web app.
 
-### Pre-requisite 
+### Pre-requisites
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
 ### Install all required Promises
@@ -93,11 +98,9 @@ kourier-system         Active   1h
 ...
 ```
 
-### Start up Jenkins
+### Verify your Jenkins installation
 
-Jenkins runs a few tasks on first login, so let's get that started. First,
-you'll need to open access to the instance by running the following command on a
-dedicated terminal:
+You can verify your Jenkins to ensure it's up and running. First, you'll need to open access to the instance by running the following command on a dedicated terminal:
 
 ```bash
 kubectl --context kind-worker port-forward pod/jenkins-example 8080:8080
@@ -161,6 +164,6 @@ You can now curl the app:
 curl -H "Host: todo.default.example.com" localhost:8081
 ```
 
-### 🎉 &nbsp; Congratulations! 
-✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. <br/> 
+### 🎉 &nbsp; Congratulations!
+✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. <br/>
 👉🏾&nbsp;&nbsp; Let's [write our own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).
