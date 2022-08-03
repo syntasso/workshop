@@ -19,9 +19,9 @@ Kratix is a framework that:
 
 * uses the GitOps workflow and Kubernetes-native constructs.
 
-* enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md) 
+* enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md).
 
-* offers a flexible solution to create your platform with Golden Paths&mdash;you can curate an API-driven, bespoke platform that can easily be kept secure and up-to-date
+* offers a flexible solution to create your platform with Golden Paths&mdash;you can curate an API-driven, bespoke platform that can easily be kept secure and up-to-date.
 
 * allows you to evolve your platform easily as your business needs change.
 
