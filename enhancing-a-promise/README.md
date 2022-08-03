@@ -5,25 +5,26 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 <hr> 
 
 ### In this tutorial, you will 
-1. [learn more about the power in leveraging customised Kratix Promises]()
-1. [enhance an off-the-shelf Postgres Promise]()
+1. experience the power of leveraging customised Kratix Promises
+1. grow confidence with the components of a Promise
+1. enhance an off-the-shelf Postgres Promise
 
-# How do I make Kratix work for my organisation?
+# Using Kratix to support my organisation
 
 As [we've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
 
 The reality is that we have not worked with any organisation that is comfortable running production instances of these kinds of services without custom configuration&mdash;business rules like compliance, security, and billing need to live as configuration in these services.
 
-As we'll see in the next hands-on section, Kratix and its Promises make these and other types of required configuration easy. 
+As we'll see in the next hands-on section, Kratix and its Promises make these and other types of required configuration easy.
 
-### By using Kratix to build your platform, you can:
+## By using Kratix to build your platform, you can:
 - save toil time in maintaining your own custom platform infrastructure.
 - create a Platform as a Product that offers your "blessed" Golden Path services on demand.
 - create your on-demand services from lower-level Kubernetes "operators".
 - build and maintain your platform using familiar Kubernetes tools and native constructs.
 - start small on a laptop and expand to multi-team, multi-cluster, multi-region, and multi-cloud with a consistent API everywhere.
 
-### By offering a Kratix-built platform to your application teams, you allow developers to:
+## By offering a Kratix-built platform to your application teams, you allow developers to:
 - discover available services that are already fit-for-purpose.
 - consume services on demand using standard Kubernetes APIs.
 - move focus away from infrastructure toward adding product value.
@@ -34,40 +35,30 @@ Now that you know more about how a customised Kratix platform can add value, let
 <hr>
 <br>
 
-## Enhancing an off-the-shelf Postgres Promise
+# Enhancing an off-the-shelf Postgres Promise
 
 Table of Contents
 =================
 
-* [What will I learn?](#what-will-i-learn)
-* [Platform team providing an enhanced Postgres Promise](#platform-team-providing-an-enhanced-postgres-promise)
-  * [Getting the sample Promise](#getting-the-sample-promise)
-  * [Adding a new property to the xaasCrd](#adding-a-new-property-to-the-xaascrd)
-  * [Changing the cluster resources to include a new label](#changing-the-cluster-resources-to-include-a-new-label)
-  * [Updating the xaasRequestPipeline to use the new property](#updating-the-xaasrequestpipeline-to-use-the-new-property)
-      * [Introducing a new resource label to the Postgres manifest](#introducing-a-new-resource-label-to-the-postgres-manifest)
-      * [Updating the pipeline script to set the new resource label from user input](#updating-the-pipeline-script-to-set-the-new-resource-label-from-user-input)
-      * [Testing it all together locally](#testing-it-all-together-locally)
-      * [Preparing your Kubernetes environment](#preparing-your-kubernetes-environment)
+  * [Platform team providing an enhanced Postgres Promise](#platform-team-providing-an-enhanced-postgres-promise)
+    * [Getting the sample Promise](#getting-the-sample-promise)
+    * [Adding a new property to the xaasCrd](#adding-a-new-property-to-the-xaascrd)
+    * [Changing the cluster resources to include a new label](#changing-the-cluster-resources-to-include-a-new-label)
+    * [Updating the xaasRequestPipeline to use the new property](#updating-the-xaasrequestpipeline-to-use-the-new-property)
+      * [Creating a label placeholder in the Postgres manifest](#creating-a-label-placeholder-in-the-postgres-manifest)
+      * [Setting the label value to user input via the pipeline](#setting-the-label-value-to-user-input-via-the-pipeline)
+      * [Testing the pipeline locally](#testing-the-pipeline-locally)
       * [Accessing the new request pipeline container image from your cluster](#accessing-the-new-request-pipeline-container-image-from-your-cluster)
       * [Setting the xaasRequestPipeline image to our new custom image](#setting-the-xaasrequestpipeline-image-to-our-new-custom-image)
-  * [Releasing the enhanced Promise to our platform](#releasing-the-enhanced-promise-to-our-platform)
+    * [Releasing the enhanced Promise to our platform](#releasing-the-enhanced-promise-to-our-platform)
 * [App developer requesting Postgres](#app-developer-requesting-postgres)
   * [Submitting the resource request](#submitting-the-resource-request)
   * [Validating the created Postgres](#validating-the-created-postgres)
 * [Summary](#summary)
-* [What's next?](#whats-next)
-* [Feedback](#feedback)
 
 
-### What will I learn?
 
-This document will walk through taking an "off the shelf" Promise and extending it to meet another set of requirements. While it is great to take advantage of Promises available in the community, you may require different configuration options for your business.
-
-Once we identify a Promise that meets our basic needs (i.e. deliver a database as a service), we will step through how to introduce our custom changes. We will then assume the role of an application developer, and request a Postgres database instance complete with our business specific customisations.
-
-
-### Platform team providing an enhanced Postgres Promise
+## Platform team providing an enhanced Postgres Promise
 
 We will first assume the role of a Platform engineer who, after discussing with teams internal to their organisation, decides to provide Postgres-as-a-Service in their internal Kratix platform. To be compliant with other parts of the business, this engineer knows that any resources created need to be traceable back to a cost centre, so departments can be properly charged.
 
@@ -82,7 +73,7 @@ We can consider how resources are scanned for costs out of scope for this worksh
 The goal for this section is to get you familiar with the Promise components, and give you the confidence to build and test a Promise from scratch.
 
 
-#### Getting the sample Promise
+### Getting the sample Promise
 
 We will use a sample Postgres Promise provided in the Kratix repository as the base of our custom Promise. For that, you will need to clone the repository and navigate to `samples/postgres` directory.
 
@@ -93,7 +84,7 @@ cd kratix/samples/postgres/
 
 In this directory you will see a complete Promise as well as an example resource request. If you have not yet worked with Promises, you can learn more about the basic structure in [Writing a Promise](../writing-a-promise/README.md), which is the previous step in this series.
 
-The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. A Promise consists of three parts:
+The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. As a refresher, a Promise consists of three parts:
 
 * `xaasCrd`: this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the consumers of the platform. Here is where we will introduce a `costCentre` property.
 * `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll set the value for the `costCentre` label based on the user input.
@@ -102,7 +93,7 @@ The Promise that will get installed into our Kubernetes cluster is in the `postg
 The `postgres-resource-request.yaml` file is an example of how to request a postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
 
 
-#### Adding a new property to the xaasCrd
+### Adding a new property to the xaasCrd
 
 The contract with the app developers, i.e. the consumers of the platform, is defined by a number of properties in the `postgres-promise.yaml` file in the `xaasCrd` section. These properties are defined within a versioned schema and can have different types and validations. It's in this section that the platform team defines what are the required and optional configuration options exposed to the consumers.
 
@@ -170,17 +161,17 @@ xaasCrd:
 </details>
 <br />
 
-#### Changing the cluster resources to include a new label
+### Changing the cluster resources to include a new label
 
-When installing a Promise, there are two sides. On one side, the platform team is providing access to a capability via the `workerClusterResources`. On the other side, the platform users (the application developers), will request an instance of that capability via the `xaasPipeline` outputs.
+When installing a Promise, we divide resources based on the idea of baseline capabilities and per instance resources. In this section we are considering the baseline capabilities which are created once per cluster, these are complete Kubernetes YAML documents stored in the `workerClusterResources` section of the promise.
 
-The Postgres Promise we are using leverages [Zalando's Postgres Operator](https://github.com/zalando/postgres-operator) to provide Postgres-as-a-Service. This operator packages up the complexities of configuring Postgres into a manageable configuration format. One of its configuration options allows certain labels to be set on the resulting Pods. This is exactly the behaviour we require when delivering cost tracking across instances.
+In the case of this Postgres Promise, the only cluster resources we need are contained within [Zalando's Postgres Operator](https://github.com/zalando/postgres-operator). This operator packages up the complexities of configuring Postgres into a manageable configuration format. In order to generate a Postgres instance from this operator that contains a custom cost label, we need to set a specific configuration option when installing the operator.
 
-To enable the label feature, we need to set any desired labels in the [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels) option in the Operators config. The value is a comma delimited list of labels that all instances created by the Operator are permitted to be set.
+To use the custom label feature, we need to set any desired labels in the [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels) option in the Operators config. The value is a comma delimited list of label keys that all instances created by the Operator are permitted to be set.
 
-Note that this change is needed only because that's how the underlying Postgres Operator works. If the "off the shelf" Promise was using a different Postgres Operator, a different change may be required (or no change at all).
+Note that this change is unique to how the underlying Postgres Operator works. If the "off the shelf" Promise was using a different Postgres Operator, a different change may be required (or no change at all).
 
-Update the `workerClusterResources` section of the `postgres-promise.yaml` file by adding `inherited_labels: costCentre` in alphabetical order to the `ConfigMap` named `postgres-operator`.
+To set this config, update the `workerClusterResources` section of the `postgres-promise.yaml` file by adding `inherited_labels: costCentre` in alphabetical order to the `ConfigMap` named `postgres-operator`.
 
 <details>
   <summary>Click here to see a complete ConfigMap resource after this change</summary>
@@ -259,7 +250,7 @@ The Postgres request pipeline has three parts, which you can find in the `reques
 We will in turn take a look at all those files.
 
 
-##### Introducing a new resource label to the Postgres manifest
+#### Creating a label placeholder in the Postgres manifest
 
 When a new Postgres is requested, we need to generate a `postgresql` resource. The template for this resource is stored as `minimal-postgres-manifest.yaml`. In order to allow customisation of a label, we first need to set the label in this template by updating the metadata. Go ahead and add the following under `metadata`, taking care that it's correctly indented:
 
@@ -284,7 +275,9 @@ metadata:
 This manifest file will act as the "input" to the request pipeline script where we will inject the user configuration into the pre-defined fields. Let's proceed in updating the script to do just that.
 <br />
 
-##### Updating the pipeline script to set the new resource label from user input
+#### Setting the label value to user input via the pipeline
+
+While the baseline capabilities have been updated to allow the new label key, we now need to edit the per instance resources to set the correct value for the label. These per instance resources are created when the platform users (the application developers) request the on-demand service so there can be zero to many per cluster and the resource YAML is generated via the `xaasPipeline` outputs.
 
 As defined in the Dockerfile for the request pipeline, the `execute-pipeline.sh` script is where the pipeline logic lives. We need to update this script to read the user input and set the right resource label. Looking at the current logic, we can see we are already parsing our resource request to identify key user variables, then using [yq](https://github.com/mikefarah/yq) to process the template file and replace certain fields with the user inputted values.
 
@@ -318,7 +311,7 @@ cat /input/minimal-postgres-manifest.yaml |  \
 </details>
 <br />
 
-#### Testing it all together locally
+#### Testing the pipeline locally
 
 Since a pipeline is just the manipulation of an input value to generate an output file, it can be easily validated locally by building and running the docker image with the correct volume mounts.
 
@@ -382,9 +375,9 @@ spec:
 </details>
 <br />
 
-#### Preparing your Kubernetes environment
+#### Accessing the new request pipeline container image from your cluster
 
-Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation. If you have not yet set this up, follow the [Quick Start: Install Kratix](../installing-kratix/README.md), which is the first step in this series.
+Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation with no other promises installed. Full instructions on how to do this can be found in the [Quick Start: Install Kratix](../installing-kratix/README.md), which is the first step in this series.
 
 <details>
   <summary>Not sure if you are properly set up? Click here to see commands to verify a local KinD deployment</summary>
@@ -398,7 +391,7 @@ worker
 
 To verify Kratix and MinIO are installed and healthy:
 ```console
-$ kubectl --context kind-platform get pods -n kratix-platform-system
+$ kubectl --context kind-platform get pods --namespace kratix-platform-system
 NAME                                                  READY   STATUS       RESTARTS   AGE
 kratix-platform-controller-manager-769855f9bb-8srtj   2/2     Running      0          1h
 minio-6f75d9fbcf-5cn7w                                1/1     Running      0          1h
@@ -412,8 +405,6 @@ kratix-worker-system   Active   1h
 ```
 </details>
 <br />
-
-#### Accessing the new request pipeline container image from your cluster
 
 Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible by your platform. This can be tricky since you will not be able to push an image to an organisation you do not own (`kratix-workshop`).
 
@@ -448,23 +439,25 @@ xaasRequestPipeline:
 
 ### Releasing the enhanced Promise to our platform
 
-Once you have either loaded the image or updated your pipeline with the correct remote image, we are ready to release the Promise to our platform:
+Once you have either loaded the image or updated your pipeline with the correct remote image, we are ready to install the Promise in our platform:
 
 _(This command needs to be run from inside the `postgres` directory)_
 
 ```bash
-kubectl --context kind-platform apply -f postgres-promise.yaml
+kubectl --context kind-platform apply --filename postgres-promise.yaml
 ```
 
 This promise has been successfully installed once the promise is available:
 
 ```console
-$ kubectl --context kind-platform -n default get promises
+$ kubectl --context kind-platform --namespace default get promises
 NAME                  AGE
 ha-postgres-promise   1m
 ```
 
-And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform. For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the operator is ready to provision a new instance.
+And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform.
+
+For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the operator is ready to provision a new instance.
 
 ```console
 $ kubectl --context kind-worker --namespace default get pods
@@ -474,13 +467,13 @@ postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 
 And that's it! You have successfully released a new platform capability! Let's move on to how teams can use this to request a new Postgres instance from the platform.
 
-## App developer requesting Postgres
+# App developer requesting Postgres
 
 Until now, we have been acting as a platform engineer designing, updating, and releasing a new Promise to enhance our platform. With this Promise now available, we are going to take a moment to switch hats and have a look at what one of our application developers would do to take advantage of this new Promise.
 
-### Submitting the resource request
+## Submitting the resource request
 
-As an application developer, we will need to create a resource request in the platform cluster. Like all Kubernetes resources, this request needs to include:
+As an application developer, we will need to create a resource request in the platform cluster. Like all Kubernetes resources, this request must include all [required fields](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/#required-fields):
 
 1. An API that the resource can be found under. This is `example.promise.syntasso.io/v1` in our Postgres promise (see `spec.xaasCrd.spec.group` in the Promise manifest).
 1. A kind which points to a specific promise. In this case it will be `postgres` (see `spec.xaasCrd.spec.name` in the Promise manifest).
@@ -509,10 +502,10 @@ spec:
 Then apply this file to the platform cluster with the following command:
 
 ```bash
-kubectl --context kind-platform apply --file postgres-resource-request.yaml
+kubectl --context kind-platform apply --filename postgres-resource-request.yaml
 ```
 
-### Validating the created Postgres
+## Validating the created Postgres
 
 As a platform engineer, we use our pipeline to support two different requirements when fulfilling the Postgres Promise.
 
@@ -529,7 +522,7 @@ You can then view the pipeline logs by running:
 _(make sure to update the pod SHA accordingly to the output of the `get pods` above)_
 
 ```bash
-kubectl logs -c xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
+kubectl logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
 ```
 
 Once the pipeline is completed, you will eventually see on the worker cluster a Postgres service as a two pod cluster in `Running` state with the name we defined in our request:
@@ -551,7 +544,7 @@ acid-minimal-cluster-0   1/1     Running   0          1h
 acid-minimal-cluster-1   1/1     Running   0          1h
 ```
 
-### Summary
+# Summary
 
 In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
 
