@@ -10,11 +10,11 @@ This is Part 3 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="power-of-promises"></a> The power of Promises
 
-As covered in previous sections, Promises are the blocks that enable teams to build platforms customised to their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can wire together simpler, low-level Promises to provide a single, unified high-level Promise, more customised to their users needs.
+As covered in previous sections, Promises are the blocks that enable teams to build platforms that specifically meet their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can wire together simpler, low-level Promises to provide a single, unified high-level Promise, tailored to their users needs.
 
 Consider the task of setting up development environments for application teams. This task is usually repetitive and requires many cookie-cutter steps. It may involve wiring up Git repos, spinning up a CI/CD server, creating a PaaS to run the applications, instructing CI/CD to listen to the Git repos and push successful builds into the PaaS, and finally wiring applications to their required data services.
 
-A Promise can encapsulate all the required steps, and handle the toil of running those low-level tasks. It could be designed as a single Promise that does it all, or as a collection of Promises that, combined, deliver the desired functionality. For the user, all they do is to request a new environment. Behind the scenes, multiple Promises are working together, each with their own responsibility.
+A Promise can encapsulate all the required steps, and handle the toil of running those low-level tasks. It could be designed as a single Promise that does it all, or as a collection of Promises that, combined, deliver the desired functionality. For the user, all they do is request a new environment. Behind the scenes, multiple Promises are working together, each with their own responsibility.
 
 Let's demonstrate the power of Promises by deploying a web app that uses multiple Kratix Promises.
 
@@ -151,7 +151,7 @@ NAME   URL                               LATESTCREATED   LATESTREADY   READY   R
 todo   http://todo.default.example.com   todo-00001      todo-00001    True
 ```
 
-We can now test the app. On a separate terminal, you'll need to open access to
+You can now test the app. On a separate terminal, you'll need to open access to
 the app by port-forwarding the kourier service:
 
 ```bash
