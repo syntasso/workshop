@@ -81,7 +81,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 
 ### Deploy the app using Jenkins
 
-You should now have all the necessary resources up and running:
+Yoo should, after a few minutes, have all the necessary resources up and running:
 
 ```console
 $ kubectl --context kind-worker get pods
