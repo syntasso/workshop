@@ -15,7 +15,7 @@ Before beginning this workshop, consider your answers to the following questions
 * What is the highest value service your platform provides to your application development teams?
 * How easy is it for you to provide and maintain that service?
 * How easy is it for application developers to use that service?
-* What are the opportunities to enhance flow for your application developers at a lower cost to you and your platform team?
+* How can you enhance flow for your application developers and reduce effort for you and your platform team?
 
 
 ## The series
