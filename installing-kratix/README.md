@@ -34,13 +34,13 @@ Now that you know more about Kratix, let's install Kratix locally.
 ## <a name="install-kratix"></a> Quick Start: installing a multi-cluster Kratix using KinD
 
 ### Install Kratix prerequisites
-1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/). Tested on 0.9.0 and 0.10.0.
+1. **Kubernetes-in-Docker(KinD)**: see [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/).
 
 1. Ensure no KinD clusters are currently running.<br>
   `kind get clusters`<span>&nbsp;</span><span>&nbsp;</span> should return<span>&nbsp;</span><span>&nbsp;</span> `No kind clusters found.`<br>
   Any existing clusters can be deleted using the<span>&nbsp;</span><span>&nbsp;</span> `kind delete`<span>&nbsp;</span><span>&nbsp;</span> command
 
-1. **kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl). Tested on 1.16.13 and 1.21.2.
+1. **kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
 1. A **Docker Hub account** with push permissions.
 
@@ -79,10 +79,11 @@ kubectl get crds
 
 The above command will give an output similar to:
 ```
-NAME                                     CREATED AT
-clusters.platform.kratix.io   2022-05-10T11:10:57Z
-promises.platform.kratix.io   2022-05-10T11:10:57Z
-works.platform.kratix.io      2022-05-10T11:10:57Z
+NAME                                   CREATED AT
+clusters.platform.kratix.io            2022-05-10T11:10:57Z
+promises.platform.kratix.io            2022-05-10T11:10:57Z
+workplacements.platform.kratix.io      2022-05-10T11:10:57Z
+works.platform.kratix.io               2022-05-10T11:10:57Z
 ```
 
 ### Adjust multi-cluster networking for KinD
