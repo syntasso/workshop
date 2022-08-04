@@ -73,12 +73,12 @@ Kratix has a sample Postgres Promise. You'll use that as your base. <br/>
 <br/>
 Clone the repository
 
-```bash
+```console
 git clone https://github.com/syntasso/kratix.git
 ```
 
 Take a look
-```bash
+```console
 cd kratix/samples/postgres/
 ls
 ```
@@ -392,7 +392,7 @@ Check that you are still in the `kratix/samples/postgres` directory, and run the
 1. create two directories inside `request-pipeline-image`: `input` and `output`
 1. create expected input file (i.e., the request from your user)
 
-```bash
+```console
 cd request-pipeline-image
 mkdir -p {input,output}
 cat > input/object.yaml <<EOF
@@ -411,7 +411,7 @@ EOF
 
 Now test the pipeline by doing a Docker build and run. _Check that, per the step above, you are still in the `request-pipeline-image` directory._
 
-```bash
+```console
 docker build . --tag kratix-workshop/postgres-request-pipeline:dev
 docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postgres-request-pipeline:dev
 ```
@@ -459,7 +459,7 @@ You have [install Kratix across two KinD clusters](/installing-kratix/) as a pre
 
 Load the image into local caches by running the command below. This will stop any remote DockerHub calls.
 
-```bash
+```console
 kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name platform
 ```
 
@@ -488,7 +488,7 @@ xaasRequestPipeline:
 
 You can now install your enhanced Postgres Promise on your platform. _Make sure you're in the `kratix/samples/postgres/` directory._
 
-```bash
+```console
 kubectl --context kind-platform apply --filename postgres-promise.yaml
 ```
 
