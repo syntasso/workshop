@@ -33,6 +33,9 @@ The exercise below is an example of creating and enhancing a Promise as a respon
 
 # From off-the-shelf to ready for the Golden Path
 
+### Prerequisites
+* [Install Kratix across two KinD clusters](/installing-kratix/)
+
 ## The scenario
 
 In this exercise, your team is starting development of the next platform feature.
@@ -355,7 +358,7 @@ Conceptually, a pipeline is the manipulation of an input value to generate an ou
 * `Dockerfile`
 
 
-You can see these files in the `request-pipeline-image` directory. You'll change all three of these files so that the Promise's pipeline 
+You can see these files in the `request-pipeline-image` directory. You'll change two of these files so that the Promise's pipeline:
 
 1. knows to include the `costCentre` _label_ in its output
 1. knows to include your user's `costCentre` _actual value_ in its output
@@ -496,26 +499,22 @@ spec:
 </details>
 <br />
 
-#### Accessing the new request pipeline container image from your cluster
+#### Giving the platform access to your pipeline image
 
-Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible by your platform. This can be tricky since you will not be able to push an image to an organisation you do not own (`kratix-workshop`).
+Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible. 
 
-If you are running a local local KinD cluster we can take advantage of the fact that Kubernetes will always look for locally cached images first. By running the following command, you will load the image into local caches which will therefore stop any remote DockerHub calls:
+You have [install Kratix across two KinD clusters](/installing-kratix/) as a prerequisite for the exercise. Because of that, you can take advantage of the fact that Kubernetes will always look for locally cached images first. 
+
+Load the image into local caches by running the command below. This will stop any remote DockerHub calls.
 
 ```bash
 kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name platform
 ```
+#### Updating the Promise's `xaasRequestPipeline` value
 
-Alternatively, if you need to pull from a remote source, you can re-tag the image with your own DockerHub repository and then push it for public use.
+The new image is built and available on your platform cluster. Update your Promise to use the new image. 
 
-```bash
-docker tag kratix-workshop/postgres-request-pipeline:dev <your-dockerhub-org>/postgres-request-pipeline:dev
-docker push <your-dockerhub-org>/postgres-request-pipeline:dev
-```
-
-#### Setting the xaasRequestPipeline image to our new custom image
-
-Now that the new image is built and available in our platform cluster, we can update the Promise to use the new image. For that, open the `postgres-promise.yaml` and update the `xaasRequestPipeline` to use the `kratix-workshop/postgres-request-pipeline:dev` instead of the `syntasso/postgres-request-pipeline`.
+Open the Promise definition file (`postgres-promise.yaml`). Update the `xaasRequestPipeline` to use your new image `kratix-workshop/postgres-request-pipeline:dev` instead of `syntasso/postgres-request-pipeline`.
 
 <details>
   <summary>👀&nbsp;&nbsp;Click here to see the resulting xaasRequestPipeline section which should be indented under `spec` in the Promise yaml</summary>
