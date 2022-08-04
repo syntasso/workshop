@@ -12,8 +12,6 @@ This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promises/README.md). Now let's create a Promise from scratch.
 
-## A quick review 
-
 From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally. 
 
 A Promise consists of three parts:
@@ -44,7 +42,7 @@ The contract with each pipeline container is simple and straightforward:
 * The container writes any resources to be created to `/output/`.
 * The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
 
-### Recap: basics of getting an Promise instance to your users
+### Recap: basics of getting a promised instance to your users
 
 At a very high level
 
@@ -53,10 +51,10 @@ At a very high level
   * In `xaasCrd`, you list what your users can configure in their request.
   * In `workerClusterResources`, you list what resources are required for Kratix to fulfil the Promise.
   * In `xaasRequestPipeline`, you list Docker images that will take the user's request and decorate it with configuration that you or the business require.
-* You install the Promise on Kratix. 
+* You install the Promise on your platform cluster, where Kratix is installed. 
 * Your user wants an instance of the Promise.
 * Your user submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later!).
-* Kratix receives the request and passes it off the request pipeline that you defined in `xaasRequestPipeline`.
+* Kratix fires off the request pipeline that you defined in `xaasRequestPipeline` and passes the _resource request_ as an input.
 * The pipeline outputs valid Kubernetes documents that say what the user wants and what the business wants for that Promise instance.
 * The worker cluster has what it needs based on the `workerClusterResources` and is ready to create the instance when the request comes through.
 
