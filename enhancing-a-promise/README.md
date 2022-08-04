@@ -187,6 +187,12 @@ xaasCrd:
 
 ### About `workerClusterResources`
 
+<img
+  align="right"
+  src="../assets/images/workerClusterResources.png"
+  alt="Kratix logo"
+/>
+
 `workerClusterResources` is the description of all of the Kubernetes resources required to create an instance of the Promise, such as CRDs, Operators and Deployments. 
 
 In the Promise definition, you divide resources based on the idea of _baseline capabilities_ and _per-instance resources_.  `workerClusterResources` is focused on the _baseline capabilities_. 
@@ -194,12 +200,6 @@ In the Promise definition, you divide resources based on the idea of _baseline c
 These capabilities are:
 * created once per cluster.
 * complete Kubernetes YAML documents stored in the `workerClusterResources` section of the Promise.
-
-<img
-  align="right"
-  src="../assets/images/workerClusterResources.png"
-  alt="Kratix logo"
-/>
 
 For the Postgres Promise you're defining, the only cluster resources (baseline capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format. 
 
@@ -295,15 +295,15 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 
 ### About `xaasRequestPipeline`
 
-`xaasRequestPipeline` is the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
-
-Conceptually, a pipeline is the manipulation of an input value to generate an output value. There are three parts to a Kratix Promise request pipeline.
-
 <img
   align="right"
   src="../assets/images/xaasRequestPipeline.png"
   alt="Kratix logo"
 />
+
+`xaasRequestPipeline` is the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
+
+Conceptually, a pipeline is the manipulation of an input value to generate an output value. There are three parts to a Kratix Promise request pipeline.
 
 * `minimal-postgres-manifest.yaml`
 * `execute-pipeline.sh`
