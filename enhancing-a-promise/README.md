@@ -54,9 +54,9 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 
 ### The steps:
 1. Get a base Promise
-1. Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
-1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
+1. Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
+1. Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance
 
@@ -68,13 +68,7 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 <br/>
 <hr/>
 
-### Step one: get a base Promise
-1. ➡️ &nbsp;&nbsp;**Get a base Promise**
-1. Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
-1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
-1. Install the modified Promise on your platform
-1. Check it works: make a request to your platform for a Postgres instance 
+### Step one: Get a base Promise
 
 <br/>
 <!-- end step marker -->
@@ -101,12 +95,7 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 <hr/>
 
 ### Step two: `xaasCrd`
-1. ✅&nbsp;&nbsp;~~Get a base Promise~~
-1. ➡️ &nbsp;&nbsp;**Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform**
-1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
-1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
-1. Install the modified Promise on your platform
-1. Check it works: make a request to your platform for a Postgres instance
+> Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
 
 <br/>
 <!-- end step marker -->
@@ -119,9 +108,9 @@ As a refresher, a Promise consists of three parts:
 
 So for this step you need to update `xaasCrd` in the definiton of the Promise (`postgres-promise.yaml`).
 
-#### More about `xaasCrd`
+#### About `xaasCrd`
 
-To navigate to `xaasCrd`, open the `postgres-promise.yaml` file and look under the `spec` section.
+`xaasCrd` is the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). To ß to `xaasCrd`, open the `postgres-promise.yaml` file and look under the `spec` section.
 
 <img
   align="right"
@@ -205,27 +194,16 @@ xaasCrd:
 <hr/>
 
 ### Step three: `workerClusterResources`
-1. ✅&nbsp;&nbsp;~~Get a base Promise~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ➡️ &nbsp;&nbsp;**Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`**
-1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
-1. Install the modified Promise on your platform
-1. Check it works: make a request to your platform for a Postgres instance
+> Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
 
 <br/>
 <!-- end step marker -->
 
-Remember from before that a Promise consists of three parts:
+#### About `workerClusterResources`
 
-* `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 
-* `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 📣&nbsp;&nbsp;&nbsp;**Here is where you will tell the Operator about the `costCentre` property**
-* `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
+`workerClusterResources` is the description of all of the Kubernetes resources required to create an instance of the Promise, such as CRDs, Operators and Deployments. 
 
-So for this step you need to update `workerClusterResources` in the definiton of the Promise (`postgres-promise.yaml`).
-
-#### More about `workerClusterResources`
-
-In the Promise definition, you divide resources based on the idea of _baseline capabilities_ and _per-instance resources_.  This section is focused on the _baseline capabilities_. 
+In the Promise definition, you divide resources based on the idea of _baseline capabilities_ and _per-instance resources_.  `workerClusterResources` is focused on the _baseline capabilities_. 
 
 These capabilities are:
 * created once per cluster.
@@ -327,23 +305,14 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 <hr/>
 
 ### Step four: `xaasRequestPipeline`
-1. ✅&nbsp;&nbsp;~~Get a base Promise~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
-1. ➡️ &nbsp;&nbsp;**Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance**
-1. Install the modified Promise on your platform
-1. Check it works: make a request to your platform for a Postgres instance
+> Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 
 <br/>
 <!-- end step marker -->
 
-Remember from before that a Promise consists of three parts:
+#### About `xaasRequestPipeline`
 
-* `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 
-* `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 
-* `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster. 📣&nbsp;&nbsp;&nbsp;**Here is where you will generate the document that tells the Operator about the `costCentre` property**
-
-#### More about `xaasRequestPipeline`
+`xaasRequestPipeline` is the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
 
 Conceptually, a pipeline is the manipulation of an input value to generate an output value. There are three parts to a Kratix Promise request pipeline.
 
@@ -531,16 +500,11 @@ xaasRequestPipeline:
 <hr/>
 
 ### Step five: install
-1. ✅&nbsp;&nbsp;~~Get a base Promise~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
-1. ➡️ &nbsp;&nbsp;**Install the modified Promise on your platform**
-1. Check it works: make a request to your platform for a Postgres instance
+> Install the modified Promise on your platform
 
 <br/>
 <!-- end step marker -->
-### Releasing the enhanced Promise to our platform
+### Releasing the enhanced Promise to the platform
 
 You can now install your enhanced Postgres Promise on your platform. _Make sure you're in the `kratix/samples/postgres/` directory._
 
@@ -581,12 +545,7 @@ You have successfully released a new platform capability! Your users can request
 <hr/>
 
 ### Step six: verify
-1. ✅&nbsp;&nbsp;~~Get a base Promise~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
-1. ✅&nbsp;&nbsp;~~Install the modified Promise on your platform~~
-1. ➡️ &nbsp;&nbsp;**Check it works: make a request to your platform for a Postgres instance**
+> Check it works: make a request to your platform for a Postgres instance
 
 <br/>
 <!-- end step marker -->
@@ -627,7 +586,7 @@ Then apply the request file to the platform cluster:
 kubectl --context kind-platform apply --filename postgres-resource-request.yaml
 ```
 
-On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in our request (`postgres-resource-request.yaml`). In the next section, you'll run checks on the platform cluster.
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`). In the next section, you'll run checks on the platform cluster.
 
 ```console
 kubectl --context kind-worker get pods
@@ -664,7 +623,7 @@ Then view the pipeline logs by running _(with the SHA from the output of running
 kubectl logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
 ```
 
-On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in our request (`postgres-resource-request.yaml`):
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`):
 
 ```console
 kubectl --context kind-worker get pods
@@ -701,9 +660,9 @@ Your platform has a new Promise. Your users have access to a new service from th
 
 To recap the steps we took:
 1. ✅&nbsp;&nbsp; Get a base Promise
-1. ✅&nbsp;&nbsp;Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. ✅&nbsp;&nbsp;Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
-1. ✅&nbsp;&nbsp;Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. ✅&nbsp;&nbsp;Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
+1. ✅&nbsp;&nbsp;Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply the new `costCentre` label `costCentre`
+1. ✅&nbsp;&nbsp;Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
 1. ✅&nbsp;&nbsp;Check it works: make a request to your platform for a Postgres instance
 
