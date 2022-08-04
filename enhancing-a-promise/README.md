@@ -52,7 +52,7 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 ### The steps:
 1. Get a base Promise
 1. Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`
+1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
 1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance
@@ -68,7 +68,7 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 ### Step one: base
 1. ➡️ &nbsp;&nbsp;**Get a base Promise**
 1. Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`
+1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
 1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance 
@@ -100,7 +100,7 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 ### Step two: `xaasCrd`
 1. ✅&nbsp;&nbsp;~~Get a base Promise~~
 1. ➡️ &nbsp;&nbsp;**Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform**
-1. Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`
+1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
 1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance
@@ -114,7 +114,7 @@ As a refresher, a Promise consists of three parts:
 * `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 
 * `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
 
-So for this step we need to update `xaasCrd` in the definiton of our Promise (`postgres-promise.yaml`).
+So for this step you need to update `xaasCrd` in the definiton of the Promise (`postgres-promise.yaml`).
 
 #### More about `xaasCrd`
 
@@ -145,7 +145,7 @@ Here, add your `costCentre` YAML from above as a sibling to the existing `prepar
 
 
 <details>
-  <summary>Click here to view a final version of the extended `xaasCrd` which should be indented so as to nest under the `spec` header</summary>
+  <summary>👀&nbsp;&nbsp;Click here to view a final version of the extended `xaasCrd` which should be indented so as to nest under the `spec` header</summary>
 
 ```yaml
 xaasCrd:
@@ -204,7 +204,7 @@ xaasCrd:
 ### Step three: `workerClusterResources`
 1. ✅&nbsp;&nbsp;~~Get a base Promise~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ➡️ &nbsp;&nbsp;**Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`**
+1. ➡️ &nbsp;&nbsp;**Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`**
 1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance
@@ -218,7 +218,7 @@ Remember from before that a Promise consists of three parts:
 * `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 📣&nbsp;&nbsp;&nbsp;**Here is where we will tell the Operator about the `costCentre` property**
 * `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
 
-So for this step we need to update `workerClusterResources` in the definiton of our Promise (`postgres-promise.yaml`).
+So for this step you need to update `workerClusterResources` in the definiton of the Promise (`postgres-promise.yaml`).
 
 #### More about `workerClusterResources`
 
@@ -326,7 +326,7 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 ### Step four: `xaasRequestPipeline`
 1. ✅&nbsp;&nbsp;~~Get a base Promise~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
 1. ➡️ &nbsp;&nbsp;**Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance**
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance
@@ -340,24 +340,31 @@ Remember from before that a Promise consists of three parts:
 * `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 
 * `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster. 📣&nbsp;&nbsp;&nbsp;**Here is where we will generate the document that tells the Operator about the `costCentre` property**
 
-So for this step we need to update `xaasRequestPipeline` in the definiton of our Promise (`postgres-promise.yaml`).
+#### More about `xaasRequestPipeline`
 
-### Updating the xaasRequestPipeline to use the new property
+Conceptually, a pipeline is the manipulation of an input value to generate an output value. There are three parts to a Kratix Promise request pipeline.
 
-While the `xaasCrd` allows us to accept a custom cost centre ID as input, we will need to use our custom request pipeline to add the correct cost centre ID as a label for our finance team to track costs.
+<img
+  align="right"
+  src="../assets/images/xaasRequestPipeline.png"
+  alt="Kratix logo"
+/>
 
-The Postgres request pipeline has three parts, which you can find in the `request-pipeline-image` directory:
-
-* `Dockerfile`: the image Kratix will execute when a new Postgres gets requested.
-* `execute-pipeline.sh`: the script that will be executed (see the contents of the Dockerfile), where any logic or substitution lives.
-* `minimal-postgres-manifest.yaml`: a basic Postgres manifest that can be understood by the Postgres operator. That's the pipeline basic template for a Postgres instance.
-
-We will in turn take a look at all those files.
+* `minimal-postgres-manifest.yaml`
+* `execute-pipeline.sh`
+* `Dockerfile`
 
 
-#### Creating a label placeholder in the Postgres manifest
+You can see these files in the `request-pipeline-image` directory. You'll change all three of these files so that the Promise's pipeline 
 
-When a new Postgres is requested, we need to generate a `postgresql` resource. The template for this resource is stored as `minimal-postgres-manifest.yaml`. In order to allow customisation of a label, we first need to set the label in this template by updating the metadata. Go ahead and add the following under `metadata`, taking care that it's correctly indented:
+1. knows to include the `costCentre` _label_ in its output
+1. knows to include your user's `costCentre` _actual value_ in its output
+
+#### Update the `minimal-postgres-manifest.yaml` to add in the property
+
+The `minimal-postgres-manifest.yaml` is the pipeline basic template for the Postgres instance. This is a valid Kubernetes document that the Postgres Operator can understand.
+
+You know every Postgres instance needs the `costCentre`. Change the metadata in `minimal-postgres-manifest.yaml` to include the `costCentre` label. This sets up a holding spot for the `costCentre` value the user sends in the request. 
 
 ```yaml
 labels:
@@ -365,7 +372,7 @@ labels:
 ```
 
 <details>
-<summary>Click here for the complete metadata section</summary>
+<summary>👀&nbsp;&nbsp;Click here for the complete metadata section</summary>
 
 ```yaml
 metadata:
@@ -377,19 +384,24 @@ metadata:
 </details>
 <br />
 
-This manifest file will act as the "input" to the request pipeline script where we will inject the user configuration into the pre-defined fields. Let's proceed in updating the script to do just that.
-<br />
+#### Update the `execute-pipeline.sh` to add in the user's value
 
-#### Setting the label value to user input via the pipeline
+The `execute-pipeline.sh` runs when Docker builds the image for the pipeline. This script is where the pipeline logic lives. 
 
-While the baseline capabilities have been updated to allow the new label key, we now need to edit the per instance resources to set the correct value for the label. These per instance resources are created when the platform users (the application developers) request the on-demand service so there can be zero to many per cluster and the resource YAML is generated via the `xaasPipeline` outputs.
+You can see that the script is already parsing the resource request to identify key user variables (`name`, `namespace`, `preparedDatabases`). The script then uses [yq](https://github.com/mikefarah/yq) to add those user-provided values to the output document. You can do the same to process the user's `costCentre`. 
 
-As defined in the Dockerfile for the request pipeline, the `execute-pipeline.sh` script is where the pipeline logic lives. We need to update this script to read the user input and set the right resource label. Looking at the current logic, we can see we are already parsing our resource request to identify key user variables, then using [yq](https://github.com/mikefarah/yq) to process the template file and replace certain fields with the user inputted values.
-
-Therefore, we can extend this script to also process the new cost centre ID. To do this, we will need to export another environment variable to store it (`export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)`) and a new line to process the replacement as a part of the pipeline (`.metadata.labels.costCentre = env(COST_CENTRE) |`).
+In the `execute-pipeline.sh`
+1. Export another environment variable to store the value 
+```bash
+export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)`)
+```
+1. Add a new line for `yq` process the replacement as a part of the pipeline 
+```bash
+.metadata.labels.costCentre = env(COST_CENTRE) |
+```
 
 <details>
-  <summary>Click here to view an example of the final script</summary>
+  <summary>👀&nbsp;&nbsp;Click here to view an example of the final script</summary>
 
 ```bash
 #!/bin/sh
@@ -418,9 +430,12 @@ cat /input/minimal-postgres-manifest.yaml |  \
 
 #### Testing the pipeline locally
 
-Since a pipeline is just the manipulation of an input value to generate an output file, it can be easily validated locally by building and running the docker image with the correct volume mounts.
+You can easily validate your pipeline locally by building and running the Docker image with the correct volume mounts.
 
-To set up this test, we will create two directories inside `request-pipeline-image`: `input` and `output`. Inside `input`, then we will add our expected input file (i.e., the resource request the app developer provides). From the `kratix/samples/postgres` directory, run the following:
+Check that you are still in the `kratix/samples/postgres` directory, and run the block below to:
+
+1. create two directories inside `request-pipeline-image`: `input` and `output`
+1. create expected input file (i.e., the request from your user)
 
 ```bash
 cd request-pipeline-image
@@ -439,18 +454,21 @@ spec:
 EOF
 ```
 
-Now we can build this image with a custom tag:
+Now test the pipeline by doing a Docker build and run. _Check that, per the step above, you are still in the `request-pipeline-image` directory._
 
-_(to run this command, make sure you are within the `request-pipeline-image` directory)_
 ```bash
 docker build . --tag kratix-workshop/postgres-request-pipeline:dev
 docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postgres-request-pipeline:dev
 ```
 
-And finally, we can validate the `output/output.yaml` file holds the manifest including all customised values. It should look like the example below. If your output is different, go back and check the files we touched. Repeat this process until you're satisfied with the output.
+Now you can validate the `output/output.yaml` file.
+
+It should be the base manifest with all the custom values inserted. It should look like the example below. 
+
+If your output is different, go back and check the steps from above and the files in the directory. Repeat this process until you're output matches the output below.
 
 <details>
-    <summary>Expected output.yaml</summary>
+    <summary>👀&nbsp;&nbsp;Click here to view an example of expected output YAML</summary>
 
 ```yaml
 apiVersion: "acid.zalan.do/v1"
@@ -485,7 +503,7 @@ spec:
 Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation with no other promises installed. Full instructions on how to do this can be found in the [Quick Start: Install Kratix](../installing-kratix/README.md), which is the first step in this series.
 
 <details>
-  <summary>Not sure if you are properly set up? Click here to see commands to verify a local KinD deployment</summary>
+  <summary>👀&nbsp;&nbsp;Not sure if you are properly set up? Click here to see commands to verify a local KinD deployment</summary>
 
 To verify your have at least the two necessary clusters:
 ```console
@@ -531,7 +549,7 @@ docker push <your-dockerhub-org>/postgres-request-pipeline:dev
 Now that the new image is built and available in our platform cluster, we can update the Promise to use the new image. For that, open the `postgres-promise.yaml` and update the `xaasRequestPipeline` to use the `kratix-workshop/postgres-request-pipeline:dev` instead of the `syntasso/postgres-request-pipeline`.
 
 <details>
-  <summary>Click here to see the resulting xaasRequestPipeline section which should be indented under `spec` in the Promise yaml</summary>
+  <summary>👀&nbsp;&nbsp;Click here to see the resulting xaasRequestPipeline section which should be indented under `spec` in the Promise yaml</summary>
 
 ```yaml
 xaasRequestPipeline:
@@ -540,6 +558,7 @@ xaasRequestPipeline:
 
 </details>
 <br />
+
 <!-- start step marker FIVE -->
 <br/>
 <hr/>
@@ -547,7 +566,7 @@ xaasRequestPipeline:
 ### Step five: install
 1. ✅&nbsp;&nbsp;~~Get a base Promise~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
 1. ➡️ &nbsp;&nbsp;**Install the modified Promise on your platform**
 1. Check it works: make a request to your platform for a Postgres instance
@@ -574,7 +593,7 @@ ha-postgres-promise   1m
 
 And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform.
 
-For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the operator is ready to provision a new instance.
+For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the Operator is ready to provision a new instance.
 
 ```console
 $ kubectl --context kind-worker --namespace default get pods
@@ -591,7 +610,7 @@ And that's it! You have successfully released a new platform capability! Let's m
 ### Step six: verify
 1. ✅&nbsp;&nbsp;~~Get a base Promise~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
 1. ✅&nbsp;&nbsp;~~Install the modified Promise on your platform~~
 1. ➡️ &nbsp;&nbsp;**Check it works: make a request to your platform for a Postgres instance**
@@ -615,7 +634,7 @@ As an application developer, we will need to create a resource request in the pl
 You can start with the provided sample `postgres-resource-request.yaml` and add the additional `costCentre` field as a sibling to the `preparedDatabases` field with any valid input. For example, `costCentre: "rnd-10002"`.
 
 <details>
-<summary>Click here for the full Postgres resource request</summary>
+<summary>👀&nbsp;&nbsp;Click here for the full Postgres resource request</summary>
 
 ```yaml
 apiVersion: example.promise.syntasso.io/v1
@@ -682,7 +701,7 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 ### Summary: done!
 1. ✅&nbsp;&nbsp;~~Get a base Promise~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
 1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
 1. ✅&nbsp;&nbsp;~~Install the modified Promise on your platform~~
 1. ✅&nbsp;&nbsp;~~Check it works: make a request to your platform for a Postgres instance~~
