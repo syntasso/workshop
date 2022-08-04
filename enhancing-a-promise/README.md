@@ -23,8 +23,7 @@ Your team works with all of these users to understand the if, when, and how of e
 
 This platform needs to be extensible and flexible&mdash;your users will have new and changing needs, and you'll want to quickly respond to valuable feature requests.
 
-Kratix and Promises make it much easier to create a platform with high value services the expose high value configuration. We spoke about the `xaasRequestPipeline` property in the Promise definition when [we wrote our first Promise](/writing-a-promise/README.md). This property is key to enhancing Promises features.
-
+Kratix and Promises make it much easier to create a platform with high value services the expose high value configuration. 
 
 The exercise below is an example of enhancing a Promise as a response to a business need.
 
