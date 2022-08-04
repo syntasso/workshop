@@ -48,6 +48,7 @@ For the purposes of this exercise, you know that all of the underlying functiona
 
 _Today, you only need create a new Postgres Promise that creates Postgres instances with a `costCentre` label._
 
+<br/>
 <!-- start step marker INTRO -->
 <hr/>
 
