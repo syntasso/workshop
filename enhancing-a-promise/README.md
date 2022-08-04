@@ -26,10 +26,7 @@ This platform needs to be extensible and flexible&mdash;your users will have new
 Kratix and Promises make it much easier to create a platform with high value services the expose high value configuration. We spoke about the `xaasRequestPipeline` property in the Promise definition when [we wrote our first Promise](/writing-a-promise/README.md). This property is key to enhancing Promises features.
 
 
-## Postgres Promise
-
-Let's enhance a Postgres Promise in response to a critical business need. 
-
+The exercise below is an example of enhancing a Promise as a response to a business need.
 
 <br>
 <hr>
@@ -37,60 +34,92 @@ Let's enhance a Postgres Promise in response to a critical business need.
 
 # Enhancing an off-the-shelf Postgres Promise
 
-Table of Contents
-=================
+## The scenario
 
-  * [Platform team providing an enhanced Postgres Promise](#platform-team-providing-an-enhanced-postgres-promise)
-    * [Getting the sample Promise](#getting-the-sample-promise)
-    * [Adding a new property to the xaasCrd](#adding-a-new-property-to-the-xaascrd)
-    * [Changing the cluster resources to include a new label](#changing-the-cluster-resources-to-include-a-new-label)
-    * [Updating the xaasRequestPipeline to use the new property](#updating-the-xaasrequestpipeline-to-use-the-new-property)
-      * [Creating a label placeholder in the Postgres manifest](#creating-a-label-placeholder-in-the-postgres-manifest)
-      * [Setting the label value to user input via the pipeline](#setting-the-label-value-to-user-input-via-the-pipeline)
-      * [Testing the pipeline locally](#testing-the-pipeline-locally)
-      * [Accessing the new request pipeline container image from your cluster](#accessing-the-new-request-pipeline-container-image-from-your-cluster)
-      * [Setting the xaasRequestPipeline image to our new custom image](#setting-the-xaasrequestpipeline-image-to-our-new-custom-image)
-    * [Releasing the enhanced Promise to our platform](#releasing-the-enhanced-promise-to-our-platform)
-* [App developer requesting Postgres](#app-developer-requesting-postgres)
-  * [Submitting the resource request](#submitting-the-resource-request)
-  * [Validating the created Postgres](#validating-the-created-postgres)
-* [Summary](#summary)
+In this exercise, your team is kicking development of the next platform feature.
 
+You spoke with application teams and you've decided to offer a new service. You'll be adding Postgres to your platform.
 
+The billing team is a key stakeholder for the platform, and you know that, as always, their team will need a cost centre for each new instance of your Postgres service. They need to be able to charge back to the right team for billing. 
 
-## Platform team providing an enhanced Postgres Promise
+For the purposes of this exercise, you know that all of the underlying functionality to get the billing team what it needs is already in place. 
 
-We will first assume the role of a Platform engineer who, after discussing with teams internal to their organisation, decides to provide Postgres-as-a-Service in their internal Kratix platform. To be compliant with other parts of the business, this engineer knows that any resources created need to be traceable back to a cost centre, so departments can be properly charged.
+_Today, you only need create a new Postgres Promise that creates Postgres instances with a `costCentre` label._
 
-We can consider how resources are scanned for costs out of scope for this workshop. We can assume that there is already a process in place to scan for a `costCentre` label and manage the charge back. Therefore, to satisfy our finance team requirements, we will need to ensure that any database created through our Postgres Promise contains that label. In order to do that, in this workshop, we will:
+<!-- start step marker INTRO -->
+<br/>
+<hr/>
 
-1. Identify a good base Postgres Promise.
-1. Define the contract with our users.
-1. Configure the Operator support custom labels.
-1. Understand the parts of the Promise, and update them accordingly.
-1. Package and release our custom Postgres Promise on the platform.
+### The tasks:
+1. Get a base Promise
+1. Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres
+1. Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`
+1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. Install the modified Promise on your platform
+1. Check it works: make a request to your platform for a Postgres instance
 
-The goal for this section is to get you familiar with the Promise components, and give you the confidence to build and test a Promise from scratch.
+<br/>
+<!-- end step marker -->
 
 
-### Getting the sample Promise
+<!-- start step marker ONE -->
+<br/>
+<hr/>
 
-We will use a sample Postgres Promise provided in the Kratix repository as the base of our custom Promise. For that, you will need to clone the repository and navigate to `samples/postgres` directory.
+### Step one: base
+1. ➡️ &nbsp;&nbsp;**Get a base Promise**
+1. Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres
+1. Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`
+1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. Install the modified Promise on your platform
+1. Check it works: make a request to your platform for a Postgres instance 
+
+<br/>
+<!-- end step marker -->
+Get the Kratix sample Postgres Promise as your base. 
+
+Clone the repository
 
 ```bash
 git clone https://github.com/syntasso/kratix.git
-cd kratix/samples/postgres/
 ```
 
-In this directory you will see a complete Promise as well as an example resource request. If you have not yet worked with Promises, you can learn more about the basic structure in [Writing a Promise](../writing-a-promise/README.md), which is the previous step in this series.
+Take a look
+```bash
+cd kratix/samples/postgres/
+ls
+```
+<br/>
 
-The Promise that will get installed into our Kubernetes cluster is in the `postgres-promise.yaml` file. As a refresher, a Promise consists of three parts:
+You should see the `postgres-promise.yaml` file. This is the Promise definition that will ultimately get installed on your platform. Ignore everything is in the folder for now.
 
-* `xaasCrd`: this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the consumers of the platform. Here is where we will introduce a `costCentre` property.
+
+<!-- start step marker TWO -->
+<br/>
+<hr/>
+
+### Step two: `xaasCrd`
+1. ✅&nbsp;&nbsp;~~Get a base Promise~~
+1. ➡️ &nbsp;&nbsp;**Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres**
+1. Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`
+1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. Install the modified Promise on your platform
+1. Check it works: make a request to your platform for a Postgres instance
+
+<br/>
+<!-- end step marker -->
+
+As a refresher, a Promise consists of three parts:
+
+* `xaasCrd`: **this is the CRD that is exposed to the users of the Promise. It is the Platform team's contract with the consumers of the platform. Here is where we will introduce a `costCentre` property.**
+
 * `xaasRequestPipeline`: this is the pipeline that will create the resources required to run Postgres on a worker cluster. Here is where we'll set the value for the `costCentre` label based on the user input.
+
 * `workerClusterResources`: this contains all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. This is where we will tell the Postgres Operator to create instances with a `costCentre` label.
 
-The `postgres-resource-request.yaml` file is an example of how to request a postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
+If you more information about the basic structure of a Kratix Promise, review [Writing a Promise](../writing-a-promise/README.md).
+
+The `postgres-resource-request.yaml` file is an example of how to request a Postgres instance from the platform. As an application developer, we will need to update this request to include the newly defined `costCentre` property.
 
 
 ### Adding a new property to the xaasCrd
@@ -159,7 +188,24 @@ xaasCrd:
       storage: true
 ```
 </details>
-<br />
+
+
+<hr/>
+
+<!-- start step marker THREE -->
+<br/>
+<hr/>
+
+### Step three: `workerClusterResources`
+1. ✅&nbsp;&nbsp;~~Get a base Promise~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres~~
+1. ➡️ &nbsp;&nbsp;**Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`**
+1. Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. Install the modified Promise on your platform
+1. Check it works: make a request to your platform for a Postgres instance
+
+<br/>
+<!-- end step marker -->
 
 ### Changing the cluster resources to include a new label
 
@@ -421,6 +467,20 @@ docker tag kratix-workshop/postgres-request-pipeline:dev <your-dockerhub-org>/po
 docker push <your-dockerhub-org>/postgres-request-pipeline:dev
 ```
 
+<!-- start step marker FOUR -->
+<br/>
+<hr/>
+
+### Step four: `xaasRequestPipeline`
+1. ✅&nbsp;&nbsp;~~Get a base Promise~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres~~
+1. ✅&nbsp;&nbsp;~~Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ➡️ &nbsp;&nbsp;**Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance**
+1. Install the modified Promise on your platform
+1. Check it works: make a request to your platform for a Postgres instance
+
+<br/>
+<!-- end step marker -->
 
 #### Setting the xaasRequestPipeline image to our new custom image
 
@@ -436,7 +496,20 @@ xaasRequestPipeline:
 
 </details>
 <br />
+<!-- start step marker FIVE -->
+<br/>
+<hr/>
 
+### Step five: install
+1. ✅&nbsp;&nbsp;~~Get a base Promise~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres~~
+1. ✅&nbsp;&nbsp;~~Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
+1. ➡️ &nbsp;&nbsp;**Install the modified Promise on your platform**
+1. Check it works: make a request to your platform for a Postgres instance
+
+<br/>
+<!-- end step marker -->
 ### Releasing the enhanced Promise to our platform
 
 Once you have either loaded the image or updated your pipeline with the correct remote image, we are ready to install the Promise in our platform:
@@ -466,6 +539,21 @@ postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 ```
 
 And that's it! You have successfully released a new platform capability! Let's move on to how teams can use this to request a new Postgres instance from the platform.
+
+<!-- start step marker SIX -->
+<br/>
+<hr/>
+
+### Step six: verify
+1. ✅&nbsp;&nbsp;~~Get a base Promise~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres~~
+1. ✅&nbsp;&nbsp;~~Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
+1. ✅&nbsp;&nbsp;~~Install the modified Promise on your platform~~
+1. ➡️ &nbsp;&nbsp;**Check it works: make a request to your platform for a Postgres instance**
+
+<br/>
+<!-- end step marker -->
 
 # App developer requesting Postgres
 
@@ -543,8 +631,23 @@ NAME                     READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0   1/1     Running   0          1h
 acid-minimal-cluster-1   1/1     Running   0          1h
 ```
+<!-- start step marker DONE -->
+<br/>
+<hr/>
 
-# Summary
+### Summary: done!
+1. ✅&nbsp;&nbsp;~~Get a base Promise~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ has a spot to provide their `costCentre` when they request Postgres~~
+1. ✅&nbsp;&nbsp;~~Change is so that _the worker cluster_ that creates the instance has the right stuff and does the right thing with `costCentre`~~
+1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
+1. ✅&nbsp;&nbsp;~~Install the modified Promise on your platform~~
+1. ✅&nbsp;&nbsp;~~Check it works: make a request to your platform for a Postgres instance~~
+
+🎉&nbsp;&nbsp;&nbsp;&nbsp;🎉&nbsp;&nbsp;&nbsp;&nbsp;🎉&nbsp;&nbsp;&nbsp;&nbsp;🎉
+
+<br/>
+<!-- end step marker -->
+
 
 In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
 
@@ -559,7 +662,6 @@ We then switched hats and, as a member of an application development team, sent 
 Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
 
 
-### 🎉 &nbsp; Congratulations! 
 ✅&nbsp;&nbsp; You have enhanced a Kratix Promise to suit your organisation's needs. This concludes our introduction to Kratix. <br/>
 👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).
 
