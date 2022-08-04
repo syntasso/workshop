@@ -49,8 +49,8 @@ For the purposes of this exercise, you know that all of the underlying functiona
 _Today, you only need create a new Postgres Promise that creates Postgres instances with a `costCentre` label._
 
 <!-- start step marker INTRO -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ## The steps:
@@ -66,8 +66,8 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 
 
 <!-- start step marker ONE -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ### Step one: Get a base Promise
@@ -92,8 +92,8 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 
 <!-- start step marker TWO -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ### Step two: `xaasCrd`
@@ -292,8 +292,8 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 
 
 <!-- start step marker FOUR -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ### Step four: `xaasRequestPipeline`
@@ -486,8 +486,8 @@ xaasRequestPipeline:
 <br />
 
 <!-- start step marker FIVE -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ### Step five: Install
@@ -529,8 +529,8 @@ postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 You have successfully released a new platform capability! Your users can request a Postgres instance, and that instance will include their `costCentre`.
 
 <!-- start step marker SIX -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ### Step six: Verify
@@ -638,8 +638,8 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 ```
 
 <!-- start step marker DONE -->
-<hr/>
 <br/>
+<hr/>
 <br/>
 
 ### Summary
