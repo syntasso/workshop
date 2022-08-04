@@ -66,11 +66,9 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 
 
 <!-- start step marker ONE -->
-<br/>
 <hr/>
-<br/>
 
-### Step one: Get a base Promise
+## Step one: Get a base Promise
 <!-- end step marker -->
 
 Kratix has a sample Postgres Promise. You'll use that as your base. <br/>
@@ -92,15 +90,13 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 
 <!-- start step marker TWO -->
-<br/>
 <hr/>
-<br/>
 
-### Step two: `xaasCrd`
+## Step two: `xaasCrd`
 > Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
 <!-- end step marker -->
 
-#### About `xaasCrd`
+### About `xaasCrd`
 
 `xaasCrd` is the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). To ß to `xaasCrd`, open the `postgres-promise.yaml` file and look under the `spec` section.
 
@@ -183,14 +179,12 @@ xaasCrd:
 
 <!-- start step marker THREE -->
 <hr/>
-<br/>
-<br/>
 
-### Step three: `workerClusterResources`
+## Step three: `workerClusterResources`
 > Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
 <!-- end step marker -->
 
-#### About `workerClusterResources`
+### About `workerClusterResources`
 
 `workerClusterResources` is the description of all of the Kubernetes resources required to create an instance of the Promise, such as CRDs, Operators and Deployments. 
 
@@ -208,7 +202,7 @@ These capabilities are:
 
 For the Postgres Promise you're defining, the only cluster resources (baseline capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format. 
 
-#### Customising the baseline Operator
+### Customising the baseline Operator
 
 To make sure each Postgres instance includes `costCentre`, you need to make the Operator aware of the label. 
 
@@ -292,15 +286,13 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 
 
 <!-- start step marker FOUR -->
-<br/>
 <hr/>
-<br/>
 
-### Step four: `xaasRequestPipeline`
+## Step four: `xaasRequestPipeline`
 > Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 <!-- end step marker -->
 
-#### About `xaasRequestPipeline`
+### About `xaasRequestPipeline`
 
 `xaasRequestPipeline` is the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
 
@@ -322,7 +314,7 @@ You can see these files in the `request-pipeline-image` directory. You'll change
 1. knows to include the `costCentre` _label_ in its output
 1. knows to include your user's `costCentre` _actual value_ in its output
 
-#### Update the `minimal-postgres-manifest.yaml` to add in the property
+### Update the `minimal-postgres-manifest.yaml` to add in the property
 
 The `minimal-postgres-manifest.yaml` is the pipeline basic template for the Postgres instance. This is a valid Kubernetes document that the Postgres Operator can understand.
 
@@ -346,7 +338,7 @@ metadata:
 </details>
 <br />
 
-#### Update the `execute-pipeline.sh` to add in the user's value
+### Update the `execute-pipeline.sh` to add in the user's value
 
 The `execute-pipeline.sh` runs when Docker builds the image for the pipeline. This script is where the pipeline logic lives. 
 
@@ -390,7 +382,7 @@ cat /input/minimal-postgres-manifest.yaml |  \
 </details>
 <br />
 
-#### Test the pipeline locally
+### Test the pipeline locally
 
 You can easily validate your pipeline locally by building and running the Docker image with the correct volume mounts.
 
@@ -458,7 +450,7 @@ spec:
 </details>
 <br />
 
-#### Give the platform access to your pipeline image
+### Give the platform access to your pipeline image
 
 Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible. 
 
@@ -469,7 +461,7 @@ Load the image into local caches by running the command below. This will stop an
 ```bash
 kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name platform
 ```
-#### Update the Promise's `xaasRequestPipeline` value
+### Update the Promise's `xaasRequestPipeline` value
 
 The new image is built and available on your platform cluster. Update your Promise to use the new image. 
 
@@ -486,11 +478,9 @@ xaasRequestPipeline:
 <br />
 
 <!-- start step marker FIVE -->
-<br/>
 <hr/>
-<br/>
 
-### Step five: Install
+## Step five: Install
 > Install the modified Promise on your platform
 <!-- end step marker -->
 
@@ -529,15 +519,13 @@ postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 You have successfully released a new platform capability! Your users can request a Postgres instance, and that instance will include their `costCentre`.
 
 <!-- start step marker SIX -->
-<br/>
 <hr/>
-<br/>
 
-### Step six: Verify
+## Step six: Verify
 > Check it works: make a request to your platform for a Postgres instance
 <!-- end step marker -->
 
-# Verifying your promise can be fulfiled
+### Verifying your promise can be fulfiled
 
 Switching hats to test your release, now act as one of your users to make sure the Promise creates working instances.
 
@@ -587,7 +575,7 @@ acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-## Validating the created Postgres
+### Validating the created Postgres
 
 Back as a platform engineer, you want to ensure that the platform and Promise behaved as it should when creating the instances and that the instances have met the reequirements for the feature.
 
@@ -638,11 +626,9 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 ```
 
 <!-- start step marker DONE -->
-<br/>
 <hr/>
-<br/>
 
-### Summary
+## Summary
 <!-- end step marker -->
 
 Your platform has a new Promise. Your users have access to a new service from the Promise. Your finance team has the ability to track service usage. Well done!
