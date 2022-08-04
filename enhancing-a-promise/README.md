@@ -13,9 +13,23 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 
 As [we've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
 
-The reality is that most organisations running production instances of these kinds of services need custom configuration&mdash;business rules such as compliance, security, and billing are required.
+When you think about providing services for things like automation, deployment or data, how often are you able to choose a service (like Postgres) and offer it to your users straight off the shelf?
 
-As we'll see in the next hands-on section, Kratix and its Promises make these and other types of required configuration easy.
+Probably not very often.
+
+Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Business stakeholders in many parts of the business need to be able to easily understand the state of service usage as it applies to them (hello audit, billing, and security!). 
+
+Your team works with all of these users to understand the if, when, and how of each of these requests and creates a platform off the back of a prioritised backlog of platform features. 
+
+This platform needs to be extensible and flexible&mdash;your users will have new and changing needs, and you'll want to quickly respond to valuable feature requests.
+
+Kratix and Promises make it much easier to create a platform with high value services the expose high value configuration. We spoke about the `xaasRequestPipeline` property in the Promise definition when [we wrote our first Promise](/writing-a-promise/README.md). This property is key to enhancing Promises features.
+
+
+## Postgres Promise
+
+Let's enhance a Postgres Promise in response to a critical business need. 
+
 
 <br>
 <hr>
