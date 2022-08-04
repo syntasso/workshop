@@ -11,7 +11,7 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 
 # Using Kratix to support your organisation
 
-As [we've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
+As [you've seen](/using-multiple-promises/README.md), Kratix can support off-the-shelf Promises for services like Jenkins, Knative, and Postgres. 
 
 When you think about providing services for things like automation, deployment or data, how often are you able to choose a service (like Postgres) and offer it to your users straight off the shelf?
 
@@ -68,7 +68,7 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 <br/>
 <hr/>
 
-### Step one: base
+### Step one: get a base Promise
 1. ➡️ &nbsp;&nbsp;**Get a base Promise**
 1. Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
 1. Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
@@ -113,7 +113,7 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 As a refresher, a Promise consists of three parts:
 
-* `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 📣&nbsp;&nbsp;&nbsp;**Here is where we will introduce a `costCentre` property so the user knows to put it in the request**
+* `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 📣&nbsp;&nbsp;&nbsp;**Here is where you will introduce a `costCentre` property so the user knows to put it in the request**
 * `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 
 * `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
 
@@ -218,7 +218,7 @@ xaasCrd:
 Remember from before that a Promise consists of three parts:
 
 * `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 
-* `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 📣&nbsp;&nbsp;&nbsp;**Here is where we will tell the Operator about the `costCentre` property**
+* `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 📣&nbsp;&nbsp;&nbsp;**Here is where you will tell the Operator about the `costCentre` property**
 * `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
 
 So for this step you need to update `workerClusterResources` in the definiton of the Promise (`postgres-promise.yaml`).
@@ -247,7 +247,7 @@ To ensure Zalando's Postgres Operator is aware of the label, you need to add con
 
 > ☝🏾&nbsp;&nbsp;&nbsp;Note that `inherited_labels` is unique to how Zalando's Postgres Operator works. If you were using a different Operator (or writing your own!), a different change may be required (or no change at all).
 
-Following the Zalando [`docs`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels), we need to add `inherited_labels` in a particular spot.
+Following the Zalando [`docs`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels), you need to add `inherited_labels` in a particular spot.
 
 From the top of the file, navigate to 
 
@@ -341,7 +341,7 @@ Remember from before that a Promise consists of three parts:
 
 * `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 
 * `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 
-* `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster. 📣&nbsp;&nbsp;&nbsp;**Here is where we will generate the document that tells the Operator about the `costCentre` property**
+* `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster. 📣&nbsp;&nbsp;&nbsp;**Here is where you will generate the document that tells the Operator about the `costCentre` property**
 
 #### More about `xaasRequestPipeline`
 
@@ -523,7 +523,6 @@ Open the Promise definition file (`postgres-promise.yaml`). Update the `xaasRequ
 xaasRequestPipeline:
   -  kratix-workshop/postgres-request-pipeline:dev
 ```
-
 </details>
 <br />
 
@@ -543,33 +542,39 @@ xaasRequestPipeline:
 <!-- end step marker -->
 ### Releasing the enhanced Promise to our platform
 
-Once you have either loaded the image or updated your pipeline with the correct remote image, we are ready to install the Promise in our platform:
-
-_(This command needs to be run from inside the `postgres` directory)_
+You can now install your enhanced Postgres Promise on your platform. _Make sure you're in the `kratix/samples/postgres/` directory._
 
 ```bash
 kubectl --context kind-platform apply --filename postgres-promise.yaml
 ```
 
-This promise has been successfully installed once the promise is available:
+Check that your Promise is available.
 
 ```console
-$ kubectl --context kind-platform --namespace default get promises
+kubectl --context kind-platform --namespace default get promises
+```
+
+Should return something like
+```console
 NAME                  AGE
 ha-postgres-promise   1m
 ```
 
-And the `workerClusterResources` have been installed. These resources are what must be present in the clusters for an instance of our Promise to be successfully provisioned. They are installed as soon as the Promise is added to the platform.
+Check that the `workerClusterResources` have been installed. 
 
-For Postgres, we can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that, when the Promise is successfully applied, we will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the Operator is ready to provision a new instance.
+For Postgres, you can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that when the Promise is successfully applied you will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the Operator is ready to provision a new instance.
 
 ```console
-$ kubectl --context kind-worker --namespace default get pods
+kubectl --context kind-worker --namespace default get pods
+```
+
+Should return something like
+```console
 NAME                                 READY   STATUS    RESTARTS   AGE
 postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 ```
 
-And that's it! You have successfully released a new platform capability! Let's move on to how teams can use this to request a new Postgres instance from the platform.
+You have successfully released a new platform capability! Your users can request a Postgres instance, and that instance will include their `costCentre`.
 
 <!-- start step marker SIX -->
 <br/>
@@ -586,20 +591,18 @@ And that's it! You have successfully released a new platform capability! Let's m
 <br/>
 <!-- end step marker -->
 
-# App developer requesting Postgres
+# Verifying your promise can be fulfiled
 
-Until now, we have been acting as a platform engineer designing, updating, and releasing a new Promise to enhance our platform. With this Promise now available, we are going to take a moment to switch hats and have a look at what one of our application developers would do to take advantage of this new Promise.
+Switching hats to test your release, now act as one of your users to make sure the Promise creates working instances.
 
-## Submitting the resource request
+You need to create what Kratix calls a _resource request_, which is a valid Kubernetes resource. Like all Kubernetes resources, this  must include all [required fields](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/#required-fields):
 
-As an application developer, we will need to create a resource request in the platform cluster. Like all Kubernetes resources, this request must include all [required fields](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/#required-fields):
-
-1. An API that the resource can be found under. This is `example.promise.syntasso.io/v1` in our Postgres promise (see `spec.xaasCrd.spec.group` in the Promise manifest).
-1. A kind which points to a specific promise. In this case it will be `postgres` (see `spec.xaasCrd.spec.name` in the Promise manifest).
+1. `apiVersion` where the resource can be found. This is `example.promise.syntasso.io/v1` in your Postgres Promise (from `spec.xaasCrd.spec.group` in `postgres-promise.yaml`).
+1. `kind`. This is `postgres` in your Postgres Promise (from `spec.xaasCrd.spec.name` in `postgres-promise.yaml`).
+1. Values for required fields. Fields are `preparedDatabases` and `costCentre` in your Postgres Promise (from `spec` > `xaasCrd` > `spec` > `versions`[0] > `schema` > `openAPIV3Schema` > `properties` > `spec` > `properties` in `postgres-promise.yaml`).
 1. A unique name and namespace combination.
-1. Any required fields in defined the in our Promise `spec`. These can be found in the `xaasCrd` section of the Promise (more specifically under the `openAPIV3Schema` spec).
 
-You can start with the provided sample `postgres-resource-request.yaml` and add the additional `costCentre` field as a sibling to the `preparedDatabases` field with any valid input. For example, `costCentre: "rnd-10002"`.
+In the sample _resource request_ (`postgres-resource-request.yaml`) add the additional `costCentre` field as a sibling to the `preparedDatabases` field with any valid input. For example, `costCentre: "rnd-10002"`.
 
 <details>
 <summary>👀&nbsp;&nbsp;Click here for the full Postgres resource request</summary>
@@ -618,50 +621,76 @@ spec:
 </details>
 <br />
 
-Then apply this file to the platform cluster with the following command:
+Then apply the request file to the platform cluster:
 
-```bash
+```console
 kubectl --context kind-platform apply --filename postgres-resource-request.yaml
 ```
 
-## Validating the created Postgres
-
-As a platform engineer, we use our pipeline to support two different requirements when fulfilling the Postgres Promise.
-
-Once the resource request is applied on the platform cluster, you should eventually see a new pod executing the pipeline script we just created. Listing the pods should output something similar to:
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in our request (`postgres-resource-request.yaml`). In the next section, you'll run checks on the platform cluster.
 
 ```console
-$ kubectl --context kind-platform get pods
-NAME                                                     READY   STATUS      RESTARTS   AGE
-request-pipeline-ha-postgres-promise-default-<SHA>       0/1     Completed   0          1h
+kubectl --context kind-worker get pods
 ```
 
-You can then view the pipeline logs by running:
-
-_(make sure to update the pod SHA accordingly to the output of the `get pods` above)_
-
-```bash
-kubectl logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
+Should return something like
 ```
-
-Once the pipeline is completed, you will eventually see on the worker cluster a Postgres service as a two pod cluster in `Running` state with the name we defined in our request:
-
-```console
-$ kubectl --context kind-worker get pods
 NAME                                 READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0               1/1     Running   0          1h
 acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-In addition, the pods will provide cost tracking for the finance team through a new label. This can be confirmed by only selecting pods that contain the provided cost centre value:
+## Validating the created Postgres
+
+Back as a platform engineer, you want to ensure that the platform and Promise behaved as it should when creating the instances and that the instances have met the reequirements for the feature.
+
+After you applied the resource request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created. 
+
+Check by listing the pods on the platform:
 
 ```console
-$  kubectl --context kind-worker get pods --selector costCentre=rnd-10002
+kubectl --context kind-platform get pods
+```
+
+Should return something like
+```console
+NAME                                                     READY   STATUS      RESTARTS   AGE
+request-pipeline-ha-postgres-promise-default-<SHA>       0/1     Completed   0          1h
+```
+
+Then view the pipeline logs by running _(with the SHA from the output of running `get pods` above)_:
+```console
+kubectl logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
+```
+
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in our request (`postgres-resource-request.yaml`):
+
+```console
+kubectl --context kind-worker get pods
+```
+
+Should return 
+```
+NAME                                 READY   STATUS    RESTARTS   AGE
+acid-minimal-cluster-0               1/1     Running   0          1h
+acid-minimal-cluster-1               1/1     Running   0          1h
+...
+```
+
+For your friends in finance, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value:
+
+```console
+kubectl --context kind-worker get pods --selector costCentre=rnd-10002
+```
+
+Should return
+```
 NAME                     READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0   1/1     Running   0          1h
 acid-minimal-cluster-1   1/1     Running   0          1h
 ```
+
 <!-- start step marker DONE -->
 <br/>
 <hr/>
