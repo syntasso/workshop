@@ -33,7 +33,7 @@ The exercise below is an example of creating and enhancing a Promise as a respon
 
 # From off-the-shelf to ready for the Golden Path
 
-### Prerequisites
+## Prerequisites
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
 ## The scenario
@@ -49,10 +49,11 @@ For the purposes of this exercise, you know that all of the underlying functiona
 _Today, you only need create a new Postgres Promise that creates Postgres instances with a `costCentre` label._
 
 <!-- start step marker INTRO -->
-<br/>
 <hr/>
+<br/>
+<br/>
 
-### The steps:
+## The steps:
 1. Get a base Promise
 1. Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
 1. Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
@@ -65,13 +66,13 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 
 
 <!-- start step marker ONE -->
-<br/>
 <hr/>
+<br/>
+<br/>
 
 ### Step one: Get a base Promise
-
-<br/>
 <!-- end step marker -->
+
 Kratix has a sample Postgres Promise. You'll use that as your base. <br/>
 <br/>
 Clone the repository
@@ -91,22 +92,13 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 
 <!-- start step marker TWO -->
-<br/>
 <hr/>
+<br/>
+<br/>
 
 ### Step two: `xaasCrd`
 > Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-
-<br/>
 <!-- end step marker -->
-
-As a refresher, a Promise consists of three parts:
-
-* `xaasCrd`: the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). 📣&nbsp;&nbsp;&nbsp;**Here is where you will introduce a `costCentre` property so the user knows to put it in the request**
-* `workerClusterResources`: the description of all of the Kubernetes resources required to create an instance of Postgres, such as CRDs, Operators and Deployments. 
-* `xaasRequestPipeline`: the pipeline that will take your user's request, apply rules from your organisation (including adding the `costCentre` name), and output valid Kubernetes documents for the Operator to run on a worker cluster.
-
-So for this step you need to update `xaasCrd` in the definiton of the Promise (`postgres-promise.yaml`).
 
 #### About `xaasCrd`
 
@@ -190,13 +182,12 @@ xaasCrd:
 </details>
 
 <!-- start step marker THREE -->
-<br/>
 <hr/>
+<br/>
+<br/>
 
 ### Step three: `workerClusterResources`
 > Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
-
-<br/>
 <!-- end step marker -->
 
 #### About `workerClusterResources`
@@ -301,13 +292,12 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 
 
 <!-- start step marker FOUR -->
-<br/>
 <hr/>
+<br/>
+<br/>
 
 ### Step four: `xaasRequestPipeline`
 > Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
-
-<br/>
 <!-- end step marker -->
 
 #### About `xaasRequestPipeline`
@@ -400,7 +390,7 @@ cat /input/minimal-postgres-manifest.yaml |  \
 </details>
 <br />
 
-#### Testing the pipeline locally
+#### Test the pipeline locally
 
 You can easily validate your pipeline locally by building and running the Docker image with the correct volume mounts.
 
@@ -468,7 +458,7 @@ spec:
 </details>
 <br />
 
-#### Giving the platform access to your pipeline image
+#### Give the platform access to your pipeline image
 
 Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible. 
 
@@ -479,7 +469,7 @@ Load the image into local caches by running the command below. This will stop an
 ```bash
 kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name platform
 ```
-#### Updating the Promise's `xaasRequestPipeline` value
+#### Update the Promise's `xaasRequestPipeline` value
 
 The new image is built and available on your platform cluster. Update your Promise to use the new image. 
 
@@ -496,15 +486,13 @@ xaasRequestPipeline:
 <br />
 
 <!-- start step marker FIVE -->
-<br/>
 <hr/>
-
-### Step five: install
-> Install the modified Promise on your platform
-
 <br/>
+<br/>
+
+### Step five: Install
+> Install the modified Promise on your platform
 <!-- end step marker -->
-### Releasing the enhanced Promise to the platform
 
 You can now install your enhanced Postgres Promise on your platform. _Make sure you're in the `kratix/samples/postgres/` directory._
 
@@ -541,13 +529,12 @@ postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 You have successfully released a new platform capability! Your users can request a Postgres instance, and that instance will include their `costCentre`.
 
 <!-- start step marker SIX -->
-<br/>
 <hr/>
-
-### Step six: verify
-> Check it works: make a request to your platform for a Postgres instance
-
 <br/>
+<br/>
+
+### Step six: Verify
+> Check it works: make a request to your platform for a Postgres instance
 <!-- end step marker -->
 
 # Verifying your promise can be fulfiled
@@ -651,10 +638,12 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 ```
 
 <!-- start step marker DONE -->
-<br/>
 <hr/>
+<br/>
+<br/>
 
 ### Summary
+<!-- end step marker -->
 
 Your platform has a new Promise. Your users have access to a new service from the Promise. Your finance team has the ability to track service usage. Well done!
 
@@ -665,9 +654,6 @@ To recap the steps we took:
 1. ✅&nbsp;&nbsp;Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
 1. ✅&nbsp;&nbsp;Check it works: make a request to your platform for a Postgres instance
-
-<br/>
-<!-- end step marker -->
 
 ✅&nbsp;&nbsp; You have enhanced a Kratix Promise to suit your organisation's needs. This concludes our introduction to Kratix. <br/>
 👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).
