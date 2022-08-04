@@ -10,7 +10,7 @@ This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # What's inside a Kratix Promise?
 
-You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promises/README.md), so let's now create a Kratix Promise from scratch.
+You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promises/README.md). Now let's create a Promise from scratch.
 
 ## A quick review 
 
@@ -24,15 +24,15 @@ A Promise consists of three parts:
 ## Promise parts, in detail
 
 ### `xaasCrd`
-This is the user-facing API for the Promise. It defines the options that users can configure when they request the Promise. 
-
-The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).
+The `xaasCrd` is your user-facing API for the Promise. It defines the options that users can configure when they request the Promise. The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).
 
 ### `workerClusterResources`
 The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. For instance with our Jenkins Promise, the `workerClusterResources` contains the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires. 
 
 ### `xaasRequestPipeline`
-The `xaasRequestPipeline` defines a set of jobs to run when Kratix receives a request for an instance of one of its Promises. The form the pipeline takes is an array of Docker images, and those images are executed in the order in which they are defined. This pipeline enables you to write Promises with specialised images and combine those images as needed.
+The `xaasRequestPipeline` defines a set of jobs to run when Kratix receives a request for an instance of one of its Promises. 
+
+The pipeline is an array of Docker images, and those images are executed in order. The pipeline enables you to write Promises with specialised images and combine those images as needed.
 
 #### How the pipeline works
 
@@ -44,22 +44,27 @@ The contract with each pipeline container is simple and straightforward:
 * The container writes any resources to be created to `/output/`.
 * The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
 
-### Basics of getting an Promise instance to your users
+### Recap: basics of getting an Promise instance to your users
 
-* You write a Kratix Promise for a service that you know your users and teams need.
+At a very high level
+
+* You talk to users of your platform to find out what they're using and what they need.
+* You write a Kratix Promise for a service that your users and teams need.
   * In `xaasCrd`, you list what your users can configure in their request.
   * In `workerClusterResources`, you list what resources are required for Kratix to fulfil the Promise.
-  * In `xaasRequestPipeline`, you list Docker images that will take the user's request and decorate it with configuration you or the business require.
+  * In `xaasRequestPipeline`, you list Docker images that will take the user's request and decorate it with configuration that you or the business require.
 * You install the Promise on Kratix. 
-* Your user now needs an instance of the Promise.
-* They submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later!).
+* Your user wants an instance of the Promise.
+* Your user submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later!).
 * Kratix receives the request and passes it off the request pipeline that you defined in `xaasRequestPipeline`.
 * The pipeline outputs valid Kubernetes documents that say what the user wants and what the business wants for that Promise instance.
 * The worker cluster has what it needs based on the `workerClusterResources` and is ready to create the instance when the request comes through.
 
-Let's imagine your platform team has received its tenth request from its tenth team for a Jenkins instance. You decide ten times is too many times to manually set up Jenkins. 
+### A Jenkins Promise
 
-Let's write a Jenkins Promise and install it on your platform so that your ten teams get Jenkins and you get time back for more valuable work. 
+Imagine your platform team has received its fourth request from its fourth team for a Jenkins instance. You decide four times is too many times to manually set up Jenkins. 
+
+Let's write a Jenkins Promise and install it on your platform so that your four teams get Jenkins and you get time back for more valuable work. 
 
 <br>
 <hr>
