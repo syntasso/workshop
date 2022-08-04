@@ -370,7 +370,7 @@ wget https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/fbea1ed790e
 wget https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c363a5ceae569a725c17ef82ff2b58/deploy/all-in-one-v1alpha2.yaml -P resources
 ```
 
-Next you need to inject Jenkins files into the `jenkins-promise-template.yaml`. To make this step simpler you have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
+Next you need to inject Jenkins files into the `jenkins-promise-template.yaml`. To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
 
 ```
 go run path/to/kratix/hack/worker-resource-builder/main.go \
