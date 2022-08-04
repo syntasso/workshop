@@ -23,9 +23,9 @@ Your team works with all of these users to understand the if, when, and how of e
 
 This platform needs to be extensible and flexible&mdash;your users will have new and changing needs, and you'll want to quickly respond to valuable feature requests.
 
-Kratix and Promises make it much easier to create a platform with high value services the expose high value configuration. 
+Kratix and Promises make it much easier to create a platform paved with high value, Golden Paths that deliver value easily and quickly. 
 
-The exercise below is an example of enhancing a Promise as a response to a business need.
+The exercise below is an example of creating and enhancing a Promise as a response to user and business needs.
 
 <br>
 <hr>
