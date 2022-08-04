@@ -10,7 +10,7 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="promise"></a> What is a Kratix Promise?
 
-If you are, or have been, a member of a platform team, you'll know how hard it can be. We've been platform team members, we've worked with many platform teams, and we've consistently experience shared pains in this role:
+If you are, or have been, a member of a platform team, you'll know how hard it can be. We've been platform team members, we've worked with many platform teams, and we've consistently experienced shared pains in this role:
 
 * Work is hard, but for the wrong reasons.
 * Work involves managing tension from many teams, parts of the business, and key stakeholders.
