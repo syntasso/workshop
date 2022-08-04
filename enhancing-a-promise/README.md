@@ -695,32 +695,20 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 <br/>
 <hr/>
 
-### Summary: done!
-1. ✅&nbsp;&nbsp;~~Get a base Promise~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`~~
-1. ✅&nbsp;&nbsp;~~Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance~~
-1. ✅&nbsp;&nbsp;~~Install the modified Promise on your platform~~
-1. ✅&nbsp;&nbsp;~~Check it works: make a request to your platform for a Postgres instance~~
+### Summary
 
-🎉&nbsp;&nbsp;&nbsp;&nbsp;🎉&nbsp;&nbsp;&nbsp;&nbsp;🎉&nbsp;&nbsp;&nbsp;&nbsp;🎉
+Your platform has a new Promise. Your users have access to a new service from the Promise. Your finance team has the ability to track service usage. Well done!
+
+To recap the steps we took:
+1. ✅&nbsp;&nbsp; Get a base Promise
+1. ✅&nbsp;&nbsp;Change it so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
+1. ✅&nbsp;&nbsp;Change it so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
+1. ✅&nbsp;&nbsp;Change it so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
+1. ✅&nbsp;&nbsp;Check it works: make a request to your platform for a Postgres instance
 
 <br/>
 <!-- end step marker -->
-
-
-In this workshop, we explored the components that make up a Kratix Promise. We then customised an "off the shelf" Postgres promise, tailoring it to our specific organisation needs before providing it on our platform.
-
-We started by extending the Promise's `xaasCrd`, which acts as the contract between the platform team and their users, to accept a new property: `costCentre`. We defined its type and added some basic validations using the Schema object in the OpenAPI V3 specification.
-
-We set a property on the Postgres Operator to add this custom `costCentre` label onto all resources it creates. This Operator is how the platform team standardises the creation of Postgres instances for each application development team. Part of our platform design is deciding which of these properties are exposed to our users, and which are set as standard for all Postgres instances created.
-
-Once the Promise's contract was updated to accept the `costCentre` property, and the Postgres Operator was updated to use a custom label, we moved our attention to the Promise's `xaasRequestPipeline`. In our example, we updated the pipeline script to set a new label on the resulting postgres based on the user's `costCentre` input.
-
-We then switched hats and, as a member of an application development team, sent out a resource request for a new Postgres instance. The request was straightforward, we only had to add the new required property to the `spec` session of our resource requests.
-
-Finally, we observed how everything works together by validating the a new Postgres instance was eventually created in our worker cluster, and that it had the right labels. We could now use whatever system we currently have in place to charge the cost centre for this new resource.
-
 
 ✅&nbsp;&nbsp; You have enhanced a Kratix Promise to suit your organisation's needs. This concludes our introduction to Kratix. <br/>
 👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).
