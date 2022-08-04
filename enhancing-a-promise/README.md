@@ -98,15 +98,15 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 `xaasCrd` is the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). To see `xaasCrd` in the Promise definition file, open `postgres-promise.yaml` and look under the `spec` section.
 
+`xaasCrd` is the contract with the user who wants an instance. It's where you get to define the required and optional configuration options exposed to your users.
+
+You can already see a number of properties in this section of the `postgres-promise.yaml` file. These properties are defined within a versioned schema and can have different types and validations. 
+
 <img
   align="right"
   src="../assets/images/xaasCrd.png"
   alt="Kratix logo"
 />
-
-`xaasCrd` is the contract with the user who wants an instance. It's where you get to define the required and optional configuration options exposed to your users.
-
-You can already see a number of properties in this section of the `postgres-promise.yaml` file. These properties are defined within a versioned schema and can have different types and validations. 
 
 ### Update `xaasCrd`
 
