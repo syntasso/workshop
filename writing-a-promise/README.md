@@ -42,7 +42,7 @@ The contract with each pipeline container is simple and straightforward:
 * The container writes any resources to be created to `/output/`.
 * The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
 
-### Recap: basics of getting a promised instance to your users
+## Recap: basics of getting a promised instance to your users
 
 At a very high level
 
@@ -58,7 +58,7 @@ At a very high level
 * The pipeline outputs valid Kubernetes documents that say what the user wants and what the business wants for that Promise instance.
 * The worker cluster has what it needs based on the `workerClusterResources` and is ready to create the instance when the request comes through.
 
-### A Jenkins Promise
+## A Jenkins Promise
 
 Imagine your platform team has received its fourth request from its fourth team for a Jenkins instance. You decide four times is too many times to manually set up Jenkins. 
 
