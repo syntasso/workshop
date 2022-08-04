@@ -425,9 +425,9 @@ We can see the Jenkins UI in the browsers (all commands on worker cluster):
 
 ## Summary
 
-We built a Jenkins-as-a-Service offering, by creating a Jenkins Promise, and adding the Promise to the Kratix platform.
+You have built a Jenkins-as-a-Service offering, by creating a Jenkins Promise, and adding the Promise to the Kratix platform.
 
-We created the three elements of a Promise for Jenkins:
+You created the three elements of a Promise for Jenkins:
 - `xaasCrd`
 - `xaasRequestPipeline`
 - `workerClusterResources`
