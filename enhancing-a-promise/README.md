@@ -38,7 +38,7 @@ The exercise below is an example of creating and enhancing a Promise as a respon
 
 ## The scenario
 
-In this exercise, your team is starting development of the next platform feature.
+In this exercise, you and the platform team are starting development of the next platform feature.
 
 You spoke with application teams and you've decided to offer a new service. You'll be adding Postgres to your platform.
 
@@ -49,9 +49,7 @@ For the purposes of this exercise, you know that all of the underlying functiona
 _Today, you only need create a new Postgres Promise that creates Postgres instances with a `costCentre` label._
 
 <!-- start step marker INTRO -->
-<br/>
 <hr/>
-<br/>
 
 ## The steps:
 1. Get a base Promise
