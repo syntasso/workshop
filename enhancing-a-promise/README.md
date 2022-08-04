@@ -62,7 +62,6 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 <br/>
 <!-- end step marker -->
 
-
 <!-- start step marker ONE -->
 <hr/>
 
@@ -86,7 +85,7 @@ ls
 
 You should see the `postgres-promise.yaml` file. This is the Promise definition that you'll modify and install on your platform. Ignore everything else in the folder for now.
 
-
+<br/>
 <!-- start step marker TWO -->
 <hr/>
 
@@ -175,6 +174,7 @@ xaasCrd:
 ```
 </details>
 
+<br/>
 <!-- start step marker THREE -->
 <hr/>
 
@@ -282,7 +282,7 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
 </details>
 <br />
 
-
+<br/>
 <!-- start step marker FOUR -->
 <hr/>
 
