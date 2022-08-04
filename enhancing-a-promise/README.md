@@ -17,20 +17,6 @@ The reality is that most organisations running production instances of these kin
 
 As we'll see in the next hands-on section, Kratix and its Promises make these and other types of required configuration easy.
 
-## By using Kratix to build your platform, you can:
-- save toil time in maintaining your own custom platform infrastructure.
-- create a Platform as a Product that offers your "blessed" Golden Path services on demand.
-- create your on-demand services from lower-level Kubernetes "operators".
-- build and maintain your platform using familiar Kubernetes tools and native constructs.
-- start small on a laptop and expand to multi-team, multi-cluster, multi-region, and multi-cloud with a consistent API everywhere.
-
-## By offering a Kratix-built platform to your application teams, you allow developers to:
-- discover available services that are already fit-for-purpose.
-- consume services on demand using standard Kubernetes APIs.
-- move focus away from infrastructure toward adding product value.
-
-Now that you know more about how a customised Kratix platform can add value, let's enhance an off-the-shelf Kratix Promise following a set of business requirements.
-
 <br>
 <hr>
 <br>

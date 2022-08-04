@@ -15,15 +15,20 @@ This is Part 1 of [a series](../README.md) illustrating how Kratix works. <br/>
   alt="Kratix logo"
 />
 
-Kratix is a framework that:
+Kratix is a framework used by platform teams to build the custom platforms tailored to their organisation.
 
-* uses the GitOps workflow and Kubernetes-native constructs.
+## By using Kratix to build your platform, you can:
 
-* enables co-creation of capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md).
+* use GitOps workflow and familiar Kubernetes-native constructs.
+* co-create capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md).
+* create a flexible platform with your Golden Paths as Promises.
+* evolve your platform easily as your business needs change. 
+* start small on a laptop and expand to multi-team, multi-cluster, multi-region, and multi-cloud with a consistent API everywhere.
 
-* offers a flexible solution to create your platform with Golden Paths&mdash;you can curate an API-driven, bespoke platform that can easily be kept secure and up-to-date.
-
-* allows you to evolve your platform easily as your business needs change.
+## Providing a Kratix-built platform allows your users to:
+- discover available services that are already fit-for-purpose.
+- consume services on demand using standard Kubernetes APIs.
+- move focus away from infrastructure toward adding product value.
 
 Now that you know more about Kratix, let's install Kratix locally.
 
