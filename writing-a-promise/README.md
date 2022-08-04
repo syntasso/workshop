@@ -163,7 +163,7 @@ You have now created the as-a-Service API.
 
 ### X-as-a-Service Request Pipeline
 
-Next, you will build the pipeline required to transform a Promise request into the Kubernetes resources required to create a running instance of the Jenkins service.
+Next, you will build the pipeline to transform a Promise request into the Kubernetes resources required to create a running instance of the Jenkins service.
 
 `cd request-pipeline-image`
 
