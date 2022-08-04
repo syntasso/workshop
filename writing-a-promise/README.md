@@ -37,7 +37,7 @@ The pipeline is an array of Docker images, and those images are executed in orde
 Each container in the `xaasRequestPipeline` array will output complete, valid Kubernetes resources. 
 
 The contract with each pipeline container is simple and straightforward:
-* The first container in the list receives the resource document created by the user's request&mdash;this request will comply with the `xaasCrd` described above above. The document is available to the pipeline in `/input/object.yaml`.
+* The first container in the list receives the resource document created by the user's request&mdash;this request will comply with the `xaasCrd` described above. The document is available to the pipeline in `/input/object.yaml`.
 * The container's command then executes with the input object and fulfils its responsibilites.
 * The container writes any resources to be created to `/output/`.
 * The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
@@ -53,7 +53,7 @@ At a very high level
   * In `xaasRequestPipeline`, you list Docker images that will take the user's request and decorate it with configuration that you or the business require.
 * You install the Promise on your platform cluster, where Kratix is installed. 
 * Your user wants an instance of the Promise.
-* Your user submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later!).
+* Your user submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later).
 * Kratix fires off the request pipeline that you defined in `xaasRequestPipeline` and passes the _resource request_ as an input.
 * The pipeline outputs valid Kubernetes documents that say what the user wants and what the business wants for that Promise instance.
 * The worker cluster has what it needs based on the `workerClusterResources` and is ready to create the instance when the request comes through.
