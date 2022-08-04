@@ -96,7 +96,7 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 ### About `xaasCrd`
 
-`xaasCrd` is the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). To ß to `xaasCrd`, open the `postgres-promise.yaml` file and look under the `spec` section.
+`xaasCrd` is the CRD exposed to the users of the [Promise](../writing-a-promise/README.md). To see `xaasCrd` in the Promise definition file, open `postgres-promise.yaml` and look under the `spec` section.
 
 <img
   align="right"
@@ -107,6 +107,8 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 `xaasCrd` is the contract with the user who wants an instance. It's where you get to define the required and optional configuration options exposed to your users.
 
 You can already see a number of properties in this section of the `postgres-promise.yaml` file. These properties are defined within a versioned schema and can have different types and validations. 
+
+### Update `xaasCrd`
 
 To add the required cost centre configuration, add the following to the `postgres-promise.yaml`:
 
@@ -201,7 +203,7 @@ These capabilities are:
 
 For the Postgres Promise you're defining, the only cluster resources (baseline capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format. 
 
-### Customising the baseline Operator
+### Update `workerClusterResources`
 
 To make sure each Postgres instance includes `costCentre`, you need to make the Operator aware of the label. 
 
@@ -381,7 +383,7 @@ cat /input/minimal-postgres-manifest.yaml |  \
 </details>
 <br />
 
-### Test the pipeline locally
+#### Test the pipeline locally
 
 You can easily validate your pipeline locally by building and running the Docker image with the correct volume mounts.
 
@@ -449,7 +451,7 @@ spec:
 </details>
 <br />
 
-### Give the platform access to your pipeline image
+#### Give the platform access to your pipeline image
 
 Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible. 
 
@@ -460,6 +462,7 @@ Load the image into local caches by running the command below. This will stop an
 ```bash
 kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name platform
 ```
+
 ### Update the Promise's `xaasRequestPipeline` value
 
 The new image is built and available on your platform cluster. Update your Promise to use the new image. 
