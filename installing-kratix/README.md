@@ -68,7 +68,7 @@ git clone https://github.com/syntasso/kratix.git
 
 ### Set up your platform cluster
 
-The below commands will create our platform cluster and install Kratix.
+The below commands will create your platform cluster and install Kratix.
 
 ```
 kind create cluster --name platform
