@@ -20,7 +20,7 @@ Kratix and Promises _exist_ to help platform teams to minimise these pains and d
 
 We described the Kratix framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of a Kratix Promise.
 
-Conceptually, Promises are the building blocks of Kratix that allow you to develop your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about the internals of a Kratix Promise in part 4 where we [write our own Promise](/writing-a-promise/README.md).
+Conceptually, Promises are the building blocks of Kratix that allow you to develop your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about the internals of a Kratix Promise in part 4 where you will [write your own Promise](/writing-a-promise/README.md).
 
 ## Kratix Promises
 
