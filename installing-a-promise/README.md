@@ -25,23 +25,10 @@ Conceptually, Promises are the building blocks of Kratix that allow you to devel
 ## Kratix Promises
 
 * enable you to build your platform incrementally and in response to the needs of your users.
-
 * codify the contract between platform teams and application teams for the delivery of a specific service, e.g. a database, an identity service, a supply chain, or a complete development pipeline of patterns and tools.
-
 * are easy to build, deploy, and update.
-
 * are sharable and reusable between platforms, teams, business units, and other organisations.
-
 * add up to a frictionless experience when platform users want to create services that they need to deliver value.
-
-## Kratix Promise anatomy
-
-A Promise is comprised of three elements:
-* **Custom Resource Definition**: input from an app team to create instances of a capability.
-
-* **Worker Cluster Resources**: dependencies necessary for any created Workloads.
-
-* **Request Pipeline**: business logic required when an instance of a capability is requested.
 
 Let's install an off-the-shelf Kratix Promise locally.
 
