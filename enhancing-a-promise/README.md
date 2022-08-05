@@ -55,7 +55,7 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 ## The steps:
 1. Get a base Promise
 1. Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
+1. Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply your new `costCentre` label `costCentre`
 1. Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. Install the modified Promise on your platform
 1. Check it works: make a request to your platform for a Postgres instance
