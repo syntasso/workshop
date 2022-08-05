@@ -6,7 +6,7 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 
 ### In this tutorial, you will 
 1. experience the power of leveraging customised Kratix Promises
-1. grow confidence with the components of a Promise
+1. gain confidence with the components of a Promise
 1. enhance an off-the-shelf Postgres Promise
 
 # Using Kratix to support your organisation
@@ -17,13 +17,13 @@ When you think about providing services for things like automation, deployment o
 
 Probably not very often.
 
-Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Business stakeholders in many parts of the business need to be able to easily understand the state of service usage as it applies to them (hello audit, billing, and security!). 
+Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Key stakeholders in other parts of the business need to be able to easily understand the state of service usage as it applies to them (hello audit, billing, and security!). 
 
-Your team works with all of these users to understand the if, when, and how of each of these requests and creates a platform off the back of a prioritised backlog of platform features. 
+Your team works with all of these users to understand the if, when, and how of each of these requests and creates a platform from a prioritised backlog of platform features. 
 
 This platform needs to be extensible and flexible&mdash;your users will have new and changing needs, and you'll want to quickly respond to valuable feature requests.
 
-Kratix and Promises make it much easier to create a platform paved with high value, Golden Paths that deliver value easily and quickly. 
+Kratix and Promises make it easier to create a platform paved with high value, Golden Paths that deliver value easily and quickly. 
 
 The exercise below is an example of creating and enhancing a Promise as a response to user and business needs.
 
@@ -42,7 +42,7 @@ In this exercise, you and the platform team are starting development of the next
 
 You spoke with application teams and you've decided to offer a new service. You'll be adding Postgres to your platform.
 
-The billing team is a key stakeholder for the platform, and you know that, as always, their team will need a cost centre for each new instance of your Postgres service. They need to be able to charge back to the right team for billing. 
+The billing team is a key stakeholder for the platform, they will need a cost centre for each new instance of your Postgres service to charge back to the right team for billing.
 
 For the purposes of this exercise, you know that all of the underlying functionality to get the billing team what it needs is already in place. 
 
@@ -182,7 +182,7 @@ xaasCrd:
 <hr/>
 
 ## Step three: `workerClusterResources`
-> Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply our new `costCentre` label `costCentre`
+> Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply your new `costCentre` label `costCentre`
 <!-- end step marker -->
 
 ### About `workerClusterResources`
@@ -418,7 +418,7 @@ docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postg
 
 Now you can validate the `output/output.yaml` file.
 
-It should be the base manifest with all the custom values inserted. It should look like the example below. If your output is different, go back and check the steps from above and the files in the directory. Repeat this process until you're output matches the output below.
+It should be the base manifest with all the custom values inserted. It should look like the example below. If your output is different, go back and check the steps from above and the files in the directory. Repeat this process until your output matches the output below.
 
 <details>
     <summary>👀&nbsp;&nbsp;Click here to view an example of expected output YAML</summary>
@@ -569,7 +569,7 @@ On the worker cluster, you will eventually see a Postgres service as a two-pod c
 kubectl --context kind-worker get pods
 ```
 
-Should return something like
+Should return
 ```
 NAME                                 READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0               1/1     Running   0          1h
@@ -589,7 +589,7 @@ Check by listing the pods on the platform:
 kubectl --context kind-platform get pods
 ```
 
-Should return something like
+Should return
 ```console
 NAME                                                     READY   STATUS      RESTARTS   AGE
 request-pipeline-ha-postgres-promise-default-<SHA>       0/1     Completed   0          1h
@@ -614,7 +614,7 @@ acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-For your friends in finance, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value:
+For the finance team, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value:
 
 ```console
 kubectl --context kind-worker get pods --selector costCentre=rnd-10002
