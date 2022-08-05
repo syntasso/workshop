@@ -4,14 +4,14 @@
 
 Our last hands-on session went through how to [enhance a Kratix Promise](/enhancing-a-promise/README.md). 
 
-Thinking back to the questions from the start of the tutorial, you are the best person to decide what is most valuable to continue exploration in Kratix. 
+Thinking back to the questions at the start of the tutorial, you are the best person to decide what is most valuable to continue exploration in Kratix. 
 
 In your context, what were the answers to these questions:
 
-* What's the highest value service your platform provides to your application development teams? 
+* What is the highest value service your platform provides to your application development teams? 
 * How easy is it for you to provide and maintain that service?
 * How easy is it for application developers to use that service?
-* What are the possible opportunities available to you to enable your application developers better flow at a lower cost to you and your platform team?
+* How can you enhance flow for your application developers and reduce effort for you and your platform team?
 
 ## Opportunities
 
