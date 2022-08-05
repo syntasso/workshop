@@ -418,7 +418,7 @@ docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/postg
 
 Now you can validate the `output/output.yaml` file.
 
-It should be the base manifest with all the custom values inserted. It should look like the example below. If your output is different, go back and check the steps from above and the files in the directory. Repeat this process until your output matches the output below.
+It should be the base manifest with all the custom values inserted and look like the example below. If your output is different, go back and check the steps from above and the files in the directory. Repeat this process until your output matches the output below.
 
 <details>
     <summary>👀&nbsp;&nbsp;Click here to view an example of expected output YAML</summary>
@@ -498,7 +498,7 @@ Check that your Promise is available.
 kubectl --context kind-platform --namespace default get promises
 ```
 
-Should return something like
+Should return
 ```console
 NAME                  AGE
 ha-postgres-promise   1m
@@ -512,7 +512,7 @@ For Postgres, you can see in the Promise file that there are a number of RBAC re
 kubectl --context kind-worker --namespace default get pods
 ```
 
-Should return something like
+Should return
 ```console
 NAME                                 READY   STATUS    RESTARTS   AGE
 postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
