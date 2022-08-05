@@ -17,7 +17,7 @@ In your context, what were the answers to these questions:
 
 ### Configuring your platform offerings with business requirements
 
-We saw that Postgres could be configured to identify cost centres. Perhaps you have more complex billing scenarios. Or perhaps there are quotas associated with your platform's Golden Path offerings. 
+We saw that Postgres could be configured to identify cost centres. Perhaps you have more complex billing scenarios. Or perhaps there are quotas associated with your platform's offerings. 
 
 Imagine customising the pipeline for one of your services, like we did with Postgres, so that it:
 * sends a request to an external API to validate the user sending the request has permission to bill that particular cost centre.
