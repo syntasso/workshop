@@ -27,7 +27,7 @@ Imagine customising the pipeline for one of your services, like we did with Post
 As an enhancement to our Postgres Promise, we added validations that are executed when a new resource request is received by the platform cluster. 
 
 Imagine customising your platform to have more rigorous validation so that it:
-* has more robust validations for resource requests coming to production environments&mdash;for example, only specific values are accepted in the request. A list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
+* has robust validations for resource requests coming to production environments&mdash;for example, only specific values are accepted in the request. A list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
 
 ### Optimising your platform
 
@@ -45,4 +45,4 @@ With Kratix, you can easily design this database as an offering on your platform
 
 If the idea of treating your platform as a product is new concept to you, watch this short talk by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
 
-💭&nbsp;&nbsp; If learning about Kratix and thinking about platforms as products sound intriguing and you'd like to chat with us, we'd love to hear from you. Please reach out on https://www.syntasso.io/.
+💭&nbsp;&nbsp; If learning about Kratix and platforms as products sounds intriguing and you'd like to chat with us, we'd love to hear from you. Please reach out on https://www.syntasso.io/.
