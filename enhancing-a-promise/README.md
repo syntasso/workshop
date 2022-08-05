@@ -40,9 +40,9 @@ The exercise below is an example of creating and enhancing a Promise as a respon
 
 In this exercise, you and the platform team are starting development of the next platform feature.
 
-You discussed with application teams and you've decided to offer a new service. You'll be adding Postgres to your platform.
+You discussed needs with application teams and you've decided to offer a new service. You'll be adding Postgres to your platform.
 
-The billing team is a key stakeholder for the platform, they will need a cost centre for each new instance of your Postgres service to charge back to the right team for billing.
+The billing team is a key stakeholder for the platform, they will need a cost centre for each new instance of your Postgres service to charge back to the right team.
 
 For the purposes of this exercise, you know that all of the underlying functionality to get the billing team what it needs is already in place. 
 
