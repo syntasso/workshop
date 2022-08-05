@@ -121,6 +121,37 @@ NAME                   STATUS   AGE
 kratix-worker-system   Active   4m2s
 ```
 
+<!-- 
+Before moving on, you will want to make sure to have an environment ready to run Kratix. This includes having two clusters which can speak to each other, one named `platform` which includes both a Kratix and MinIO installation, and one called `worker` which includes a Flux CD installation with no other promises installed. Full instructions on how to do this can be found in the [Quick Start: Install Kratix](../installing-kratix/README.md), which is the first step in this series.
+
+<details>
+  <summary>👀&nbsp;&nbsp;Not sure if you are properly set up? Click here to see commands to verify a local KinD deployment</summary>
+
+To verify your have at least the two necessary clusters:
+```console
+$ kind get clusters
+platform
+worker
+```
+
+To verify Kratix and MinIO are installed and healthy:
+```console
+$ kubectl --context kind-platform get pods --namespace kratix-platform-system
+NAME                                                  READY   STATUS       RESTARTS   AGE
+kratix-platform-controller-manager-769855f9bb-8srtj   2/2     Running      0          1h
+minio-6f75d9fbcf-5cn7w                                1/1     Running      0          1h
+```
+
+To verify we can deploy resources to the worker, we can check if our "canary" resource has been deployed:
+```console
+$  kubectl --context kind-worker get namespaces kratix-worker-system
+NAME                   STATUS   AGE
+kratix-worker-system   Active   1h
+```
+</details>
+<br />
+ -->
+ 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; Kratix is now installed. <br/>
 👉🏾&nbsp;&nbsp; Let's [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).
