@@ -4,7 +4,7 @@
 
 Our last hands-on session went through how to [enhance a Kratix Promise](/enhancing-a-promise/README.md). 
 
-Thinking back to the questions from the start of the workshop, you are the best person to decide what is most valuable to continue exploration in Kratix. 
+Thinking back to the questions from the start of the tutorial, you are the best person to decide what is most valuable to continue exploration in Kratix. 
 
 In your context, what were the answers to these questions:
 
