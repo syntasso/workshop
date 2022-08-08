@@ -30,41 +30,48 @@ Conceptually, Promises are the building blocks of Kratix that allow you to devel
 * are sharable and reusable between platforms, teams, business units, and other organisations.
 * add up to a frictionless experience when platform users want to create services that they need to deliver value.
 
-Let's install an off-the-shelf Kratix Promise locally.
+Now that you know more about Kratix Promises, follow the steps below to install a Promise.
 
 <br>
 <hr>
 <br>
 
-## <a name="install-jenkins"></a>Quick Start: installing Jenkins as a Kratix Promise
+## <a name="install-jenkins"></a>Installing Jenkins as a Kratix Promise
 
-### Prerequisites
+### Steps
+1. [Complete pre-requistes](#prerequisites), if required
+1. [Install the Jenkins Promise](#install-promise)
+1. [Request an instance](#request-instance)
+1. [Use the instance](#use-instance)
+1. [Tear down your environment](#teardown)
+
+
+### <a name="prerequisites">Prerequisites
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
-### Part 1: Install a Jenkins Promise
+### <a name="install-promise"> Install the off-the-shelf Jenkins Promise
 
-For the purpose of this tutorial let's install the provided Jenkins-as-a-service Kratix Promise.
+Install the provided Jenkins-as-a-service Kratix Promise.
 
-```
+```console
 kubectl config use-context kind-platform
 kubectl apply -f samples/jenkins/jenkins-promise.yaml
 ```
 
-On the platform cluster you can now see the ability to create Jenkins instances.
-
-```
+Verify you know have the ability to create Jenkins instances.
+```console
 kubectl get crds jenkins.example.promise.syntasso.io
 ```
 
-The above command will give an output similar to:
-```
+The above command will give an output similar to
+```console
 NAME                                     CREATED AT
 jenkins.example.promise.syntasso.io   2021-09-03T12:02:20Z
 ```
 
-On the worker cluster you can see that the Jenkins operator is now installed.
+Verify that the Jenkins operator is now installed.
 
-```
+```console
 kubectl get pods --namespace default --context kind-worker
 ```
 
@@ -76,58 +83,74 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          4m1s
 
 Congratulations! You have installed your first Promise. The machinery to issue Jenkins instances on demand by application teams has now been installed.
 
-### Part 2: Request a Jenkins Instance
+### <a name="request-instance">Request a Jenkins Instance
 
-You will now switch hats and take the role of an Application Developer that wants to request a new instance of Jenkins, using the new platform capability. Requesting the Jenkins is as simple as:
-
-```
+Submit a _resource request_ to get an instance of Jenkins.
+```console
 kubectl apply -f samples/jenkins/jenkins-resource-request.yaml
 ```
 
-You can see the request on the platform cluster.
+Verify that the _resource request_ was issued on the platform cluster.
 
-```
+```console
 kubectl get jenkins.example.promise.syntasso.io
 ```
 
-The above command will give an output similar to:
-```
+The above command will give an output similar to
+```console
 NAME                   AGE
 my-jenkins   27s
 ```
 
-#### Review created Jenkins instance on the worker cluster
-
-Once Kratix has applied the new configuration to the worker cluster (this will take a few minutes), the Jenkins instance will be created.
-
-```
-kubectl get pods --namespace default --context kind-worker
+Verify the instance is created on the worker cluster (this may take a few minutes so `-w` will watch the output).
+```console
+kubectl get pods --namespace default --context kind-worker -w
 ```
 
-The above command will give an output similar to:
-```
+The above command will give an output similar to
+```console
 NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-example                     1/1     Running   0          113s
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
 ```
 
-#### Using your Jenkins instance
+### <a name="use-instance">Use your Jenkins instance
 
-You can access the Jenkins UI in a browser. For that, you need the credentials:
-1. Get the Jenkins username: `kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d`
-2. Get the Jenkins password: `kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d`
-3. `kubectl --context kind-worker port-forward jenkins-example 8080:8080`
-4. Navigate to http://localhost:8080 and login using the username and password captured in steps one and two.
-5. You will see a Seed Job in the Jenkins UI, and a corresponding Pod on your Worker cluster.
+You can access the Jenkins UI in a browser. 
 
-### Tearing it all down
+Port forward for browser access to the Jenkins UI 
+```console
+kubectl --context kind-worker port-forward jenkins-example 8080:8080
+```
+<br>
+
+Navigate to http://localhost:8080 and login with the credentials you copy from the below commands.
+
+<br>
+
+Copy and paste the Jenkins username into the login page
+```console
+kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d | pbcopy
+```
+<br>
+
+Copy and paste the Jenkins password into the login page
+```console
+kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d | pbcopy
+```
+<br>
+
+Verify there is a Seed Job in the Jenkins UI and a corresponding Pod on your Worker cluster
+
+### <a name="teardown">Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```bash
+```console
 kind delete clusters platform worker
 ```
+<br>
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br/>
-👉🏾&nbsp;&nbsp; Let's [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
+👉🏾&nbsp;&nbsp; Next you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
