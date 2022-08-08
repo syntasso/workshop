@@ -16,7 +16,7 @@ Consider the task of setting up development environments for application teams. 
 
 A Promise can encapsulate all the required steps and handle the toil of running those low-level tasks. It can be designed as a single Promise that does it all, or it can be a collection of Promises that, combined, deliver the desired functionality. All your users do is request a new environment. Behind the scenes, multiple Promises are working together, each with their own responsibility.
 
-Let's demonstrate the power of Kratix Promises by deploying a web app that uses multiple Promises.
+Now you will see the power of Kratix Promises by deploying a web app that uses multiple Promises.
 
 <br>
 <hr>
@@ -24,133 +24,193 @@ Let's demonstrate the power of Kratix Promises by deploying a web app that uses 
 
 ## <a name="deploy"></a> Building a Golden Path using multiple Kratix Promises
 
-This sample application workflow shows how to combine Kratix Promises
-to deploy a web app.
+### Steps
+1. [Complete pre-requistes](#prerequisites), if required
+1. [Install Promises](#install-all-promises)
+1. [Request instances](#request-instances)
+1. [Run the deploy pipeline](#deploy-pipeline)
+1. [Test the application](#test-app)
+1. [Tear down your environment](#teardown)
 
-### Pre-requisites
+### <a name="prerequisite"></a>Pre-requisites
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
-### Install all required Promises
+### <a name="install-all-promises">Install all required Promises
 
-At this stage, you should have Kratix installed across two clusters:
-
-```console
-$ kubectl config get-clusters
-NAME
-kind-worker
-kind-platform
-
-$ kubectl --context kind-platform get namespace kratix-platform-system
-NAME                     STATUS   AGE
-kratix-platform-system   Active   1h
-
-$ kubectl --context kind-worker get namespace kratix-worker-system
-NAME                   STATUS   AGE
-kratix-worker-system   Active   1h
-```
-
-You can now install the required Promises on your Platform cluster:
+Install the required Promises on your Platform cluster:
 
 <!-- ❓ Do we want people to clone the workshop and kratix or not? -->
-```bash
+```console
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/postgres/postgres-promise.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/knative-serving/knative-serving-promise.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/jenkins/jenkins-promise.yaml
 ```
+<br>
 
-### Request all the resources
-
-At this stage, the required Promises are all installed on your Platform cluster:
-
+Verify the Promises are all installed on your Platform cluster
 ```console
-$ kubectl --context kind-platform get promises
+kubectl --context kind-platform get promises
+```
+<br>
+
+The above command will give an output similar to
+```console
 NAME                      AGE
 ha-postgres-promise       1h
 jenkins-promise           1h
 knative-serving-promise   1h
 ```
+<br>
 
-You can now request a Knative Serving component, a Jenkins instance and a Postgres
-database:
+### <a name="request-instances">Request instances
 
-```bash
+Submit a _resource request_ to get a Knative Serving component, a Jenkins instance and a Postgres database.
+```console
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/postgres/postgres-resource-request.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/knative-serving/knative-serving-resource-request.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/jenkins/jenkins-resource-request.yaml
 ```
+<br>
 
-### Deploy the app using Jenkins
-
-Yoo should, after a few minutes, have all the necessary resources up and running:
-
+Verify you have all the necessary resources up and running (this may take a few minutes so `-w` will watch the commands).
 ```console
-$ kubectl --context kind-worker get pods
+kubectl --context kind-worker get pods -w
+```
+<br>
+
+The above command will give an output similar to
+```console
 NAME                                      READY   STATUS    RESTARTS         AGE
 acid-minimal-cluster-0                    1/1     Running   0                3m10s
 acid-minimal-cluster-1                    1/1     Running   0                2m43s
 jenkins-example                           1/1     Running   0                76m
 ...
+```
+<br>
 
-$ kubectl --context kind-worker get namespaces
+and
+
+<br>
+
+```console
+kubectl --context kind-worker get namespaces -w
+```
+<br>
+
+The above command will give an output similar to
+```console
 NAME                   STATUS   AGE
 knative-serving        Active   1h
 kourier-system         Active   1h
 ...
 ```
+<br>
 
-### Verify your Jenkins installation
-
-You can verify your Jenkins to ensure it's up and running. First, you'll need to open access to the instance by running the following command on a dedicated terminal:
-
-```bash
-kubectl --context kind-worker port-forward pod/jenkins-example 8080:8080
+Verify that the _resource request_ was issued on the platform cluster.
+```console
+kubectl get jenkins.example.promise.syntasso.io
 ```
+<br>
 
-You can now navigate to http://localhost:8080 and login. The username is
-`jenkins-operator` and the password can be found by running:
-
-```bash
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
+The above command will give an output similar to
+```console
+NAME          AGE
+my-jenkins    27s
 ```
-#### Run the deploy pipeline
+<br>
 
-Create a new pipeline using this
+Verify the instance is created on the worker cluster (this may take a few minutes so `-w` will watch the output).
+```console
+kubectl get pods --namespace default --context kind-worker -w
+```
+<br>
+
+The above command will give an output similar to
+```console
+NAME                                READY   STATUS    RESTARTS   AGE
+jenkins-example                     1/1     Running   0          113s
+jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
+```
+<br>
+
+#### <a name="deploy-pipeline">Run the deploy pipeline
+
+Access the Jenkins UI in a browser, as in the [previous step](/installing-a-promise/README.md).
+
+<br>
+
+Port forward for browser access to the Jenkins UI 
+```console
+kubectl --context kind-worker port-forward jenkins-example 8080:8080
+```
+<br>
+
+Navigate to http://localhost:8080 and log in with the credentials you copy from the below commands.
+
+<br>
+
+Copy and paste the Jenkins username into the login page
+```console
+kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d | pbcopy
+```
+<br>
+
+Copy and paste the Jenkins password into the login page
+```console
+kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d | pbcopy
+```
+<br>
+
+In the Jenkins UI, create a new pipeline using this
 [Jenkinsfile](https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/ci/Jenkinsfile)
 and execute it.
 
 https://user-images.githubusercontent.com/201163/175933452-853af525-7fff-4dca-9ba9-032c07c8c393.mov
 
-### Validate the deployment
+<br>
 
-At this stage, the Knative Service for the application is ready:
+### <a name="validate-deployment">Validate the deployment
+
+Verify that the Knative Service for the application is ready:
 
 ```console
-$ kubectl --context kind-worker get services.serving.knative.dev
+kubectl --context kind-worker get services.serving.knative.dev
+```
+<br>
+
+The above command will give an output similar to
+```console
 NAME   URL                               LATESTCREATED   LATESTREADY   READY   REASON
 todo   http://todo.default.example.com   todo-00001      todo-00001    True
 ```
+<br>
 
-You can now test the app. On a separate terminal, you'll need to open access to
-the app by port-forwarding the kourier service:
+### <a name="test-app">Test the deployed application
 
-```bash
+Now test the app. 
+
+On a separate terminal, you'll need to open access to the app by port-forwarding the kourier service:
+
+```console
 kubectl --context kind-worker --namespace kourier-system port-forward svc/kourier 8081:80
 ```
+<br>
 
-You can now curl the app:
-
-```
+Now curl the app:
+```console
 curl -H "Host: todo.default.example.com" localhost:8081
 ```
+<br>
 
-### Tearing it all down
+### <a name="teardown">Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```bash
+```console
 kind delete clusters platform worker
 ```
+<br>
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. <br/>
-👉🏾&nbsp;&nbsp; Let's [write our own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).
+👉🏾&nbsp;&nbsp; Now you will [write your own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).
