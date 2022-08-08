@@ -72,7 +72,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 ```
 <br>
 
-Verify you have all the necessary resources up and running (this may take a few minutes so `-w` will watch the commands).
+Verify you have all the necessary resources up and running (this may take a few minutes so `-w` will watch the command).
 ```console
 kubectl --context kind-worker get pods -w
 ```
