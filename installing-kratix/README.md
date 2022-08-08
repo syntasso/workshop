@@ -64,9 +64,7 @@ Now that you know more about Kratix, follow the steps below to install Kratix lo
 4GB swap<br><br>
 This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
 
-### Installation
-
-####  <a name="delete-clusters"></a>Delete existing clusters
+###  <a name="delete-clusters"></a>Delete existing clusters
 
 If you've already installed KinD, ensure no clusters are currently running.
 
@@ -91,9 +89,8 @@ kind delete <cluster(s) name(s)>
 git clone https://github.com/syntasso/kratix.git
 cd kratix
 ```
-<br>
 
-#### <a name="platform-setup"></a>Set up your `platform` cluster
+### <a name="platform-setup"></a>Set up your `platform` cluster
 
 Create your `platform` cluster and install Kratix.
 
@@ -117,18 +114,16 @@ promises.platform.kratix.io            2022-05-10T11:10:57Z
 workplacements.platform.kratix.io      2022-05-10T11:10:57Z
 works.platform.kratix.io               2022-05-10T11:10:57Z
 ```
-<br>
 
-#### <a name="kind-networking"></a>Adjust multi-cluster networking for KinD
+### <a name="kind-networking"></a>Adjust multi-cluster networking for KinD
 Some KinD installations use non-standard networking. To ensure cross-cluster communication you need to run this script:
 
 ```console
 PLATFORM_CLUSTER_IP=`docker inspect platform-control-plane | grep '"IPAddress": "172' | awk '{print $2}' | awk -F '"' '{print $2}'`
 sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resources.yaml
 ```
-<br>
 
-#### <a name="worker-setup"></a>Set up your `worker` cluster
+### <a name="worker-setup"></a>Set up your `worker` cluster
 Create your `worker` cluster. This will create a cluster for running the X-as-a-service workloads:
 
 ```console
@@ -149,9 +144,8 @@ You should see something similar to
 NAME                   STATUS   AGE
 kratix-worker-system   Active   4m2s
 ```
-<br>
 
-#### <a name="verify-installation"></a>Verify installation
+### <a name="verify-installation"></a>Verify installation
 
 Not sure if you are properly set up? The list of commands below will validate whether your installation was successful
 
@@ -227,4 +221,4 @@ kratix-worker-system   Active   1h
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; Kratix is now installed. <br/>
-👉🏾&nbsp;&nbsp; Let's [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).
+👉🏾&nbsp;&nbsp; Next you will [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).
