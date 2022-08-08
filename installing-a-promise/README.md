@@ -70,12 +70,11 @@ jenkins.example.promise.syntasso.io   2021-09-03T12:02:20Z
 ```
 
 Verify that the Jenkins operator is now installed.
-
 ```console
 kubectl get pods --namespace default --context kind-worker
 ```
 
-The above command will give an output similar to:
+The above command will give an output similar to
 ```
 NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          4m1s
