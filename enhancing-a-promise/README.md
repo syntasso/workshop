@@ -498,7 +498,7 @@ Check that your Promise is available.
 kubectl --context kind-platform --namespace default get promises
 ```
 
-Should return
+You should see something similar to
 ```console
 NAME                  AGE
 ha-postgres-promise   1m
@@ -512,7 +512,7 @@ For Postgres, you can see in the Promise file that there are a number of RBAC re
 kubectl --context kind-worker --namespace default get pods
 ```
 
-Should return
+You should see something similar to
 ```console
 NAME                                 READY   STATUS    RESTARTS   AGE
 postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
@@ -569,7 +569,7 @@ On the worker cluster, you will eventually see a Postgres service as a two-pod c
 kubectl --context kind-worker get pods
 ```
 
-Should return
+You should see something similar to
 ```
 NAME                                 READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0               1/1     Running   0          1h
@@ -589,7 +589,7 @@ Check by listing the pods on the platform:
 kubectl --context kind-platform get pods
 ```
 
-Should return
+You should see something similar to
 ```console
 NAME                                                     READY   STATUS      RESTARTS   AGE
 request-pipeline-ha-postgres-promise-default-<SHA>       0/1     Completed   0          1h
@@ -606,7 +606,7 @@ On the worker cluster, you will eventually see a Postgres service as a two-pod c
 kubectl --context kind-worker get pods
 ```
 
-Should return 
+You should see something similar to 
 ```
 NAME                                 READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0               1/1     Running   0          1h
@@ -620,7 +620,7 @@ For the finance team, the pods will provide cost tracking through your new `cost
 kubectl --context kind-worker get pods --selector costCentre=rnd-10002
 ```
 
-Should return
+You should see something similar to
 ```
 NAME                     READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0   1/1     Running   0          1h
