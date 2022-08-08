@@ -36,7 +36,7 @@ Now that you know more about Kratix, follow the steps below to install Kratix lo
 <hr>
 <br>
 
-## <a name="install-kratix"></a> Installing a multi-cluster Kratix using KinD
+## <a name="install-kratix"></a> Quick Start: Install a multi-cluster Kratix using KinD
 
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required

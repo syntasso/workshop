@@ -36,7 +36,7 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 <hr>
 <br>
 
-## <a name="install-jenkins"></a>Installing Jenkins as a Kratix Promise
+## <a name="install-jenkins"></a>Quick Start: Install Jenkins as a Kratix Promise
 
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required
@@ -153,4 +153,4 @@ kind delete clusters platform worker
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br/>
-👉🏾&nbsp;&nbsp; Next you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
+👉🏾&nbsp;&nbsp; Now you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
