@@ -136,7 +136,7 @@ kubectl apply -f hack/worker/gitops-tk-resources.yaml
 Once Flux is installed and running (this may take a few minutes so `-w` will watch the output), the Kratix resources will be visible on the worker cluster.
 
 ```console
-kubectl get ns kratix-worker-system -w
+kubectl get ns -w
 ```
 
 You should see something similar to
