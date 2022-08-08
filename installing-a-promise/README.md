@@ -75,7 +75,7 @@ kubectl get pods --namespace default --context kind-worker
 ```
 
 The above command will give an output similar to
-```
+```console
 NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          4m1s
 ```

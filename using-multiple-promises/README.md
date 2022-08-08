@@ -32,7 +32,7 @@ Now you will see the power of Kratix Promises by deploying a web app that uses m
 1. [Test the application](#test-app)
 1. [Tear down your environment](#teardown)
 
-### <a name="prerequisite"></a>Pre-requisites
+### <a name="prerequisites"></a>Pre-requisites
 * [Install Kratix across two KinD clusters](/installing-kratix/)
 
 ### <a name="install-all-promises">Install all required Promises
