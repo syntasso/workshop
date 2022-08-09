@@ -286,11 +286,7 @@ chmod +x execute-pipeline.sh
 
 ### <a name="dockerfile"> Define your Docker image for the pipeline
 
-Run the code below, which creates a `Dockerfile` that will 
-* copy the `jenkins-instance.yaml` doc you created above into Kratix
-* transform the file by running the `execute-pipeline.sh` script you created above
-* pass the transformed file to the `worker` cluster ready for execution
-
+Run the code below, to create your `Dockerfile`
 ```console
 cat > Dockerfile <<EOF
 FROM "mikefarah/yq:4"
@@ -376,18 +372,13 @@ In summary, you have:
 - Added the image to the Promise definition in the `xaasRequestPipeline` array
 
 
-### <a name="worker-cluster-resources">Create your Promise definition and define your `workerClusterResources`
+### <a name="worker-cluster-resources">Define your `workerClusterResources` in your Promise definition
 
 The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. 
 
-For this promise, the `workerClusterResources` needs to contain the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires. 
+For this Promise, the `workerClusterResources` needs to contain the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires.
 
- Jenkins.io has a [great Operator](https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/installing-the-operator/) that ships in two files.
-1. [Jenkins CRDs](https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/master/config/crd/bases/jenkins.io_jenkins.yaml)
-2. [The Operator](https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/master/deploy/all-in-one-v1alpha2.yaml) and other required resources such as Service Accounts, Role Bindings and Deployments.
-
-Download both.
-
+Download the resources for the Jenkins CRD and Operator.
 ```console
 wget https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/fbea1ed790e7a9deb2311e1f565ee93f07d89022/config/crd/bases/jenkins.io_jenkins.yaml -P resources
 wget https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c363a5ceae569a725c17ef82ff2b58/deploy/all-in-one-v1alpha2.yaml -P resources
@@ -399,13 +390,15 @@ Next inject Jenkins files into the `jenkins-promise-template.yaml`.
 To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
 
 ```console
-go run path/to/kratix/hack/worker-resource-builder/main.go \
-  -k8s-resources-directory ${PWD}/resources \
-  -promise ${PWD}/jenkins-promise-template.yaml > jenkins-promise.yaml
+cd path/to/kratix
+go run hack/worker-resource-builder/main.go \
+  -k8s-resources-directory ${OLDPWD}/resources \
+  -promise ${OLDPWD}/jenkins-promise-template.yaml > ${OLDPWD}/jenkins-promise.yaml
+cd ${OLDPWD}
 ```
 <br>
 
-This created your finished Promise defition, `jenkins-promise.yaml`.
+This created your finished Promise definition, `jenkins-promise.yaml`.
 
 
 ### <a name="install-promise">Install your Promise
@@ -438,7 +431,7 @@ kubectl --context=kind-worker get pods -A -w
 
 ### <a name="create-resource-request">Create and submit a resource request
 
-You can now be able to request instances of Jenkins.
+You can now request instances of Jenkins.
 ```console
 cat > jenkins-resource-request.yaml <<EOF
 apiVersion: promise.example.com/v1
@@ -475,7 +468,7 @@ For verification, access the Jenkins UI in a browser, as in [previous steps](/in
 
 Port forward for browser access to the Jenkins UI 
 ```console
-kubectl --context kind-worker port-forward jenkins-example 8080:8080
+kubectl --context kind-worker port-forward jenkins-my-amazing-jenkins 8080:8080
 ```
 <br>
 
@@ -485,13 +478,13 @@ Navigate to http://localhost:8080 and log in with the credentials you copy from 
 
 Copy and paste the Jenkins username into the login page
 ```console
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d | pbcopy
+kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.user}' | base64 -d
 ```
 <br>
 
 Copy and paste the Jenkins password into the login page
 ```console
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d | pbcopy
+kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.password}' | base64 -d
 ```
 <br>
 

@@ -129,13 +129,13 @@ Navigate to http://localhost:8080 and login with the credentials you copy from t
 
 Copy and paste the Jenkins username into the login page
 ```console
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d | pbcopy
+kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d
 ```
 <br>
 
 Copy and paste the Jenkins password into the login page
 ```console
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d | pbcopy
+kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
 ```
 <br>
 

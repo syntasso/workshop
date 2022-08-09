@@ -179,7 +179,7 @@ minio-6f75d9fbcf-5cn7w                                1/1     Running      0    
 _To verify the Kratix API is available_
 
 ```console
-kubectl get crds
+kubectl --context kind-platform get crds
 ```
 
 You should see something similar to

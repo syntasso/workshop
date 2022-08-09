@@ -129,7 +129,7 @@ costCentre:
 ```
 From the top of the file, navigate to 
 
-`spec` > `xaasCrd` > `spec` > `versions`[0] > `schema` > <br/> `openAPIV3Schema` > `properties` > `spec`. 
+`spec` > `xaasCrd` > `spec` > `versions`[0] > `schema` > <br/> `openAPIV3Schema` > `properties` > `spec` > `properties` 
 
 Here, add your `costCentre` YAML from above as a sibling to the existing `preparedDatabases` property.
 
@@ -501,18 +501,24 @@ You can now install your enhanced Postgres Promise on your platform. _Make sure 
 ```console
 kubectl --context kind-platform apply --filename postgres-promise.yaml
 ```
+<br>
 
-Check that your Promise is available.
-
+Check that your Promise's resource is available.
 ```console
-kubectl --context kind-platform --namespace default get promises
+kubectl --context kind-platform get crds
 ```
+<br>
 
 You should see something similar to
 ```console
-NAME                  AGE
-ha-postgres-promise   1m
+NAME                                          CREATED AT
+clusters.platform.kratix.io                   2022-08-09T14:35:54Z
+postgreses.example.promise.syntasso.io        2022-08-09T14:54:26Z
+promises.platform.kratix.io                   2022-08-09T14:35:54Z
+workplacements.platform.kratix.io             2022-08-09T14:35:54Z
+works.platform.kratix.io                      2022-08-09T14:35:55Z
 ```
+<br>
 
 Check that the `workerClusterResources` have been installed. 
 
@@ -521,12 +527,14 @@ For Postgres, you can see in the Promise file that there are a number of RBAC re
 ```console
 kubectl --context kind-worker --namespace default get pods
 ```
+<br>
 
 You should see something similar to
 ```console
 NAME                                 READY   STATUS    RESTARTS   AGE
 postgres-operator-6c6dbd4459-hcsg2   1/1     Running   0          1m
 ```
+<br>
 
 You have successfully released a new platform capability! Your users can request a Postgres instance, and that instance will include their `costCentre`.
 

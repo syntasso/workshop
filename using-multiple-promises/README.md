@@ -47,7 +47,7 @@ Alternatively, you can go back to the first step on this series: [Install Kratix
 
 ### <a name="install-all-promises">Install all required Promises
 
-Install the required Promises on your Platform cluster:
+You are going to deploy an application that requires CI/CD (Jenkins), relational data (Postgres), and web serving (Knative). To deliver this functionality on-demand with Kratix install the required Promises on your platform cluster:
 
 <!-- ❓ Do we want people to clone the workshop and kratix or not? -->
 ```console
@@ -57,7 +57,7 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 ```
 <br>
 
-Verify the Promises are all installed on your Platform cluster
+Verify the Promises are all installed on your platform cluster
 ```console
 kubectl --context kind-platform get promises
 ```
@@ -69,6 +69,20 @@ NAME                      AGE
 ha-postgres-promise       1h
 jenkins-promise           1h
 knative-serving-promise   1h
+```
+<br>
+
+Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster (this may take a few minutes so `-w` will watch the command)
+```console
+kubectl --context kind-worker get pods -w
+```
+<br>
+
+The above command will give an output similar to
+```console
+NAME                                 READY   STATUS    RESTARTS   AGE
+jenkins-operator-6c89d97d4f-r474w    1/1     Running   0          40s
+postgres-operator-7dccdbff7c-2hqhc   1/1     Running   0          57s
 ```
 <br>
 
