@@ -33,8 +33,18 @@ The exercise below is an example of creating and enhancing a Promise as a respon
 
 # From off-the-shelf to ready for the Golden Path
 
-## Prerequisites
-* [Install Kratix across two KinD clusters](/installing-kratix/)
+## <a name="prerequisites"></a>Pre-requisites
+
+You need a fresh installation of Kratix for this section. The simplest way
+to do so is by running the quick-start script from within the Kratix
+directory:
+
+```bash
+cd /path/to/kratix
+./scripts/quick-start --recreate
+```
+
+Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 
 ## The scenario
 

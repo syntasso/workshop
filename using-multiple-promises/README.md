@@ -33,7 +33,17 @@ Now you will see the power of Kratix Promises by deploying a web app that uses m
 1. [Tear down your environment](#teardown)
 
 ### <a name="prerequisites"></a>Pre-requisites
-* [Install Kratix across two KinD clusters](/installing-kratix/)
+
+You need a fresh installation of Kratix for this section. The simplest way
+to do so is by running the quick-start script from within the Kratix
+directory:
+
+```bash
+cd /path/to/kratix
+./scripts/quick-start --recreate
+```
+
+Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 
 ### <a name="install-all-promises">Install all required Promises
 
