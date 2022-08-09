@@ -457,8 +457,7 @@ After a few minutes the Jenkins operator will have received the request and aske
 
 Target the worker cluster to see the Jenkins instance
 ```console
-kubectl config use-context kind-worker
-kubectl get pods -A -w
+kubectl get pods -A -w --context kind-worker
 ```
 <br>
 
