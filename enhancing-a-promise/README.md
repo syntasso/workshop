@@ -17,7 +17,7 @@ When you think about providing services for things like automation, deployment o
 
 Probably not very often.
 
-Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Key stakeholders in other parts of the business need to be able to easily understand the state of service usage as it applies to them (hello audit, billing, and security!). 
+Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Key stakeholders in other parts of the business also need to easily understand the state of service usage as it applies to them (hello audit, billing, and security!). 
 
 Your team works with all of these users to understand the if, when, and how of each of these requests and creates a platform from a prioritised backlog of platform features. 
 
