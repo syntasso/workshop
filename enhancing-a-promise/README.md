@@ -52,7 +52,7 @@ In this exercise, you and the platform team are starting development of the next
 
 You discussed needs with application teams and you've decided to offer a new service. You'll be adding Postgres to your platform.
 
-The billing team is a key stakeholder for the platform, they will need a cost centre for each new instance of your Postgres service to charge back to the right team.
+The billing team is a key stakeholder for the platform, and they will need a cost centre for each new instance of your Postgres service to charge back to the right team.
 
 For the purposes of this exercise, you know that all of the underlying functionality to get the billing team what it needs is already in place. 
 
