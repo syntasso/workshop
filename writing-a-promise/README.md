@@ -389,6 +389,8 @@ Next inject Jenkins files into the `jenkins-promise-template.yaml`.
 
 To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
 
+:notebook: Note: To use this tool, you must have golang installed on your computer. If not, you can mimic this tool by running: `mv jenkins-promise-template.yaml jenkins-promise.yaml` and then copying all of the resources in the `/resources` directory into the list of `clusterResources`.
+
 ```console
 cd path/to/kratix
 go run hack/worker-resource-builder/main.go \
