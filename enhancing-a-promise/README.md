@@ -41,7 +41,7 @@ directory:
 
 ```bash
 cd /path/to/kratix
-./scripts/quick-start --recreate
+./scripts/quick-start.sh --recreate
 ```
 
 Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
