@@ -12,7 +12,7 @@ This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promises/README.md). Now you'll create a Promise from scratch.
 
-From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally. 
+From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally.
 
 A Promise consists of three parts:
 1. `xaasCrd`: the CRD that is exposed to the users of the Promise.
@@ -25,16 +25,16 @@ A Promise consists of three parts:
 The `xaasCrd` is your user-facing API for the Promise. It defines the options that users can configure when they request the Promise. The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).
 
 ### `workerClusterResources`
-The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. For instance with the Jenkins Promise, the `workerClusterResources` contains the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires. 
+The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. For instance with the Jenkins Promise, the `workerClusterResources` contains the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires.
 
 ### `xaasRequestPipeline`
-The `xaasRequestPipeline` defines a set of jobs to run when Kratix receives a request for an instance of one of its Promises. 
+The `xaasRequestPipeline` defines a set of jobs to run when Kratix receives a request for an instance of one of its Promises.
 
 The pipeline is an array of Docker images, and those images are executed in order. The pipeline enables you to write Promises with specialised images and combine those images as needed.
 
 #### How the pipeline works
 
-Each container in the `xaasRequestPipeline` array will output complete, valid Kubernetes resources. 
+Each container in the `xaasRequestPipeline` array will output complete, valid Kubernetes resources.
 
 The contract with each pipeline container is simple and straightforward:
 * The first container in the list receives the resource document created by the user's request&mdash;this request will comply with the `xaasCrd` described above. The document is available to the pipeline in `/input/object.yaml`.
@@ -51,7 +51,7 @@ At a very high level
   * In `xaasCrd`, you list what your users can configure in their request.
   * In `workerClusterResources`, you list what resources are required for Kratix to fulfil the Promise.
   * In `xaasRequestPipeline`, you list Docker images that will take the user's request and decorate it with configuration that you or the business require.
-* You install the Promise on your platform cluster, where Kratix is installed. 
+* You install the Promise on your platform cluster, where Kratix is installed.
 * Your user wants an instance of the Promise.
 * Your user submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later).
 * Kratix fires off the request pipeline that you defined in `xaasRequestPipeline` and passes the _resource request_ as an input.
@@ -60,9 +60,9 @@ At a very high level
 
 ## A Jenkins Promise
 
-Imagine your platform team has received its fourth request from its fourth team for a Jenkins instance. You decide four times is too many times to manually set up Jenkins. 
+Imagine your platform team has received its fourth request from its fourth team for a Jenkins instance. You decide four times is too many times to manually set up Jenkins.
 
-Now you'll write a Jenkins Promise and install it on your platform so that your four teams get Jenkins&mdash;and you get time back for more valuable work. 
+Now you'll write a Jenkins Promise and install it on your platform so that your four teams get Jenkins&mdash;and you get time back for more valuable work.
 
 <br>
 <hr>
@@ -255,9 +255,9 @@ EOF
 
 ### <a name="pipeline-script"> Create simple request pipeline functionality
 
-Kratix takes no opinion on the tooling used within a pipeline. Kratix will pass a set of resources to the pipeline, and expect back a set of resources. What happens within the pipeline, and what tooling is used, is a decision left entirely to you. 
+Kratix takes no opinion on the tooling used within a pipeline. Kratix will pass a set of resources to the pipeline, and expect back a set of resources. What happens within the pipeline, and what tooling is used, is a decision left entirely to you.
 
-For this example, you're taking a name from the _resource request_ for an instance and passing it to the Jenkins custom resource output. 
+For this example, you're taking a name from the _resource request_ for an instance and passing it to the Jenkins custom resource output.
 
 To keep this transformation simple, you'll use a combination of `sed` and `yq` to do the work.
 
@@ -374,18 +374,20 @@ In summary, you have:
 
 ### <a name="worker-cluster-resources">Define your `workerClusterResources` in your Promise definition
 
-The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. 
+The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters.
 
 For this Promise, the `workerClusterResources` needs to contain the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires.
 
-Download the resources for the Jenkins CRD and Operator.
+From the `jenkins-promise` directory, run:
+
 ```console
-wget https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/fbea1ed790e7a9deb2311e1f565ee93f07d89022/config/crd/bases/jenkins.io_jenkins.yaml -P resources
-wget https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c363a5ceae569a725c17ef82ff2b58/deploy/all-in-one-v1alpha2.yaml -P resources
+mkdir -p resources
+curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/fbea1ed790e7a9deb2311e1f565ee93f07d89022/config/crd/bases/jenkins.io_jenkins.yaml --output resources/jenkins.io_jenkins.yaml --silent
+curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c363a5ceae569a725c17ef82ff2b58/deploy/all-in-one-v1alpha2.yaml --output resources/all-in-one-v1alpha2.yaml --silent
 ```
 <br>
 
-Next inject Jenkins files into the `jenkins-promise-template.yaml`. 
+The script will download the necessary files in the `resources` directory. You are now ready to inject the Jenkins files into the `jenkins-promise-template.yaml`.
 
 To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
 
@@ -448,7 +450,7 @@ kubectl apply --context kind-platform -f jenkins-resource-request.yaml
 ```
 <br>
 
-After a few minutes the Jenkins operator will have received the request and asked the worker to start an instance of Jenkins. 
+After a few minutes the Jenkins operator will have received the request and asked the worker to start an instance of Jenkins.
 
 Target the worker cluster to see the Jenkins instance
 ```console
@@ -468,7 +470,7 @@ For verification, access the Jenkins UI in a browser, as in [previous steps](/in
 
 <br>
 
-Port forward for browser access to the Jenkins UI 
+Port forward for browser access to the Jenkins UI
 ```console
 kubectl --context kind-worker port-forward jenkins-my-amazing-jenkins 8080:8080
 ```
