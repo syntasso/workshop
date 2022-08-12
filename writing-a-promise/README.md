@@ -301,9 +301,9 @@ EOF
 ```
 <br>
 
-Next build your Docker image
+Next build your Docker image. You will later load the image to the KinD local cache, so there's no need to replace the image tag:
 ```console
-docker build . --tag <your-org-name/name-of-your-image>
+docker build . --tag kratix-workshop/jenkins-request-pipeline:dev
 ```
 
 ### <a name="test-image">Test your Docker container image
@@ -333,16 +333,16 @@ EOF
 
 Run the container and examine the output
 ```console
-docker run -v ${PWD}/input:/input -v ${PWD}/output:/output <your-org-name/name-of-your-image>
+docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/jenkins-request-pipeline:dev
 cat output/*
 ```
 <br>
 
 The contents of the `/output` directory will be scheduled and deployed by Kratix to a worker cluster. They need to be valid Kubernetes resources that can be applied to any cluster with the Promise's `workerClusterResources` installed (see beneath).
 
-Once you are satisified with the image, push it so it's ready for use.
+Once you are satisified with the image, load it to the local KinD cache:
 ```console
-docker push <your-org-name/name-of-your-image>
+kind load docker-image  kratix-workshop/jenkins-request-pipeline:dev
 ```
 <br>
 
@@ -357,7 +357,7 @@ cd ..
 Add the image to the array in `jenkins-promise-template.yaml`.
 ```yaml
 xaasRequestPipeline:
-    - <your-org-name/name-of-your-image>
+- kratix-workshop/jenkins-request-pipeline:dev
 ```
 <br>
 
