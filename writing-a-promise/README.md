@@ -342,7 +342,7 @@ The contents of the `/output` directory will be scheduled and deployed by Kratix
 
 Once you are satisified with the image, load it to the local KinD cache:
 ```console
-kind load docker-image  kratix-workshop/jenkins-request-pipeline:dev
+kind load docker-image kratix-workshop/jenkins-request-pipeline:dev --name platform
 ```
 <br>
 
