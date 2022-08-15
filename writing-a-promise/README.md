@@ -391,14 +391,17 @@ The script will download the necessary files in the `resources` directory. You a
 
 To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
 
-:notebook: Note: To use this tool, you must have golang installed on your computer. If not, you can mimic this tool by running: `mv jenkins-promise-template.yaml jenkins-promise.yaml` and then copying all of the resources in the `/resources` directory into the list of `clusterResources`.
+To use this tool, you will need to download the correct binary for your computer from [GitHub releases](https://github.com/syntasso/kratix/releases/tag/v0.0.1):
+
+```bash
+curl -Lo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-"$(uname -s)"-"$(uname -m)"
+chmod +x worker-resource-builder
+```
 
 ```console
-cd path/to/kratix
-go run hack/worker-resource-builder/main.go \
-  -k8s-resources-directory ${OLDPWD}/resources \
-  -promise ${OLDPWD}/jenkins-promise-template.yaml > ${OLDPWD}/jenkins-promise.yaml
-cd ${OLDPWD}
+./worker-resource-builder \
+  -k8s-resources-directory ./resources \
+  -promise ./jenkins-promise-template.yaml > ./jenkins-promise.yaml
 ```
 <br>
 
