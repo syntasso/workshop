@@ -358,7 +358,7 @@ You can see that the script is already parsing the resource request to identify 
 In the `execute-pipeline.sh`
 1. Export another environment variable to store the value 
 ```bash
-export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)`)
+export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)
 ```
 1. Add a new line for `yq` process the replacement as a part of the pipeline 
 ```bash
