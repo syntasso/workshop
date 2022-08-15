@@ -229,14 +229,16 @@ From the top of the file, navigate to
 
 To verify you're in the right place, the object should be `kind: ConfigMap` with `name: postgres-operator`.
 
-Under the `data` map, add `inherited_labels: costCentre` property **in alphabetical order**.
+Under the `data` map, add `inherited_labels: costCentre`.
 
 <details>
   <summary>👀&nbsp;&nbsp;Click here to see the complete `ConfigMap` resource after this change</summary>
 
 ```yaml
+# Note, the property was added to the top of the data map
 - apiVersion: v1
   data:
+    inherited_labels: costCentre
     api_port: "8080"
     aws_region: eu-central-1
     cluster_domain: cluster.local
@@ -255,7 +257,6 @@ Under the `data` map, add `inherited_labels: costCentre` property **in alphabeti
     enable_team_member_deprecation: "false"
     enable_teams_api: "false"
     external_traffic_policy: Cluster
-    inherited_labels: costCentre
     logical_backup_docker_image: registry.opensource.zalan.do/acid/logical-backup:v1.6.3
     logical_backup_job_prefix: logical-backup-
     logical_backup_provider: s3
