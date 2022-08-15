@@ -41,7 +41,7 @@ Core to designing the right platform in a platform team is understanding your us
 
 Imagine discovering that four application teams all use the same database but each team has different backup strategies, different levels of monitoring and different ways of seeing what's happening on the database. 
 
-With Kratix, you can easily design this database as an offering on your platform, and your service request pipeline defines that service so that every database includes the Golden Path backup strategy, monitoring dashboard, and UI client. 
+With Kratix, you can easily design this database as an offering on your platform, and your service request pipeline defines that service so that every database includes the paved path backup strategy, monitoring dashboard, and UI client. 
 
 If the idea of treating your platform as a product is new concept to you, watch this short talk by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90).
 

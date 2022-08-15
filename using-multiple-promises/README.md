@@ -6,7 +6,7 @@ This is Part 3 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 ### In this tutorial, you will
 1. [learn more about the power of Promises](#power-of-promises)
-1. [use Kratix Promises to build a Golden Path](#deploy)
+1. [use Kratix Promises to build a paved path](#deploy)
 
 # <a name="power-of-promises"></a> The power of Promises
 
@@ -22,7 +22,7 @@ Now you will see the power of Kratix Promises by deploying a web app that uses m
 <hr>
 <br>
 
-## <a name="deploy"></a> Building a Golden Path using multiple Kratix Promises
+## <a name="deploy"></a> Building a paved path using multiple Kratix Promises
 
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required

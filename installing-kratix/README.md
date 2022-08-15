@@ -21,7 +21,7 @@ Kratix is a framework used by platform teams to build the custom platforms tailo
 
 * use GitOps workflow and familiar Kubernetes-native constructs.
 * co-create capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md).
-* create a flexible platform with your Golden Paths as Promises.
+* create a flexible platform with your paved paths as Promises.
 * evolve your platform easily as your business needs change. 
 * start small on a laptop and expand to multi-team, multi-cluster, multi-region, and multi-cloud with a consistent API everywhere.
 

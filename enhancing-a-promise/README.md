@@ -23,7 +23,7 @@ Your team works with all of these users to understand the if, when, and how of e
 
 This platform needs to be extensible and flexible&mdash;your users will have new and changing needs, and you'll want to quickly respond to valuable feature requests.
 
-Kratix and Promises make it easier to create a platform paved with Golden Paths that deliver value easily and quickly. 
+Kratix and Promises make it easier to create a platform paved with paved paths that deliver value easily and quickly. 
 
 Now you will create and enhance a Promise as a response to user and business needs.
 
@@ -31,7 +31,7 @@ Now you will create and enhance a Promise as a response to user and business nee
 <hr>
 <br>
 
-# From off-the-shelf to ready for the Golden Path
+# From off-the-shelf to ready for the paved path
 
 ## <a name="prerequisites"></a>Pre-requisites
 
