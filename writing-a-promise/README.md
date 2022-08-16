@@ -127,12 +127,12 @@ spec:
 EOF
 ```
 <br>
-You will fill the `spec` scalars as you progress through the tutorial.
+You will fill in the fields under `spec` as you progress through the tutorial.
 
 ### <a name="define-crd">X-as-a-Service Custom Resource Definition: define your Promise API
 For the purpose of this tutorial, you will create an API that accepts a single `string` parameter called `name`. This API can be as complex or as simple as you design it to be.
 
-Add the below to the `xaasCrd` scalar in `jenkins-promise-template.yaml`. Ensure the indentation is correct (`xaasCrd` is nested under `spec`).
+Replace the `xaasCrd` field in `jenkins-promise-template.yaml` with the complete field details below. Ensure the indentation is correct (`xaasCrd` is nested under `spec`).
 
 ```yaml
   xaasCrd:
@@ -346,7 +346,7 @@ kind load docker-image kratix-workshop/jenkins-request-pipeline:dev --name platf
 ```
 <br>
 
-The final step of creating the `xaasRequestPipeline` is to add the  `spec.xaasRequestPipeline` scalar in `jenkins-promise-template.yaml`.
+The final step of creating the `xaasRequestPipeline` is to reference your docker image from the `spec.xaasRequestPipeline` field in the `jenkins-promise-template.yaml`.
 
 Go back to the `jenkins-promise` directory.
 
@@ -389,7 +389,7 @@ curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c
 
 The script will download the necessary files in the `resources` directory. You are now ready to inject the Jenkins files into the `jenkins-promise-template.yaml`.
 
-To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` scalar.
+To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` field.
 
 To use this tool, you will need to download the correct binary for your computer from [GitHub releases](https://github.com/syntasso/kratix/releases/tag/v0.0.1):
 
