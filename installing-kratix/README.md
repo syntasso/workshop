@@ -109,10 +109,10 @@ kubectl get crds
 The above command will give an output similar to
 ```console
 NAME                                   CREATED AT
-clusters.platform.kratix.io            2022-05-10T11:10:57Z
-promises.platform.kratix.io            2022-05-10T11:10:57Z
-workplacements.platform.kratix.io      2022-05-10T11:10:57Z
-works.platform.kratix.io               2022-05-10T11:10:57Z
+clusters.platform.kratix.io            2022-05-10T12:00:00Z
+promises.platform.kratix.io            2022-05-10T12:00:00Z
+workplacements.platform.kratix.io      2022-05-10T12:00:00Z
+works.platform.kratix.io               2022-05-10T12:00:00Z
 ```
 
 ### <a name="kind-networking"></a>Adjust multi-cluster networking for KinD
@@ -133,16 +133,16 @@ kubectl apply --filename hack/worker/gitops-tk-install.yaml
 kubectl apply --filename hack/worker/gitops-tk-resources.yaml
 ```
 
-Once Flux is installed and running (this may take a few minutes so `-w` will watch the output), the Kratix resources will be visible on the worker cluster.
+Once Flux is installed and running (this may take a few minutes so `--watch` will append updates to the bottom of the output), the Kratix resources will be visible on the worker cluster.
 
 ```bash
-kubectl get ns -w
+kubectl --context kind-worker get namespaces --watch
 ```
 
 You should see something similar to
 ```console
 NAME                   STATUS   AGE
-kratix-worker-system   Active   4m2s
+kratix-worker-system   Active   1m
 ```
 
 ### <a name="verify-installation"></a>Verify installation
@@ -185,23 +185,24 @@ kubectl --context kind-platform get crds
 You should see something similar to
 ```console
 NAME                                   CREATED AT
-clusters.platform.kratix.io            2022-05-10T11:10:57Z
-promises.platform.kratix.io            2022-05-10T11:10:57Z
-workplacements.platform.kratix.io      2022-05-10T11:10:57Z
-works.platform.kratix.io               2022-05-10T11:10:57Z
+clusters.platform.kratix.io            2022-05-10T12:00:00Z
+promises.platform.kratix.io            2022-05-10T12:00:00Z
+workplacements.platform.kratix.io      2022-05-10T12:00:00Z
+works.platform.kratix.io               2022-05-10T12:00:00Z
 ```
 <br/>
 
-_To verify Flux is installed and running (i.e., Kratix resources are on the 'worker' cluster)_
+_To verify Flux is installed and configured (i.e., Flux knows where in MinIO to look for resources to install)_
 
 ```bash
-kubectl get ns kratix-worker-system
+kubectl --context kind-worker get buckets.source.toolkit.fluxcd.io --namespace flux-system
 ```
 
 You should see something similar to
 ```console
-NAME                   STATUS   AGE
-kratix-worker-system   Active   4m2s
+NAME                        URL   READY   STATUS                                                       AGE
+kratix-workload-crds              True    Fetched revision: 9343bf26ec16db995d7b53ff63c64b7dfb9789c4   1m
+kratix-workload-resources         True    Fetched revision: f2d918e21d4c5cc65791d121f4a3375ad80a3eac   1m
 ```
 <br/>
 
