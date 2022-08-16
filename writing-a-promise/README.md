@@ -15,32 +15,9 @@ You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promi
 From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally.
 
 A Promise consists of three parts:
-1. `xaasCrd`: the CRD that is exposed to the users of the Promise.
-1. `workerClusterResources`: a collection of Kubernetes resources to be installed in the worker clusters.
-1. `xaasRequestPipeline`: the pipeline that will create the resources requried to run an instance of the promised service on a worker cluster.
-
-## Promise parts, in detail
-
-### `xaasCrd`
-The `xaasCrd` is your user-facing API for the Promise. It defines the options that users can configure when they request the Promise. The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).
-
-### `workerClusterResources`
-The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. For instance with the Jenkins Promise, the `workerClusterResources` contains the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires.
-
-### `xaasRequestPipeline`
-The `xaasRequestPipeline` defines a set of jobs to run when Kratix receives a request for an instance of one of its Promises.
-
-The pipeline is an array of Docker images, and those images are executed in order. The pipeline enables you to write Promises with specialised images and combine those images as needed.
-
-#### How the pipeline works
-
-Each container in the `xaasRequestPipeline` array will output complete, valid Kubernetes resources.
-
-The contract with each pipeline container is simple and straightforward:
-* The first container in the list receives the resource document created by the user's request&mdash;this request will comply with the `xaasCrd` described above. The document is available to the pipeline in `/input/object.yaml`.
-* The container's command then executes with the input object and fulfils its responsibilites.
-* The container writes any resources to be created to `/output/`.
-* The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
+1. `xaasCrd`: the CRD that an application developer uses to request an instance of the promise from the platform cluster.
+1. `workerClusterResources`: a collection of Kubernetes resources that enable the creation of an instance and will be pre-installed in the worker clusters.
+1. `xaasRequestPipeline`: an ordered list of docker containers that result in the creation an instance of the promised service on a worker cluster.
 
 ## Recap: basics of getting a promised instance to your users
 
@@ -83,7 +60,7 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
 1. [Create and submit a resource request](#create-resource-request)
-1. [Summary](#summary)
+1. [Summary of a promise parts (in detail)](#summary)
 1. [Tear down your environment](#teardown)
 
 
@@ -520,6 +497,29 @@ Copy and paste the Jenkins password into the login page
 kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.password}' | base64 -d
 ```
 <br>
+
+### <a name="summary">Summary of a promise parts (in detail)
+
+#### `xaasCrd`
+The `xaasCrd` is your user-facing API for the Promise. It defines the options that users can configure when they request the Promise. The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).
+
+#### `workerClusterResources`
+The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters. For instance with the Jenkins Promise, the `workerClusterResources` contains the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires.
+
+### `xaasRequestPipeline`
+The `xaasRequestPipeline` defines a set of jobs to run when Kratix receives a request for an instance of one of its Promises.
+
+The pipeline is an array of Docker images, and those images are executed in order. The pipeline enables you to write Promises with specialised images and combine those images as needed.
+
+#### How the pipeline works
+
+Each container in the `xaasRequestPipeline` array will output complete, valid Kubernetes resources.
+
+The contract with each pipeline container is simple and straightforward:
+* The first container in the list receives the resource document created by the user's request&mdash;this request will comply with the `xaasCrd` described above. The document is available to the pipeline in `/input/object.yaml`.
+* The container's command then executes with the input object and fulfils its responsibilites.
+* The container writes any resources to be created to `/output/`.
+* The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
 
 ### <a name="teardown">Tearing it all down
 
