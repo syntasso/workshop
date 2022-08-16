@@ -47,37 +47,46 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 
 
 ### <a name="prerequisites">Prerequisites
-* [Install Kratix across two KinD clusters](/installing-kratix/)
+
+You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory.
+
+You can run this command from the root of the Kratix repository:
+
+```bash
+./scripts/quick-start.sh --recreate
+
+```
+Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
+<br>
 
 ### <a name="install-promise"> Install the off-the-shelf Jenkins Promise
 
 Install the provided Jenkins-as-a-service Kratix Promise.
 
-```console
-kubectl config use-context kind-platform
-kubectl apply -f samples/jenkins/jenkins-promise.yaml
+```bash
+kubectl --context kind-platform apply --filename samples/jenkins/jenkins-promise.yaml
 ```
 
 Verify you know have the ability to create Jenkins instances.
-```console
-kubectl get crds jenkins.example.promise.syntasso.io
+```bash
+kubectl --context kind-platform get crds jenkins.example.promise.syntasso.io
 ```
 
 The above command will give an output similar to
 ```console
 NAME                                     CREATED AT
-jenkins.example.promise.syntasso.io   2021-09-03T12:02:20Z
+jenkins.example.promise.syntasso.io   2021-05-10T12:00:00Z
 ```
 
 Verify that the Jenkins operator is now installed.
-```console
-kubectl get pods --namespace default --context kind-worker
+```bash
+kubectl --context kind-worker --namespace default get pods
 ```
 
 The above command will give an output similar to
 ```console
 NAME                                READY   STATUS    RESTARTS   AGE
-jenkins-operator-7886c47f9c-zschr   1/1     Running   0          4m1s
+jenkins-operator-7886c47f9c-zschr   1/1     Running   0          1m
 ```
 
 Congratulations! You have installed your first Promise. The machinery to issue Jenkins instances on demand by application teams has now been installed.
@@ -85,32 +94,32 @@ Congratulations! You have installed your first Promise. The machinery to issue J
 ### <a name="request-instance">Request a Jenkins Instance
 
 Submit a _resource request_ to get an instance of Jenkins.
-```console
-kubectl apply -f samples/jenkins/jenkins-resource-request.yaml
+```bash
+kubectl --context kind-platform apply --filename samples/jenkins/jenkins-resource-request.yaml
 ```
 
 Verify that the _resource request_ was issued on the platform cluster.
 
-```console
-kubectl get jenkins.example.promise.syntasso.io
+```bash
+kubectl --context kind-platform get jenkins.example.promise.syntasso.io
 ```
 
 The above command will give an output similar to
 ```console
 NAME                   AGE
-my-jenkins   27s
+my-jenkins             1m
 ```
 
-Verify the instance is created on the worker cluster (this may take a few minutes so `-w` will watch the output).
-```console
-kubectl get pods --namespace default --context kind-worker -w
+Verify the instance is created on the worker cluster (this may take a few minutes so `--watch` will append updates to the bottom of the output).
+```bash
+kubectl --context kind-worker --namespace default get pods --watch
 ```
 
 The above command will give an output similar to
 ```console
 NAME                                READY   STATUS    RESTARTS   AGE
-jenkins-example                     1/1     Running   0          113s
-jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
+jenkins-example                     1/1     Running   0          1m
+jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 ```
 
 ### <a name="use-instance">Use your Jenkins instance
