@@ -56,7 +56,7 @@ Now that you know more about Kratix, follow the steps below to install Kratix lo
 
 1. A **Docker Hub account** with push permissions.
 
-1. **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images.
+1. Be logged into **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images: see [login docs](https://docs.docker.com/engine/reference/commandline/login/)
 
 1. In order to complete all tutorials in this series, you must allocate enough resources to Docker. Docker requires:<br><br>
 5 CPU<br>
@@ -68,7 +68,7 @@ This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, e
 
 If you've already installed KinD, ensure no clusters are currently running.
 
-```console
+```bash
 kind get clusters
 ```
 
@@ -78,14 +78,14 @@ The above command will give an output similar to
 No kind clusters found.
 ```
 
-Delete any existing clusters
-```console
-kind delete <cluster(s) name(s)>
+If you have any named `platform` or `worker` please delete them with
+```bash
+kind delete clusters platform worker
 ```
 <br>
 
 ####  <a name="clone-kratix"></a>Clone Kratix
-```console
+```bash
 git clone https://github.com/syntasso/kratix.git
 cd kratix
 ```
@@ -94,15 +94,15 @@ cd kratix
 
 Create your `platform` cluster and install Kratix.
 
-```console
+```bash
 kind create cluster --name platform
-kubectl apply -f distribution/kratix.yaml
-kubectl apply -f hack/platform/minio-install.yaml
+kubectl apply --filename distribution/kratix.yaml
+kubectl apply --filename hack/platform/minio-install.yaml
 ```
 
 The Kratix API is now available.
 
-```console
+```bash
 kubectl get crds
 ```
 
@@ -118,7 +118,7 @@ works.platform.kratix.io               2022-05-10T11:10:57Z
 ### <a name="kind-networking"></a>Adjust multi-cluster networking for KinD
 Some KinD installations use non-standard networking. To ensure cross-cluster communication you need to run this script:
 
-```console
+```bash
 PLATFORM_CLUSTER_IP=`docker inspect platform-control-plane | grep '"IPAddress": "172' | awk '{print $2}' | awk -F '"' '{print $2}'`
 sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resources.yaml
 ```
@@ -126,16 +126,16 @@ sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resource
 ### <a name="worker-setup"></a>Set up your `worker` cluster
 Create your `worker` cluster. This will create a cluster for running the X-as-a-service workloads:
 
-```console
+```bash
 kind create cluster --name worker #Also switches kubectl context to worker
-kubectl apply -f config/samples/platform_v1alpha1_worker_cluster.yaml --context kind-platform #register the worker cluster with the platform cluster
-kubectl apply -f hack/worker/gitops-tk-install.yaml
-kubectl apply -f hack/worker/gitops-tk-resources.yaml
+kubectl apply --filename config/samples/platform_v1alpha1_worker_cluster.yaml --context kind-platform #register the worker cluster with the platform cluster
+kubectl apply --filename hack/worker/gitops-tk-install.yaml
+kubectl apply --filename hack/worker/gitops-tk-resources.yaml
 ```
 
 Once Flux is installed and running (this may take a few minutes so `-w` will watch the output), the Kratix resources will be visible on the worker cluster.
 
-```console
+```bash
 kubectl get ns -w
 ```
 
@@ -151,7 +151,7 @@ Not sure if you are properly set up? The list of commands below will validate wh
 
 _To verify your have the two necessary clusters_
 
-```console
+```bash
 kind get clusters
 ```
 
@@ -164,7 +164,7 @@ worker
 
 _To verify Kratix and MinIO are installed and healthy_
 
-```console
+```bash
 kubectl --context kind-platform get pods --namespace kratix-platform-system
 ```
 
@@ -178,7 +178,7 @@ minio-6f75d9fbcf-5cn7w                                1/1     Running      0    
 
 _To verify the Kratix API is available_
 
-```console
+```bash
 kubectl --context kind-platform get crds
 ```
 
@@ -194,7 +194,7 @@ works.platform.kratix.io               2022-05-10T11:10:57Z
 
 _To verify Flux is installed and running (i.e., Kratix resources are on the 'worker' cluster)_
 
-```console
+```bash
 kubectl get ns kratix-worker-system
 ```
 
@@ -207,7 +207,7 @@ kratix-worker-system   Active   4m2s
 
 _To verify you can deploy resources to the worker, check if your "canary" resource has been deployed_
 
-```console
+```bash
 kubectl --context kind-worker get namespaces kratix-worker-system
 ```
 
