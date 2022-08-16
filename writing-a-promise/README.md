@@ -72,7 +72,6 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 ## <a name="write-promise-start"> Writing your own Kratix Promise
 
 ### Steps
-1. [Complete pre-requistes](#prerequisites), if required
 1. [Folder setup](#folder-setup)
 1. [Create a Promise template](#promise-template)
 1. [X-as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
@@ -81,24 +80,11 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 1. [Define your Docker image for the pipeline](#dockerfile)
 1. [Test your container image](#test-image)
 1. [Create your Promise definition and define your `workerClusterResources`](#worker-cluster-resources)
+1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
 1. [Create and submit a resource request](#create-resource-request)
 1. [Summary](#summary)
 1. [Tear down your environment](#teardown)
-
-
-### <a name="prerequisites"></a>Pre-requisites
-
-You need a fresh installation of Kratix for this section. The simplest way
-to do so is by running the quick-start script from within the Kratix
-directory:
-
-```bash
-cd /path/to/kratix
-./scripts/quick-start.sh --recreate
-```
-
-Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 
 
 ### <a name="folder-setup">Folder setup
@@ -407,6 +393,18 @@ chmod +x worker-resource-builder
 
 This created your finished Promise definition, `jenkins-promise.yaml`.
 
+
+### <a name="prepare-your-environment">Prepare your environment
+
+You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory:
+
+```bash
+cd /path/to/kratix
+./scripts/quick-start.sh --recreate
+
+```
+Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
+<br>
 
 ### <a name="install-promise">Install your Promise
 
