@@ -418,7 +418,7 @@ kubectl apply --context kind-platform -f jenkins-promise.yaml
 <br>
 
 Verify the Promise installed (this may take a few minutes so `-w` will watch the command)
-```console
+```bash
 kubectl --context kind-platform get crds -w
 ```
 <br>
@@ -431,7 +431,7 @@ jenkins.promise.example.com   2021-09-09T11:21:10Z
 <br>
 
 Verify the Jenkins Operator is running (this will take a few minutes so `-w` will watch the command)
-```console
+```bash
 kubectl --context=kind-worker get pods -A -w
 ```
 <br>
@@ -439,7 +439,7 @@ kubectl --context=kind-worker get pods -A -w
 ### <a name="create-resource-request">Create and submit a resource request
 
 You can now request instances of Jenkins.
-```console
+```bash
 cat > jenkins-resource-request.yaml <<EOF
 apiVersion: promise.example.com/v1
 kind: jenkins
@@ -453,10 +453,38 @@ kubectl apply --context kind-platform -f jenkins-resource-request.yaml
 ```
 <br>
 
-After a few minutes the Jenkins operator will have received the request and asked the worker to start an instance of Jenkins.
+Applying the promise will trigger your pipeline steps which in turn requests an instance of Jenkins from the operator. While the pipeline can run quite quickly, Jenkins requires quite a few resources to be installed including a deployment and a runner which means the full install may take a few minutes.
 
-Target the worker cluster to see the Jenkins instance
+You can see a bit of what is happening by first looking for your pipeline completion
+```bash
+kubectl --context kind-platform get pods
+```
+<br>
+
+This should result in something similar to
 ```console
+NAME                                             READY   STATUS      RESTARTS   AGE
+request-pipeline-jenkins-promise-default-9d40b   0/1     Completed   0          1m
+```
+<br>
+
+For more details, you can view the pipeline logs with
+```bash
+kubectl --context kind-platform logs --selector kratix-promise-id=jenkins-promise-default --container xaas-request-pipeline-stage-1
+```
+<br>
+
+This should result in something like
+```console
++ yq eval .metadata.name /input/object.yaml
++ export 'NAME=example'
++ cat /tmp/transfer/jenkins_instance.yaml
++ yq eval '.metadata.name = env(NAME)' -
++ sed s/NAME/example/g /tmp/transfer/service_account.yaml
+```
+
+Then you can watch for the creation of your Jenkins instance by targeting the worker cluster:
+```bash
 kubectl get pods -A -w --context kind-worker
 ```
 <br>
@@ -474,7 +502,7 @@ For verification, access the Jenkins UI in a browser, as in [previous steps](/in
 <br>
 
 Port forward for browser access to the Jenkins UI
-```console
+```bash
 kubectl --context kind-worker port-forward jenkins-my-amazing-jenkins 8080:8080
 ```
 <br>
@@ -484,13 +512,13 @@ Navigate to http://localhost:8080 and log in with the credentials you copy from 
 <br>
 
 Copy and paste the Jenkins username into the login page
-```console
+```bash
 kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.user}' | base64 -d
 ```
 <br>
 
 Copy and paste the Jenkins password into the login page
-```console
+```bash
 kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.password}' | base64 -d
 ```
 <br>
@@ -499,7 +527,7 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```console
+```bash
 kind delete clusters platform worker
 ```
 <br>
