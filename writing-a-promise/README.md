@@ -66,17 +66,24 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 
 ### <a name="folder-setup">Folder setup
 
-To begin writing a Promise you will need a basic directory structure to work in:
+To begin writing a Promise you will need a basic directory structure to work in. You can generate this folder structure in any local directory by running
 
-```console
+```bash
 mkdir -p jenkins-promise/{resources,request-pipeline-image}
 cd jenkins-promise
 ```
 
+Below should now represent how your directory is organised and your current working directory with the 👩🏾‍💻 icon
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻 . 📂 jenkins-promise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 resources<br>
+
 ### <a name="promise-template">Create a Promise template
 
 Create a basic `jenkins-promise-template.yaml` to work with
-```console
+```bash
 cat > jenkins-promise-template.yaml <<EOF
 apiVersion: platform.kratix.io/v1alpha1
 kind: Promise
@@ -90,6 +97,13 @@ spec:
 EOF
 ```
 <br>
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻 . 📂 jenkins-promise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise-template.yaml
+
 You will fill in the fields under `spec` as you progress through the tutorial.
 
 ### <a name="define-crd">X-as-a-Service Custom Resource Definition: define your Promise API
@@ -131,16 +145,22 @@ You have now created the as-a-Service API.
 
 Next build the pipeline to transform a Promise _resource request_ into the Kubernetes resources required to create a running instance of the Jenkins service.
 
-```console
+```bash
 cd request-pipeline-image
 ```
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
 Create the <code>jenkins-instance.yaml</code> base manifest file that the pipeline will transform.
 
 <details>
   <summary>👀&nbsp;&nbsp;<strong>CLICK HERE</strong> to expand the code you need to create the <code>jenkins-instance.yaml</code> file.</summary>
 
-```console
+```bash
 cat > jenkins-instance.yaml <<EOF
 apiVersion: jenkins.io/v1alpha2
 kind: Jenkins
@@ -216,6 +236,13 @@ EOF
 ```
 </details>
 
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise-template.yaml
+
 ### <a name="pipeline-script"> Create simple request pipeline functionality
 
 Kratix takes no opinion on the tooling used within a pipeline. Kratix will pass a set of resources to the pipeline, and expect back a set of resources. What happens within the pipeline, and what tooling is used, is a decision left entirely to you.
@@ -225,7 +252,7 @@ For this example, you're taking a name from the _resource request_ for an instan
 To keep this transformation simple, you'll use a combination of `sed` and `yq` to do the work.
 
 Create a script file that will execute when the pipeline runs.
-```console
+```bash
 cat > execute-pipeline.sh <<EOF
 #!/bin/sh
 #Get the name from the Promise Custom resource
@@ -241,16 +268,27 @@ EOF
 ```
 <br>
 
+Your file directory should now include the new file as shown below
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
+
 Then make it executable:
-```console
+```bash
 chmod +x execute-pipeline.sh
 ```
 <br>
 
+
 ### <a name="dockerfile"> Define your Docker image for the pipeline
 
 Run the code below, to create your `Dockerfile`
-```console
+```bash
 cat > Dockerfile <<EOF
 FROM "mikefarah/yq:4"
 RUN [ "mkdir", "/tmp/transfer" ]
@@ -264,8 +302,19 @@ EOF
 ```
 <br>
 
+Your file directory should now include the new file as shown below
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 Dockerfile<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
+
 Next build your Docker image. You will later load the image to the KinD local cache, so there's no need to replace the image tag:
-```console
+```bash
 docker build . --tag kratix-workshop/jenkins-request-pipeline:dev
 ```
 
@@ -273,16 +322,30 @@ docker build . --tag kratix-workshop/jenkins-request-pipeline:dev
 
 Test the Docker container image by supplying an input resource and examining the output resource.
 
-Create the test input and output directories locally.
+Create the test input and output directories locally within the `request-pipeline-image` directory:
 
-```console
+```bash
 mkdir {input,output}
 ```
 
+Your file directory should now include the new file as shown below
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  🆕 input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  🆕 output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
+
 The `/input` directory is where your incoming _resource request_ will be written when a user wants an instance.
 
-Create a sample user resource request to the `/input` directory
-```console
+Create a sample user resource request to the `/input` directory without changing your current working directory by running
+
+```bash
 cat > input/object.yaml <<EOF
 apiVersion: promise.example.com/v1
 kind: jenkins
@@ -294,17 +357,43 @@ EOF
 ```
 <br>
 
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 object.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
+
+
 Run the container and examine the output
-```console
+```bash
 docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/jenkins-request-pipeline:dev
-cat output/*
 ```
 <br>
 
 The contents of the `/output` directory will be scheduled and deployed by Kratix to a worker cluster. They need to be valid Kubernetes resources that can be applied to any cluster with the Promise's `workerClusterResources` installed (see beneath).
 
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 jenkins_instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 service_account.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br>
+
 Once you are satisified with the image, load it to the local KinD cache:
-```console
+```bash
 kind load docker-image kratix-workshop/jenkins-request-pipeline:dev --name platform
 ```
 <br>
@@ -313,7 +402,7 @@ The final step of creating the `xaasRequestPipeline` is to reference your docker
 
 Go back to the `jenkins-promise` directory.
 
-```console
+```bash
 cd ..
 ```
 
@@ -341,9 +430,25 @@ The `workerClusterResources` describes everything required to fulfil the Promise
 
 For this Promise, the `workerClusterResources` needs to contain the Jenkins CRD, the Jenkins Operator, and the resources the Operator requires.
 
-From the `jenkins-promise` directory, run:
+We now need to return to the `jenkins-promise` directory as shown below:
 
-```console
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻 . 📂 jenkins-promise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; jenkins_instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; service_account.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br>
+
+Once here, run the following command:
+
+```bash
 mkdir -p resources
 curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/fbea1ed790e7a9deb2311e1f565ee93f07d89022/config/crd/bases/jenkins.io_jenkins.yaml --output resources/jenkins.io_jenkins.yaml --silent
 curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c363a5ceae569a725c17ef82ff2b58/deploy/all-in-one-v1alpha2.yaml --output resources/all-in-one-v1alpha2.yaml --silent
@@ -357,11 +462,11 @@ To make this step simpler we have written a _very basic_ tool to grab all YAML d
 To use this tool, you will need to download the correct binary for your computer from [GitHub releases](https://github.com/syntasso/kratix/releases/tag/v0.0.1):
 
 ```bash
-curl -Lo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-"$(uname -s)"-"$(uname -m)"
+curl -sLo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-"$(uname -s)"-"$(uname -m)"
 chmod +x worker-resource-builder
 ```
 
-```console
+```bash
 ./worker-resource-builder \
   -k8s-resources-directory ./resources \
   -promise ./jenkins-promise-template.yaml > ./jenkins-promise.yaml
@@ -373,28 +478,48 @@ This created your finished Promise definition, `jenkins-promise.yaml`.
 
 ### <a name="prepare-your-environment">Prepare your environment
 
-You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory:
+You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script. This script is found in the kratix directory as seen here:
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻. <a href="https://github.com/syntasso/kratix">📂 kratix</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; ...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 scripts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 quick-start.sh<br>
 
 ```bash
-cd /path/to/kratix
 ./scripts/quick-start.sh --recreate
-
 ```
+
 Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 <br>
 
 ### <a name="install-promise">Install your Promise
 
-Install the Promise in Kratix.
+From back in your promise directory, install the Promise in Kratix.
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻 . 📂 jenkins-promise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; jenkins_instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; service_account.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br>
+
 
 ```
-kubectl apply --context kind-platform -f jenkins-promise.yaml
+kubectl apply --context kind-platform --filename jenkins-promise.yaml
 ```
 <br>
 
-Verify the Promise installed (this may take a few minutes so `-w` will watch the command)
+Verify the Promise installed (this may take a few minutes so `--watch` will append updates to the bottom of the output)
 ```bash
-kubectl --context kind-platform get crds -w
+kubectl --context kind-platform get crds --watch
 ```
 <br>
 
@@ -405,9 +530,9 @@ jenkins.promise.example.com   2021-09-09T11:21:10Z
 ```
 <br>
 
-Verify the Jenkins Operator is running (this will take a few minutes so `-w` will watch the command)
+Verify the Jenkins Operator is running (this will take a few minutes so `--watch` will append updates to the bottom of the output)
 ```bash
-kubectl --context=kind-worker get pods -A -w
+kubectl --context=kind-worker get pods --all-namespaces --watch
 ```
 <br>
 
@@ -424,7 +549,7 @@ spec:
   name: my-amazing-jenkins
 EOF
 
-kubectl apply --context kind-platform -f jenkins-resource-request.yaml
+kubectl apply --context kind-platform --filename jenkins-resource-request.yaml
 ```
 <br>
 
@@ -460,14 +585,14 @@ This should result in something like
 
 Then you can watch for the creation of your Jenkins instance by targeting the worker cluster:
 ```bash
-kubectl get pods -A -w --context kind-worker
+kubectl --context kind-worker get pods --all-namespaces --watch
 ```
 <br>
 
 The above command will give an output similar to
 ```console
 NAME                                READY   STATUS    RESTARTS   AGE
-jenkins-my-amazing-jenkins          1/1     Running   0          113s
+jenkins-my-amazing-jenkins          1/1     Running   0          1m
 ...
 ```
 <br>
