@@ -24,6 +24,8 @@ Now you will see the power of Kratix Promises by deploying a web app that uses m
 
 ## <a name="deploy"></a> Building a paved path using multiple Kratix Promises
 
+![Overview](../assets/images/Treasure_Trove-Install_Multiple_Promises.jpg)
+
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required
 1. [Install Promises](#install-all-promises)
@@ -87,6 +89,8 @@ postgres-operator-7dccdbff7c-2hqhc   1/1     Running   0          57s
 <br>
 
 ### <a name="request-instances">Request instances
+
+![Overview-instances](../assets/images/Treasure_Trove-Get_instances_of_multiple_Promises.jpg)
 
 Submit a _resource request_ to get a Knative Serving component, a Jenkins instance and a Postgres database.
 ```console
