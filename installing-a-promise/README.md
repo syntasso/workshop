@@ -38,6 +38,9 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 
 ## <a name="install-jenkins"></a>Quick Start: Install Jenkins as a Kratix Promise
 
+![Overview](../assets/images/Treasure_Trove-Install_a_Promise.jpg)
+
+
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required
 1. [Install the Jenkins Promise](#install-promise)
@@ -92,6 +95,8 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          1m
 Congratulations! You have installed your first Promise. The machinery to issue Jenkins instances on demand by application teams has now been installed.
 
 ### <a name="request-instance">Request a Jenkins Instance
+
+![Overview-Instance](../assets/images/Treasure_Trove-Get_an_instance.jpg)
 
 Submit a _resource request_ to get an instance of Jenkins.
 ```bash
