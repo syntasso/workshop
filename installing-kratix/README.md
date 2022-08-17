@@ -38,6 +38,8 @@ Now that you know more about Kratix, follow the steps below to install Kratix lo
 
 ## <a name="install-kratix"></a> Quick Start: Install a multi-cluster Kratix using KinD
 
+![Overview](../assets/images/Treasure_Trove-Install_Kratix.jpg)
+
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required
 1. [Delete existing clusters](#delete-clusters), if required
