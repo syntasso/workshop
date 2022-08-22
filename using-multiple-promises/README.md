@@ -47,7 +47,7 @@ cd /path/to/kratix
 
 Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 
-### <a name="install-all-promises">Install all required Promises
+### <a name="install-all-promises"></a>Install all required Promises
 
 You are going to deploy an application that requires CI/CD (Jenkins), relational data (Postgres), and web serving (Knative). To deliver this functionality on-demand with Kratix install the required Promises on your platform cluster:
 
@@ -88,7 +88,7 @@ postgres-operator-7dccdbff7c-2hqhc   1/1     Running   0          57s
 ```
 <br>
 
-### <a name="request-instances">Request instances
+### <a name="request-instances"></a>Request instances
 
 ![Overview-instances](../assets/images/Treasure_Trove-Get_instances_of_multiple_Promises.jpg)
 
@@ -161,7 +161,7 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
 ```
 <br>
 
-#### <a name="deploy-pipeline">Run the deploy pipeline
+#### <a name="deploy-pipeline"></a>Run the deploy pipeline
 
 Access the Jenkins UI in a browser, as in the [previous step](/installing-a-promise/README.md).
 
@@ -199,7 +199,7 @@ https://user-images.githubusercontent.com/201163/175933452-853af525-7fff-4dca-9b
 
 <br>
 
-### <a name="validate-deployment">Validate the deployment
+### <a name="validate-deployment"></a>Validate the deployment
 
 Verify that the Knative Service for the application is ready:
 
@@ -215,7 +215,7 @@ todo   http://todo.default.example.com   todo-00001      todo-00001    True
 ```
 <br>
 
-### <a name="test-app">Test the deployed application
+### <a name="test-app"></a>Test the deployed application
 
 Now test the app. 
 
@@ -232,7 +232,7 @@ curl -H "Host: todo.default.example.com" localhost:8081
 ```
 <br>
 
-### <a name="teardown">Tearing it all down
+### <a name="teardown"></a>Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
