@@ -88,9 +88,13 @@ cd kratix
 ```
 <br/>
 
+As covered above, Kratix is a framework for building platforms. Kratix uses [Flux](https://fluxcd.io/) (the GitOps toolkit) as the mechanism to continuously synchronise the `platform` and `worker` clusters. 
+
+For this workshop, the `platform` cluster will write resource definitions into [MinIO](https://min.io/) as a local document store, which will be used by Flux for synchronisation. MinIO is local storage that works well with KinD, but Kratix can use any storage mechanism that speaks either S3 or Git.
+
 ### <a name="platform-setup"></a>Set up your `platform` cluster
 
-Create your `platform` cluster and install Kratix.
+Create your `platform` cluster and install Kratix and [MinIO](https://min.io/)(used in this workshop as your local document store).
 ```bash
 kind create cluster --name platform
 kubectl apply --filename distribution/kratix.yaml
@@ -113,7 +117,7 @@ works.platform.kratix.io               2022-05-10T12:00:00Z
 ```
 <br/>
 
-Verify Kratix and [MinIO](https://min.io/)(used for this example as your local document store) are installed and healthy.
+Verify Kratix and MinIO are installed and healthy.
 ```bash
 kubectl --context kind-platform get pods --namespace kratix-platform-system
 ```
@@ -136,6 +140,9 @@ sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resource
 <br/>
 
 ### <a name="worker-setup"></a>Set up your Kratix `worker` cluster
+
+
+
 Create your Kratix `worker` cluster and install [Flux](https://fluxcd.io/). This will create a cluster for running the X-as-a-service workloads:
 ```bash
 kind create cluster --name worker #Also switches kubectl context to worker
@@ -144,6 +151,9 @@ kubectl apply --filename hack/worker/gitops-tk-install.yaml
 kubectl apply --filename hack/worker/gitops-tk-resources.yaml
 ```
 <br/>
+
+
+
 
 Verify Flux is installed and configured (i.e., Flux knows where in MinIO to look for resources to install).
 ```bash
