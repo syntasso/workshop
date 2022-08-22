@@ -56,10 +56,6 @@ Now that you know more about Kratix, follow the steps below to install Kratix lo
 
 1. **kubectl**: see [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
-1. A **Docker Hub account** with push permissions.
-
-1. Be logged into **[Docker CLI](https://docs.docker.com/get-docker/)** to build and push images: see [login docs](https://docs.docker.com/engine/reference/commandline/login/)
-
 1. In order to complete all tutorials in this series, you must allocate enough resources to Docker. Docker requires:<br><br>
 5 CPU<br>
 12GB Memory<br>
