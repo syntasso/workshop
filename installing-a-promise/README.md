@@ -8,7 +8,7 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
 1. [learn more about Kratix Promises](#promise)
 1. [install Jenkins as a Kratix Promise](#install-jenkins)
 
-# <a name="promise"></a> What is a Kratix Promise?
+# <a name="promise"></a>What is a Kratix Promise?
 
 If you are, or have been, a member of a platform team, you'll know how hard it can be. We've been platform team members, we've worked with many platform teams, and we've consistently experienced shared pains such as:
 
@@ -49,7 +49,7 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 1. [Tear down your environment](#teardown)
 
 
-### <a name="prerequisites">Prerequisites
+### <a name="prerequisites"></a>Prerequisites
 
 You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory.
 
@@ -57,12 +57,12 @@ You can run this command from the root of the Kratix repository:
 
 ```bash
 ./scripts/quick-start.sh --recreate
-
 ```
+
 Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 <br>
 
-### <a name="install-promise"> Install the off-the-shelf Jenkins Promise
+### <a name="install-promise"></a>Install the off-the-shelf Jenkins Promise
 
 Install the provided Jenkins-as-a-service Kratix Promise.
 
@@ -94,7 +94,7 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          1m
 
 Congratulations! You have installed your first Promise. The machinery to issue Jenkins instances on demand by application teams has now been installed.
 
-### <a name="request-instance">Request a Jenkins Instance
+### <a name="request-instance"></a>Request a Jenkins Instance
 
 ![Overview-Instance](../assets/images/Treasure_Trove-Get_an_instance.jpg)
 
@@ -127,7 +127,7 @@ jenkins-example                     1/1     Running   0          1m
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 ```
 
-### <a name="use-instance">Use your Jenkins instance
+### <a name="use-instance"></a>Use your Jenkins instance
 
 You can access the Jenkins UI in a browser. 
 
@@ -153,9 +153,30 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-example -o
 ```
 <br>
 
-Verify there is a Seed Job in the Jenkins UI and a corresponding Pod on your Worker cluster
+Verify there is a Seed Job in the Jenkins UI and a corresponding Pod on your Worker cluster via the UI:
 
-### <a name="teardown">Tearing it all down
+<img
+  align="right"
+  src="../assets/images/installing-a-promise_validate-Jenkins.png"
+  alt="Kratix logo"
+/>
+
+And by running the following command:
+
+```bash
+kubectl --context kind-worker get pods
+```
+
+which should result in output similar to
+
+```console
+NAME                                     READY   STATUS    RESTARTS   AGE
+jenkins-example                          1/1     Running   0          5m
+jenkins-operator-778d6fc487-t5l9x        1/1     Running   0          2m
+seed-job-agent-example-597fcbfb7-qlzgm   1/1     Running   0          1m
+```
+
+### <a name="teardown"></a>Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
