@@ -131,7 +131,7 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 
 You can access the Jenkins UI in a browser. 
 
-Port forward for browser access to the Jenkins UI 
+Kubernetes allows you to port forward a service inside the cluster to a local port on your host computer. When doing this, it keeps the connection open and means you won't be able to use the same terminal for any other commands. Therefore, open a new terminal and use the following command to gain browser access to the Jenkins UI 
 ```console
 kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
