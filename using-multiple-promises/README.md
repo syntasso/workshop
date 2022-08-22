@@ -193,6 +193,8 @@ In the Jenkins UI, create a new pipeline using this
 [Jenkinsfile](https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/ci/Jenkinsfile)
 and execute it.
 
+For those that are less familiar with Jenkins, you can watch this video to see how to navigate the UI for this task.
+
 https://user-images.githubusercontent.com/201163/175933452-853af525-7fff-4dca-9ba9-032c07c8c393.mov
 
 <br>
