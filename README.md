@@ -39,4 +39,4 @@ Extend an existing off-the-shelf Postgres Promise by configuring specifically fo
 How can Kratix help you?
 
 ### 🥁 &nbsp; &nbsp; Let's start
-Begin by <a href="/installing-kratix/">installing multi-cluster Kratix on KinD</a>.
+Begin with [Quick Start: Install Kratix](/installing-kratix/).
