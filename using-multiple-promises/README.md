@@ -10,7 +10,7 @@ This is Part 3 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="power-of-promises"></a> The power of Promises
 
-As covered in previously, Promises are the blocks that enable teams to build platforms that specifically meet their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can wire together simpler, low-level Promises to provide a single, unified high-level Promise, tailored to their users needs.
+As covered in previously, Promises are the blocks that enable teams to build platforms that specifically meet their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can use multiple simpler, low-level Promises to provide an experience tailored to their users needs.
 
 Consider the task of setting up development environments for application teams. This task is usually repetitive and requires many cookie-cutter steps. It may involve wiring up Git repos, spinning up a CI/CD server, creating a PaaS to run the applications, instructing CI/CD to listen to the Git repos and push successful builds into the PaaS, and finally wiring applications to their required data services.
 
