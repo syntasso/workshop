@@ -98,15 +98,16 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 <br /><br />
 
 Following the diagram above, you will have installed Kratix with the below components by the end of this part of the workshop. These descriptions listed here are _very_ high level.
+<br/><br/>
 
 | Reference | Name        | Description |
 | :---: | :--- | ----------- |
-| 1️⃣ | `platform`&nbsp;&nbsp;cluster | The first of two local Kubernetes clusters  |
-| 2️⃣ | `kratix-platform-controller` Pod  | At a _very_ high level, this dynamically generates other Kubernetes controllers.  |
-| 3️⃣ | Kratix CRDs  | A set of CRDs that Kratix requires to orchestrate workloads. More on these later. |
-| 4️⃣ | An installation of [MinIO](https://min.io/) | MinIO is a document store, which is what the Kratix `platform` cluster needs for storing generated resource definitions. MinIO is a local document storage that works well with KinD. Kratix can use any storage mechanism that speaks either S3 or Git.  |
-| 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters. |
-| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and Flux is the mechanism to continuously synchronise the `platform` and `worker` clusters. Flux uses the documents in the MinIO store for synchronisation. | 
+| 1️⃣ | `platform`&nbsp;&nbsp;cluster | The first of two local Kubernetes clusters. This allows the platform to have orchestration logic separated from application workloads.  |
+| 2️⃣ | `kratix`&#8209;`platform`&#8209;`controller`&nbsp;&nbsp;Pod  | At a _very_ high level, this manages the lifecycle of Kratix resources.  |
+| 3️⃣ | Kratix CRDs  | A set of CRDs that Kratix require. |
+| 4️⃣ | An installation of [MinIO](https://min.io/) | [MinIO](https://min.io/) is a document store, which is what the Kratix `platform` cluster needs for storing generated resource definitions. MinIO is a local document storage that works well with KinD. Kratix can use any storage mechanism that speaks either S3 or Git.  |
+| 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters. In this workshop, we run a single separate cluster to manage application workloads, but Kratix allows you to design the cluster architecture that makes sense in your context. |
+| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and [Flux](https://fluxcd.io/) is the mechanism to continuously synchronise the `platform` and `worker` clusters. Flux uses the documents in the MinIO store for synchronisation. Similar to document storage, this workshop uses Flux, but Kratix can use any tool that follows the GitOps pattern of using repositories as the source of truth for defining desired Kubernetes state.  | 
 
 <br/>
 Now that you know what the installation looks like, bring Kratix to life.
@@ -186,7 +187,7 @@ kratix-workload-resources         True    Fetched revision: f2d918e21d4c5cc65791
 Once Flux is installed and running, the Kratix resources will be visible on the `worker` cluster. 
 
 Verify that you can deploy resources to `worker`&mdash;check if your "canary" resource has been deployed. This may take a few minutes so `--watch` will append updates to the bottom of the output.
-```console
+```bash
 kubectl --context kind-worker get namespaces --watch
 ```
 
