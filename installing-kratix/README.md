@@ -112,7 +112,7 @@ Now that you know what the installation looks like, bring Kratix to life.
 
 ### <a name="platform-setup"></a>Set up your `platform` cluster
 
-Create your `platform` cluster and install Kratix and [MinIO](https://min.io/)(used in this workshop as your local document store).
+Create your `platform` cluster and install Kratix and MinIO.
 ```bash
 kind create cluster --name platform
 kubectl apply --filename distribution/kratix.yaml
