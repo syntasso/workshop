@@ -1,4 +1,4 @@
-This is Part 1 of [a series](../README.md) illustrating how Kratix works. <br/>
+This is Part 1 of [a series](../README.md) illustrating how Kratix works. <br />
 👉🏾&nbsp;&nbsp; Next: [Install a Kratix Promise](/installing-a-promise/)
 
 <hr>
@@ -30,29 +30,29 @@ Kratix is a framework used by platform teams to build the custom platforms tailo
 - consume services on demand using standard Kubernetes APIs.
 - move focus away from infrastructure toward adding product value.
 
-<br>
+<br />
 <hr>
-<br>
+<br />
 
 Before you begin installing Kratix: 
 
 ## <a name="prerequisites"></a>System setup
 For this workshop, we'll use Kratix on two local Kubernetes clusters. Install the prerequisites listed below if they aren't already on your system.
 
-1. `kind` CLI / **Kubernetes-in-Docker(KinD)**: <br/>
-  Used to create and manage local Kubernetes clusters in Docker. <br/>
+1. `kind` CLI / **Kubernetes-in-Docker(KinD)**: <br />
+  Used to create and manage local Kubernetes clusters in Docker. <br />
   See [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/) to install.
 
 1. `docker` CLI / **Docker**: <br />
-  Used to orchestrate containers. `kind` (above) requires that you have Docker installed and configured. <br/>
+  Used to orchestrate containers. `kind` (above) requires that you have Docker installed and configured. <br />
   See [Get Docker](https://docs.docker.com/get-docker/) to install.
 
-1. `kubectl` / **Kubernetes command-line tool**: <br/> 
-The CLI for Kubernetes&mdash;allows you to run commands against Kubernetes clusters.<br/>
+1. `kubectl` / **Kubernetes command-line tool**: <br /> 
+The CLI for Kubernetes&mdash;allows you to run commands against Kubernetes clusters.<br />
 See [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
 ## <a name="delete-clusters"></a>Update your Docker resource allocations
-In order to complete all tutorials in this series, you must allocate enough resources to Docker. Docker requires:<br><br>
+In order to complete all tutorials in this series, you must allocate enough resources to Docker. Docker requires:<br /><br />
 * 5 CPU
 * 12GB Memory
 * 4GB swap
@@ -94,7 +94,7 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 1. [Set up your `platform` cluster](#platform-setup)
 1. [Adjust networking for KinD](#kind-networking), if required
 1. [Set up your `worker` cluster](#worker-setup)
-<br/><br/>
+<br /><br />
 
 ![Overview](../assets/images/Treasure_Trove-Install_Kratix.jpg)
 <br /><br />
@@ -108,9 +108,9 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 | 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters that Kratix will use. In this workshop, you run one single separate cluster to manage application workloads, but Kratix allows you to design the cluster architecture that makes sense in your context. |
 | 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and [Flux](https://fluxcd.io/) is the mechanism to continuously synchronise the `platform` and `worker` clusters. Flux uses the documents in the MinIO store for synchronisation. Similar to document storage, this workshop uses Flux, but Kratix can use any tool that follows the GitOps pattern of using repositories as the source of truth for defining desired Kubernetes state.  | 
 
-<br/>
+<br />
 Now that you know what the installation looks like, bring Kratix to life.
-<br/>
+<br />
 
 ### <a name="platform-setup"></a>Set up your Kratix `platform` cluster
 
@@ -120,7 +120,7 @@ kind create cluster --name platform
 kubectl apply --filename distribution/kratix.yaml
 kubectl apply --filename hack/platform/minio-install.yaml
 ```
-<br/>
+<br />
 
 Verify that the Kratix API is now available.
 ```bash
@@ -135,7 +135,7 @@ promises.platform.kratix.io            2022-05-10T12:00:00Z
 workplacements.platform.kratix.io      2022-05-10T12:00:00Z
 works.platform.kratix.io               2022-05-10T12:00:00Z
 ```
-<br/>
+<br />
 
 Verify Kratix and MinIO are installed and healthy.
 ```bash
@@ -148,7 +148,7 @@ NAME                                                  READY   STATUS       RESTA
 kratix-platform-controller-manager-769855f9bb-8srtj   2/2     Running      0          1h
 minio-6f75d9fbcf-5cn7w                                1/1     Running      0          1h
 ```
-<br/>
+<br />
 
 ### <a name="kind-networking"></a>Adjust multi-cluster networking for KinD
 Some KinD installations use non-standard networking. To ensure cross-cluster communication you need to run this script:
@@ -157,7 +157,7 @@ Some KinD installations use non-standard networking. To ensure cross-cluster com
 PLATFORM_CLUSTER_IP=`docker inspect platform-control-plane | grep '"IPAddress": "172' | awk '{print $2}' | awk -F '"' '{print $2}'`
 sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resources.yaml
 ```
-<br/>
+<br />
 
 ### <a name="worker-setup"></a>Set up your Kratix `worker` cluster
 
@@ -168,7 +168,7 @@ kubectl apply --filename config/samples/platform_v1alpha1_worker_cluster.yaml --
 kubectl apply --filename hack/worker/gitops-tk-install.yaml
 kubectl apply --filename hack/worker/gitops-tk-resources.yaml
 ```
-<br/>
+<br />
 
 Verify Flux is installed and configured (i.e., Flux knows where in MinIO to look for resources to install).
 ```bash
@@ -181,7 +181,7 @@ NAME                        URL   READY   STATUS                                
 kratix-workload-crds              True    Fetched revision: 9343bf26ec16db995d7b53ff63c64b7dfb9789c4   1m
 kratix-workload-resources         True    Fetched revision: f2d918e21d4c5cc65791d121f4a3375ad80a3eac   1m
 ```
-<br/>
+<br />
 
 Once Flux is installed and running, the Kratix resources will be visible on the `worker` cluster. 
 
@@ -201,8 +201,8 @@ kube-public            Active   3m33s
 kube-system            Active   3m33s
 ...
 ```
-<br> 
+<br /> 
 
 ### 🎉 &nbsp; Congratulations!
-✅&nbsp;&nbsp; Kratix is now installed. <br/>
+✅&nbsp;&nbsp; Kratix is now installed. <br />
 👉🏾&nbsp;&nbsp; Next you will [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).

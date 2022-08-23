@@ -1,5 +1,5 @@
-This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br/>
-👈🏾&nbsp;&nbsp; Previous: [Using multiple Kratix Promises](/using-multiple-promises/) <br/>
+This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br />
+👈🏾&nbsp;&nbsp; Previous: [Using multiple Kratix Promises](/using-multiple-promises/) <br />
 👉🏾&nbsp;&nbsp; Next: [Enhancing a Kratix Promise](/enhancing-a-promise/)
 
 <hr>
@@ -41,9 +41,9 @@ Imagine your platform team has received its fourth request from its fourth team 
 
 Now you'll write a Jenkins Promise and install it on your platform so that your four teams get Jenkins&mdash;and you get time back for more valuable work.
 
-<br>
+<br />
 <hr>
-<br>
+<br />
 
 
 ## <a name="write-promise-start"> Writing your own Kratix Promise
@@ -76,9 +76,9 @@ cd jenkins-promise
 Below should now represent how your directory is organised and your current working directory with the 👩🏾‍💻 icon
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-👩🏾‍💻 . 📂 jenkins-promise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 resources<br>
+👩🏾‍💻 . 📂 jenkins-promise<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 resources<br />
 
 ### <a name="promise-template">Create a Promise template
 
@@ -96,12 +96,12 @@ spec:
   xaasCrd:
 EOF
 ```
-<br>
+<br />
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-👩🏾‍💻 . 📂 jenkins-promise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+👩🏾‍💻 . 📂 jenkins-promise<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise-template.yaml
 
 You will fill in the fields under `spec` as you progress through the tutorial.
@@ -150,9 +150,9 @@ cd request-pipeline-image
 ```
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
 Create the <code>jenkins-instance.yaml</code> base manifest file that the pipeline will transform.
@@ -237,10 +237,10 @@ EOF
 </details>
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise-template.yaml
 
 ### <a name="pipeline-script"> Create simple request pipeline functionality
@@ -266,23 +266,23 @@ find /tmp/transfer -type f -exec sed -i \\
 cp /tmp/transfer/* /output/
 EOF
 ```
-<br>
+<br />
 
 Your file directory should now include the new file as shown below
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
 Then make it executable:
 ```bash
 chmod +x execute-pipeline.sh
 ```
-<br>
+<br />
 
 
 ### <a name="dockerfile"> Define your Docker image for the pipeline
@@ -300,17 +300,17 @@ CMD [ "sh", "-c", "./execute-pipeline.sh"]
 ENTRYPOINT []
 EOF
 ```
-<br>
+<br />
 
 Your file directory should now include the new file as shown below
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 Dockerfile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; 🆕 Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
 Next build your Docker image. You will later load the image to the KinD local cache, so there's no need to replace the image tag:
@@ -331,14 +331,14 @@ mkdir {input,output}
 Your file directory should now include the new file as shown below
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  🆕 input<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  🆕 output<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  🆕 input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  🆕 output<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
 The `/input` directory is where your incoming _resource request_ will be written when a user wants an instance.
@@ -355,18 +355,18 @@ spec:
   name: my-amazing-jenkins
 EOF
 ```
-<br>
+<br />
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 object.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 object.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
 
@@ -374,28 +374,28 @@ Run the container and examine the output
 ```bash
 docker run -v ${PWD}/input:/input -v ${PWD}/output:/output kratix-workshop/jenkins-request-pipeline:dev
 ```
-<br>
+<br />
 
 The contents of the `/output` directory will be scheduled and deployed by Kratix to a worker cluster. They need to be valid Kubernetes resources that can be applied to any cluster with the Promise's `workerClusterResources` installed (see beneath).
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br>
-👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins_instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;. 📂 jenkins-promise<br />
+👩🏾‍💻&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins_instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br />
 
 Once you are satisified with the image, load it to the local KinD cache:
 ```bash
 kind load docker-image kratix-workshop/jenkins-request-pipeline:dev --name platform
 ```
-<br>
+<br />
 
 The final step of creating the `xaasRequestPipeline` is to reference your docker image from the `spec.xaasRequestPipeline` field in the `jenkins-promise-template.yaml`.
 
@@ -410,7 +410,7 @@ Add the image to the array in `jenkins-promise-template.yaml`.
 xaasRequestPipeline:
 - kratix-workshop/jenkins-request-pipeline:dev
 ```
-<br>
+<br />
 
 In summary, you have:
 - Created a container image containing:
@@ -432,17 +432,17 @@ For this Promise, the `workerClusterResources` needs to contain the Jenkins CRD,
 We now need to return to the `jenkins-promise` directory as shown below:
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-👩🏾‍💻 . 📂 jenkins-promise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins_instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br>
+👩🏾‍💻 . 📂 jenkins-promise<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins_instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br />
 
 Once here, run the following command:
 
@@ -451,7 +451,7 @@ mkdir -p resources
 curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/fbea1ed790e7a9deb2311e1f565ee93f07d89022/config/crd/bases/jenkins.io_jenkins.yaml --output resources/jenkins.io_jenkins.yaml --silent
 curl https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/8fee7f2806c363a5ceae569a725c17ef82ff2b58/deploy/all-in-one-v1alpha2.yaml --output resources/all-in-one-v1alpha2.yaml --silent
 ```
-<br>
+<br />
 
 The script will download the necessary files in the `resources` directory. You are now ready to inject the Jenkins files into the `jenkins-promise-template.yaml`.
 
@@ -469,7 +469,7 @@ chmod +x worker-resource-builder
   -k8s-resources-directory ./resources \
   -promise ./jenkins-promise-template.yaml > ./jenkins-promise.yaml
 ```
-<br>
+<br />
 
 This created your finished Promise definition, `jenkins-promise.yaml`.
 
@@ -479,59 +479,59 @@ This created your finished Promise definition, `jenkins-promise.yaml`.
 You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script. This script is found in the kratix directory as seen here:
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-👩🏾‍💻. <a href="https://github.com/syntasso/kratix">📂 kratix</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; ...<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 scripts<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 quick-start.sh<br>
+👩🏾‍💻. <a href="https://github.com/syntasso/kratix">📂 kratix</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; ...<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 scripts<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 quick-start.sh<br />
 
 ```bash
 ./scripts/quick-start.sh --recreate
 ```
 
 Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
-<br>
+<br />
 
 ### <a name="install-promise">Install your Promise
 
 From back in your promise directory, install the Promise in Kratix.
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-👩🏾‍💻 . 📂 jenkins-promise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins_instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br>
+👩🏾‍💻 . 📂 jenkins-promise<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins_instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br />
 
 
 ```
 kubectl apply --context kind-platform --filename jenkins-promise.yaml
 ```
-<br>
+<br />
 
 Verify the Promise installed (this may take a few minutes so `--watch` will append updates to the bottom of the output)
 ```bash
 kubectl --context kind-platform get crds --watch
 ```
-<br>
+<br />
 
 The above command will give an output similar to
 ```console
 NAME                          CREATED AT
 jenkins.promise.example.com   2021-09-09T11:21:10Z
 ```
-<br>
+<br />
 
 Verify the Jenkins Operator is running (this will take a few minutes so `--watch` will append updates to the bottom of the output)
 ```bash
 kubectl --context=kind-worker get pods --all-namespaces --watch
 ```
-<br>
+<br />
 
 ### <a name="create-resource-request">Create and submit a resource request
 
@@ -548,7 +548,7 @@ EOF
 
 kubectl apply --context kind-platform --filename jenkins-resource-request.yaml
 ```
-<br>
+<br />
 
 Applying the promise will trigger your pipeline steps which in turn requests an instance of Jenkins from the operator. While the pipeline can run quite quickly, Jenkins requires quite a few resources to be installed including a deployment and a runner which means the full install may take a few minutes.
 
@@ -556,20 +556,20 @@ You can see a bit of what is happening by first looking for your pipeline comple
 ```bash
 kubectl --context kind-platform get pods
 ```
-<br>
+<br />
 
 This should result in something similar to
 ```console
 NAME                                             READY   STATUS      RESTARTS   AGE
 request-pipeline-jenkins-promise-default-9d40b   0/1     Completed   0          1m
 ```
-<br>
+<br />
 
 For more details, you can view the pipeline logs with
 ```bash
 kubectl --context kind-platform logs --selector kratix-promise-id=jenkins-promise-default --container xaas-request-pipeline-stage-1
 ```
-<br>
+<br />
 
 This should result in something like
 ```console
@@ -584,7 +584,7 @@ Then you can watch for the creation of your Jenkins instance by targeting the wo
 ```bash
 kubectl --context kind-worker get pods --all-namespaces --watch
 ```
-<br>
+<br />
 
 The above command will give an output similar to
 ```console
@@ -592,33 +592,33 @@ NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-my-amazing-jenkins          1/1     Running   0          1m
 ...
 ```
-<br>
+<br />
 
 For verification, access the Jenkins UI in a browser, as in [previous steps](/installing-a-promise/README.md).
 
-<br>
+<br />
 
 Port forward for browser access to the Jenkins UI
 ```bash
 kubectl --context kind-worker port-forward jenkins-my-amazing-jenkins 8080:8080
 ```
-<br>
+<br />
 
 Navigate to http://localhost:8080 and log in with the credentials you copy from the below commands.
 
-<br>
+<br />
 
 Copy and paste the Jenkins username into the login page
 ```bash
 kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.user}' | base64 -d
 ```
-<br>
+<br />
 
 Copy and paste the Jenkins password into the login page
 ```bash
 kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing-jenkins -o 'jsonpath={.data.password}' | base64 -d
 ```
-<br>
+<br />
 
 ### <a name="summary">Summary of a promise parts (in detail)
 
@@ -650,8 +650,8 @@ The next section in this tutorial requires a clean Kratix installation. Before h
 ```bash
 kind delete clusters platform worker
 ```
-<br>
+<br />
 
 ### 🎉 &nbsp; Congratulations!
-✅&nbsp;&nbsp; You have written a Kratix Promise. <br/>
+✅&nbsp;&nbsp; You have written a Kratix Promise. <br />
 👉🏾&nbsp;&nbsp; Let's [see how to tailor Kratix Promises based on organisational context](/enhancing-a-promise/README.md).

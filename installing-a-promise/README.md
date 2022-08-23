@@ -1,5 +1,5 @@
-This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br/>
-👈🏾&nbsp;&nbsp; Previous: [Install Kratix](/installing-kratix/) <br/>
+This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br />
+👈🏾&nbsp;&nbsp; Previous: [Install Kratix](/installing-kratix/) <br />
 👉🏾&nbsp;&nbsp; Next: [Using multiple Kratix Promises](/using-multiple-promises/)
 
 <hr>
@@ -32,7 +32,7 @@ Conceptually, Promises are the building blocks of Kratix that allow you to devel
 
 Now that you know more about Kratix Promises, follow the steps below to install a Promise.
 
-<br>
+<br />
 <hr>
 
 ## <a name="prerequisites"></a>Prerequisites
@@ -45,8 +45,8 @@ You can run this command from the root of `kratix`:
 ```
 
 Alternatively, you can go back to [Install Kratix across two KinD clusters](/installing-kratix/).
-<br/>
-<br/>
+<br />
+<br />
 
 ## <a name="install-promise"></a>Install the Kratix sample Jenkins Promise
 
@@ -57,12 +57,12 @@ Now that your system is set up, you can install your first Kratix Promise! You s
 1. [Request an instance](#request-instance)
 1. [Use the instance](#use-instance)
 1. [Tear down your environment](#teardown)
-<br/>
-<br/>
+<br />
+<br />
 
 ![Overview](../assets/images/Treasure_Trove-Install_a_Promise.jpg)
-<br/>
-<br/>
+<br />
+<br />
 
 ### <a name="install-promise"></a>Install the Promise
 
@@ -70,7 +70,7 @@ Install Kratix's sample Jenkins Promise.
 ```bash
 kubectl --context kind-platform apply --filename samples/jenkins/jenkins-promise.yaml
 ```
-<br/>
+<br />
 
 Verify that your `platform` cluster has registered Jenkins as a new available Kratix Promise.
 ```bash
@@ -82,7 +82,7 @@ The above command will give an output similar to
 NAME                                     CREATED AT
 jenkins.example.promise.syntasso.io   2021-05-10T12:00:00Z
 ```
-<br/>
+<br />
 
 Verify that your `worker` cluster has the Jenkins Operator to be able to create Jenkins instances.
 ```bash
@@ -94,25 +94,25 @@ The above command will give an output similar to
 NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          1m
 ```
-<br/>
+<br />
 
 Congratulations! You have installed your first Kratix Promise, which means your application teams can now get on-demand instances of Jenkins from your platform.
 
 ### <a name="request-instance"></a>Request a Jenkins Instance
 
 Application developers using your platform will be issued a Jenkins instance after applying a Kratix Resource Request.
-<br/>
-<br/>
+<br />
+<br />
 
 ![Verify-Instance](../assets/images/Treasure_Trove-Get_an_instance.jpg)
-<br/>
-<br/>
+<br />
+<br />
 
 Test your platform by acting as an application developer and submitting a Kratix Resource Request.
 ```bash
 kubectl --context kind-platform apply --filename samples/jenkins/jenkins-resource-request.yaml
 ```
-<br/>
+<br />
 
 Verify that the Kratix Resource Request was issued on the `platform` cluster.
 ```bash
@@ -124,7 +124,7 @@ The above command will give an output similar to
 NAME                   AGE
 my-jenkins             1m
 ```
-<br/>
+<br />
 
 Verify the instance was created on the worker cluster. This may take a few minutes so `--watch` will append updates to the bottom of the output.
 ```bash
@@ -137,26 +137,26 @@ NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-example                     1/1     Running   0          1m
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 ```
-<br/>
+<br />
 
 Congratulations! You have successfully requested and created an on-demand instance of Jenkins from your platform.
 
 ### <a name="use-instance"></a>Use your Jenkins instance
 
 Access the Jenkins UI in a browser to ensure the instance is working. 
-<br/>
-<br/> 
+<br />
+<br /> 
 
-⚠️ **Note:** Before you can access Jenkins in the UI, you must port forward from within the Kubernetes cluster to a local port on your computer. Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br/> 
+⚠️ **Note:** Before you can access Jenkins in the UI, you must port forward from within the Kubernetes cluster to a local port on your computer. Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br /> 
 _**Open a new terminal to request the port forward**_. 
 ```console
 kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
-<br>
+<br />
 
 Navigate to http://localhost:8080 and log in with the credentials you get from the commands below.
-<br>
-<br>
+<br />
+<br />
 
 Leave the `port-forward` running in the separate terminal and return to your main terminal. 
 
@@ -164,19 +164,19 @@ Copy and paste the Jenkins username into the login page.
 ```console
 kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d
 ```
-<br>
+<br />
 
 Copy and paste the Jenkins password into the login page.
 ```console
 kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
 ```
-<br>
+<br />
 
 Verify there is a Seed Job in Jenkins via the UI:
 
 ![Verify-Seed-Job](../assets/images/installing-a-promise_validate-Jenkins.png)
-<br/>
-<br/>
+<br />
+<br />
 
 And verify there is a corresponding Pod on your `worker` cluster by running the following command:
 ```bash
@@ -190,7 +190,7 @@ jenkins-example                          1/1     Running   0          5m
 jenkins-operator-778d6fc487-t5l9x        1/1     Running   0          2m
 seed-job-agent-example-597fcbfb7-qlzgm   1/1     Running   0          1m
 ```
-<br/>
+<br />
 
 Congratulations! You have verified that the Jenkins instance is operational and ready to be used.
 
@@ -201,8 +201,8 @@ The next section in this tutorial requires a clean Kratix installation. Before h
 ```bash
 kind delete clusters platform worker
 ```
-<br>
+<br />
 
 ### 🎉 &nbsp; Congratulations!
-✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br/>
+✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br />
 👉🏾&nbsp;&nbsp; Now you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
