@@ -340,10 +340,10 @@ Conceptually, a pipeline is the manipulation of an input value to generate an ou
 * `Dockerfile`
 
 
-You can see these files in the `request-pipeline-image` directory. You'll change two of these files so that the Promise's pipeline:
+You can see these files in the `request-pipeline-image` directory. To connect the new user input label, we will need to make sure the pipelins both reads it in, and applies it to the right place in the customised resource outputs. This requires you to change two of files:
 
-1. knows to include the `costCentre` _label_ in its output
-1. knows to include your user's `costCentre` _actual value_ in its output
+1. Resource template: This resource needs to hold reference to the `costCentre` _label_
+1. Pipeline script: Inject the user's `costCentre` _actual value_ into the resource template to generate the output
 
 ### Update the `minimal-postgres-manifest.yaml` to add in the property
 
