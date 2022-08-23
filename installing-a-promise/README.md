@@ -36,21 +36,6 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 <hr>
 <br>
 
-## <a name="install-jenkins"></a>Quick Start: Install Jenkins as a Kratix Promise
-<br>
-<br>
-
-![Overview](../assets/images/Treasure_Trove-Install_a_Promise.jpg)
-<br>
-
-### Steps
-1. [Complete pre-requistes](#prerequisites), if required
-1. [Install the Jenkins Promise](#install-promise)
-1. [Request an instance](#request-instance)
-1. [Use the instance](#use-instance)
-1. [Tear down your environment](#teardown)
-
-
 ## <a name="prerequisites"></a>Prerequisites
 
 You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory.
@@ -65,6 +50,22 @@ Alternatively, you can go back to [Install Kratix across two KinD clusters](/ins
 <br>
 
 ## <a name="install-promise"></a>Install the Kratix sample Jenkins Promise
+
+Now that your system is set up, you can install your first Kratix Promise! You should be in the `kratix` folder.
+
+### Steps
+1. [Install the Jenkins Promise](#install-promise)
+1. [Request an instance](#request-instance)
+1. [Use the instance](#use-instance)
+1. [Tear down your environment](#teardown)
+<br/>
+<br/>
+
+![Overview](../assets/images/Treasure_Trove-Install_a_Promise.jpg)
+<br/>
+<br/>
+
+### <a name="install-promise"></a>Install the Promise
 
 Install Kratix's sample Jenkins Promise.
 ```bash
@@ -152,7 +153,7 @@ kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
 <br>
 
-Navigate to http://localhost:8080 and log in with the credentials you get below.
+Navigate to http://localhost:8080 and log in with the credentials you get.
 <br>
 
 Copy and paste the Jenkins username into the login page
