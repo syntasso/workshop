@@ -37,9 +37,11 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 <br>
 
 ## <a name="install-jenkins"></a>Quick Start: Install Jenkins as a Kratix Promise
+<br>
+<br>
 
 ![Overview](../assets/images/Treasure_Trove-Install_a_Promise.jpg)
-
+<br>
 
 ### Steps
 1. [Complete pre-requistes](#prerequisites), if required
@@ -65,13 +67,12 @@ Alternatively, you can go back to [Install Kratix across two KinD clusters](/ins
 ## <a name="install-promise"></a>Install the Kratix sample Jenkins Promise
 
 Install Kratix's sample Jenkins Promise.
-
 ```bash
 kubectl --context kind-platform apply --filename samples/jenkins/jenkins-promise.yaml
 ```
 <br/>
 
-Verify you now have the ability to create Jenkins instances.
+Verify that your `platform` cluster has registered Jenkins as a new available Kratix Promise.
 ```bash
 kubectl --context kind-platform get crds jenkins.example.promise.syntasso.io
 ```
@@ -83,7 +84,7 @@ jenkins.example.promise.syntasso.io   2021-05-10T12:00:00Z
 ```
 <br/>
 
-Verify that the Jenkins operator is now installed.
+Verify that your `worker` cluster has the Jenkins Operator to be able to create Jenkins instances.
 ```bash
 kubectl --context kind-worker --namespace default get pods
 ```
@@ -113,7 +114,7 @@ kubectl --context kind-platform apply --filename samples/jenkins/jenkins-resourc
 ```
 <br/>
 
-Verify that the Kratix Resource Request was issued on the platform cluster.
+Verify that the Kratix Resource Request was issued on the `platform` cluster.
 ```bash
 kubectl --context kind-platform get jenkins.example.promise.syntasso.io
 ```
@@ -136,6 +137,7 @@ NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-example                     1/1     Running   0          1m
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 ```
+<br/>
 
 Congratulations! You have successfully requested and created an on-demand instance of Jenkins from your platform.
 
@@ -150,7 +152,7 @@ kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
 <br>
 
-Navigate to http://localhost:8080 and log in with the credentials you copy from the below commands.
+Navigate to http://localhost:8080 and log in with the credentials you get below.
 <br>
 
 Copy and paste the Jenkins username into the login page
