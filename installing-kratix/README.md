@@ -97,9 +97,6 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 ![Overview](../assets/images/Treasure_Trove-Install_Kratix.jpg)
 <br /><br />
 
-Following the diagram above, you will have installed Kratix with the below components by the end of this part of the workshop. These descriptions listed here are _very_ high level.
-<br/><br/>
-
 | Reference | Name        | Description |
 | :---: | :--- | ----------- |
 | 1️⃣ | `platform`&nbsp;&nbsp;cluster | The first of two local Kubernetes clusters. This allows the platform to have orchestration logic separated from application workloads.  |
