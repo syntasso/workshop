@@ -556,7 +556,7 @@ The new image is built and available on your platform cluster. Update your Promi
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👩🏾‍💻 |&mdash;postgres-promise.yaml<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;postgres-resource-request.yaml<br>
 
-Open the Promise definition file (`postgres-promise.yaml`). Update the `xaasRequestPipeline` to use your new image `kratix-workshop/postgres-request-pipeline:dev` instead of `syntasso/postgres-request-pipeline`.
+Open the Promise definition file (`postgres-promise.yaml`). From the top of the file, navigate to `spec` > `xaasRequestPipeline` and replace the current `syntasso/postgres-request-pipeline` image with the newly created `kratix-workshop/postgres-request-pipeline:dev` image.
 
 <details>
   <summary>👀&nbsp;&nbsp;Click here to see the resulting xaasRequestPipeline section which should be indented under `spec` in the Promise yaml</summary>
