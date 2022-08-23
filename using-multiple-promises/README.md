@@ -49,7 +49,7 @@ Alternatively, you can go back to the first step on this series: [Install Kratix
 
 ### <a name="install-all-promises"></a>Install all required Promises
 
-You are going to deploy an application that requires CI/CD (Jenkins), relational data (Postgres), and web serving (Knative). To deliver this functionality on-demand with Kratix install the required Promises on your platform cluster:
+In order for an application team to deploy an application to a dev environment they require a relational datastore (postgres), networking for user traffic (Knative), and a CI/CD service for ongoing improvements (Jenkins). To deliver this functionality on-demand with Kratix install the required Promises on your platform cluster:
 
 <!-- ❓ Do we want people to clone the workshop and kratix or not? -->
 ```console
@@ -161,7 +161,9 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
 ```
 <br>
 
-#### <a name="deploy-pipeline"></a>Run the deploy pipeline
+#### <a name="deploy-pipeline"></a>Run the application deploy pipeline
+
+With all the necessary resources available, you will now change hats to be a part of the application team who can now design and run their own CI/CD pipeline using the provided Jenkins service.
 
 Access the Jenkins UI in a browser, as in the [previous step](/installing-a-promise/README.md).
 
