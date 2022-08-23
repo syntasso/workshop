@@ -68,23 +68,23 @@ kubectl --context kind-platform get promises
 The above command will give an output similar to
 ```console
 NAME                      AGE
-ha-postgres-promise       1h
-jenkins-promise           1h
-knative-serving-promise   1h
+ha-postgres-promise       1m
+jenkins-promise           1m
+knative-serving-promise   1m
 ```
 <br>
 
-Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster (this may take a few minutes so `-w` will watch the command)
+Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster (this may take a few minutes so `--watch` will watch the command)
 ```console
-kubectl --context kind-worker get pods -w
+kubectl --context kind-worker get pods --watch
 ```
 <br>
 
 The above command will give an output similar to
 ```console
 NAME                                 READY   STATUS    RESTARTS   AGE
-jenkins-operator-6c89d97d4f-r474w    1/1     Running   0          40s
-postgres-operator-7dccdbff7c-2hqhc   1/1     Running   0          57s
+jenkins-operator-6c89d97d4f-r474w    1/1     Running   0          1m
+postgres-operator-7dccdbff7c-2hqhc   1/1     Running   0          1m
 ```
 <br>
 
@@ -100,28 +100,28 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 ```
 <br>
 
-Verify you have all the necessary resources up and running (this may take a few minutes so `-w` will watch the command).
+By requesting these three resources, you will start a Jenkins server (named `jenkins-example`), as well as a cluster of two postgres pods (named after the resource request name, `acid-minimal-cluster`). To verify you have all the necessary resources up and running (this may take a few minutes so `--watch` will watch the command).
 ```console
-kubectl --context kind-worker get pods -w
+kubectl --context kind-worker get pods --watch
 ```
 <br>
 
 The above command will give an output similar to
 ```console
 NAME                                      READY   STATUS    RESTARTS         AGE
-acid-minimal-cluster-0                    1/1     Running   0                3m10s
-acid-minimal-cluster-1                    1/1     Running   0                2m43s
-jenkins-example                           1/1     Running   0                76m
+acid-minimal-cluster-0                    1/1     Running   0                5m
+acid-minimal-cluster-1                    1/1     Running   0                5m
+jenkins-example                           1/1     Running   0                5m
 ...
 ```
 <br>
 
-and
+and knative will also have installed it's networking resources into two new namespaces that you can verify by running
 
 <br>
 
 ```console
-kubectl --context kind-worker get namespaces -w
+kubectl --context kind-worker get namespaces --watch
 ```
 <br>
 
@@ -143,21 +143,21 @@ kubectl get jenkins.example.promise.syntasso.io
 The above command will give an output similar to
 ```console
 NAME          AGE
-my-jenkins    27s
+my-jenkins    1m
 ```
 <br>
 
-Verify the instance is created on the worker cluster (this may take a few minutes so `-w` will watch the output).
+Verify the instance is created on the worker cluster (this may take a few minutes so `--watch` will watch the output).
 ```console
-kubectl get pods --namespace default --context kind-worker -w
+kubectl get pods --namespace default --context kind-worker --watch
 ```
 <br>
 
 The above command will give an output similar to
 ```console
 NAME                                READY   STATUS    RESTARTS   AGE
-jenkins-example                     1/1     Running   0          113s
-jenkins-operator-7886c47f9c-zschr   1/1     Running   0          19m
+jenkins-example                     1/1     Running   0          1m
+jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 ```
 <br>
 
@@ -181,13 +181,13 @@ Navigate to http://localhost:8080 and log in with the credentials you copy from 
 
 Copy and paste the Jenkins username into the login page
 ```console
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d
+kubectl --context kind-worker get secret jenkins-operator-credentials-example --output 'jsonpath={.data.user}' | base64 --decode
 ```
 <br>
 
 Copy and paste the Jenkins password into the login page
 ```console
-kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
+kubectl --context kind-worker get secret jenkins-operator-credentials-example --output 'jsonpath={.data.password}' | base64 --decode
 ```
 <br>
 
