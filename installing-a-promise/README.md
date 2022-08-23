@@ -98,7 +98,7 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          1m
 
 Congratulations! You have installed your first Kratix Promise, which means your application teams can now get on-demand instances of Jenkins from your platform.
 
-## <a name="request-instance"></a>Request a Jenkins Instance
+### <a name="request-instance"></a>Request a Jenkins Instance
 
 Application developers using your platform will be issued a Jenkins instance after applying a Kratix Resource Request.
 <br/>
@@ -141,7 +141,7 @@ jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 
 Congratulations! You have successfully requested and created an on-demand instance of Jenkins from your platform.
 
-## <a name="use-instance"></a>Use your Jenkins instance
+### <a name="use-instance"></a>Use your Jenkins instance
 
 Access the Jenkins UI in a browser to ensure the instance is working. 
 <br/>
