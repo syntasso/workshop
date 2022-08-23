@@ -675,19 +675,7 @@ Then apply the request file to the platform cluster:
 kubectl --context kind-platform apply --filename postgres-resource-request.yaml
 ```
 
-On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`). This may take a few minutes so `--watch` will append updates to the bottom of the output. In the next section, you'll run checks on the platform cluster.
-
-```console
-kubectl --context kind-worker get pods --watch
-```
-
-You should see something similar to
-```
-NAME                                 READY   STATUS    RESTARTS   AGE
-acid-minimal-cluster-0               1/1     Running   0          1h
-acid-minimal-cluster-1               1/1     Running   0          1h
-...
-```
+We will validate the outcomes of this command in the next section.
 
 ### Validating the created Postgres
 
@@ -712,10 +700,10 @@ Then view the pipeline logs by running _(with the SHA from the output of running
 kubectl --context kind-platform logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
 ```
 
-On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`):
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`). This may take a few minutes so `--watch` will append updates to the bottom of the output:
 
 ```console
-kubectl --context kind-worker get pods
+kubectl --context kind-worker get pods --watch
 ```
 
 You should see something similar to 
@@ -726,10 +714,10 @@ acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-For the finance team, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value (this may take a few minutes so `--watch` will append updates to the bottom of the output):
+For the finance team, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value:
 
 ```console
-kubectl --context kind-worker get pods --selector costCentre=rnd-10002 --watch
+kubectl --context kind-worker get pods --selector costCentre=rnd-10002
 ```
 
 You should see something similar to
