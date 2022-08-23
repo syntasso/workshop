@@ -29,31 +29,27 @@ Kratix is a framework used by platform teams to build the custom platforms tailo
 - discover available services that are already fit-for-purpose.
 - consume services on demand using standard Kubernetes APIs.
 - move focus away from infrastructure toward adding product value.
-<br><br>
-Now that you know more about Kratix, follow the steps below to install Kratix locally.
 
 <br>
 <hr>
 <br>
 
-## <a name="install-kratix"></a> Quick Start: Install a multi-cluster Kratix using KinD
-
 ## <a name="prerequisites"></a>System setup
-For this workshop, we'll use Kratix on two local Kubernetes clusters. Install the prerequisites listed below if required.
+For this workshop, we'll use Kratix on two local Kubernetes clusters. Install the prerequisites listed below if they aren't already on your system.
 
 1. `kind` CLI / **Kubernetes-in-Docker(KinD)**: <br/>
-  Used to create local Kubernetes clusters in Docker. <br/>
+  Used to create and manage local Kubernetes clusters in Docker. <br/>
   See [the quick start guide](https://kind.sigs.k8s.io/docs/user/quick-start/) to install.
 
 1. `docker` CLI / **Docker**: <br />
-  Used to create containers. `kind` (above) requires that you have Docker installed and configured. <br/>
+  Used to orchestrate containers. `kind` (above) requires that you have Docker installed and configured. <br/>
   See [Get Docker](https://docs.docker.com/get-docker/) to install.
 
 1. `kubectl` / **Kubernetes command-line tool**: <br/> 
-The CLI for Kubernetes&mdash;allows you to run commands against Kubernetes clusters. <br/>
+The CLI for Kubernetes&mdash;allows you to run commands against Kubernetes clusters.<br/>
 See [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
-###  <a name="delete-clusters"></a>Update your Docker resource allocations
+## <a name="delete-clusters"></a>Update your Docker resource allocations
 In order to complete all tutorials in this series, you must allocate enough resources to Docker. Docker requires:<br><br>
 * 5 CPU
 * 12GB Memory
@@ -61,9 +57,9 @@ In order to complete all tutorials in this series, you must allocate enough reso
 
 This can be managed through your tool of choice (e.g. Docker Desktop, Rancher, etc).
 
-###  <a name="delete-clusters"></a>Delete existing clusters
+## <a name="delete-clusters"></a>Delete existing Kratix KinD clusters
 
-If you've already installed KinD, ensure no clusters are currently running.
+Ensure no clusters are currently running.
 
 ```bash
 kind get clusters
@@ -74,24 +70,25 @@ The above command will give an output similar to
 No kind clusters found.
 ```
 
-If you have any named `platform` or `worker` please delete them with
+If you have clusters named `platform` or `worker` please delete them with
 ```bash
 kind delete clusters platform worker
 ```
 
-### <a name="clone-kratix"></a>Clone Kratix
+## <a name="clone-kratix"></a>Clone Kratix
+Clone Kratix!
+
 ```bash
 git clone https://github.com/syntasso/kratix.git
 cd kratix
 ```
 <br />
 
-## Installation
+# Installation
 
 Now that your system is set up for the workshop, you can install Kratix! You should be in the `kratix` folder.
 
 ### Steps
-1. [Clone Kratix](#clone-kratix)
 1. [Set up your `platform` cluster](#platform-setup)
 1. [Adjust networking for KinD](#kind-networking), if required
 1. [Set up your `worker` cluster](#worker-setup)
@@ -100,17 +97,20 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 ![Overview](../assets/images/Treasure_Trove-Install_Kratix.jpg)
 <br /><br />
 
-Following the diagram above, you will have installed Kratix with the following components by the end of this part of the workshop:
+Following the diagram above, you will have installed Kratix with the below components by the end of this part of the workshop. These descriptions listed here are _very_ high level.
 
-<br/>1️⃣&nbsp;&nbsp;&nbsp;The `platform` cluster, which is the first of two local Kubernetes clusters.
-<br/>2️⃣&nbsp;&nbsp;&nbsp; On the `platform` cluster, a `kratix-platform-controller` Pod. This, at a high level, is able to dynamically generate other Kubernetes controllers. 
-<br/>3️⃣&nbsp;&nbsp;&nbsp;On the `platform` cluster, a set of Kratix CRDs required to orchestrate workloads. More on these later.
-<br/>4️⃣&nbsp;&nbsp;&nbsp;On the `platform` cluster, an installation of [MinIO](https://min.io/), which is a local document store. MinIO is local storage that works well with KinD, but Kratix can use any storage mechanism that speaks either S3 or Git.
-<br/>5️⃣&nbsp;&nbsp;&nbsp;The `worker` cluster, which is the second of two local Kubernetes clusters.
-<br/>6️⃣&nbsp;&nbsp;&nbsp;On the `worker` cluster, an installation of [Flux](https://fluxcd.io/). Kratix uses GitOps workflow, and Flux is the mechanism to continuously synchronise the `platform` and `worker` clusters. Flux uses MinIO for synchronisation. 
+| Reference | Name        | Description |
+| :---: | :--- | ----------- |
+| 1️⃣ | `platform`&nbsp;&nbsp;cluster | The first of two local Kubernetes clusters  |
+| 2️⃣ | `kratix-platform-controller` Pod  | At a _very_ high level, this dynamically generates other Kubernetes controllers.  |
+| 3️⃣ | Kratix CRDs  | A set of CRDs that Kratix requires to orchestrate workloads. More on these later. |
+| 4️⃣ | An installation of [MinIO](https://min.io/) | MinIO is a document store, which is what the Kratix `platform` cluster needs for storing generated resource definitions. MinIO is a local document storage that works well with KinD. Kratix can use any storage mechanism that speaks either S3 or Git.  |
+| 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters. |
+| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and Flux is the mechanism to continuously synchronise the `platform` and `worker` clusters. Flux uses the documents in the MinIO store for synchronisation. | 
 
-
-Now you will bring the diagram to life.<br/><br/>
+<br/>
+Now that you know what the installation looks like, bring Kratix to life.
+<br/>
 
 ### <a name="platform-setup"></a>Set up your `platform` cluster
 
