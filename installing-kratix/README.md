@@ -99,10 +99,10 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 ![Overview](../assets/images/Treasure_Trove-Install_Kratix.jpg)
 <br /><br />
 
-| Reference | Name        | Description |
+| Reference | Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description |
 | :---: | :--- | ----------- |
 | 1️⃣ | `platform`&nbsp;&nbsp;cluster | The first of two local Kubernetes clusters that Kratix will use. This allows your platform to have orchestration logic separated from application workloads.  |
-| 2️⃣ | `kratix`&#8209;`platform`&#8209;`controller`&nbsp;&nbsp;Pod  | At a _very_ high level, this manages the lifecycle of Kratix resources.  |
+| 2️⃣ | `kratix-platform-controller`&nbsp;&nbsp;Pod  | At a _very_ high level, this manages the lifecycle of Kratix resources.  |
 | 3️⃣ | Kratix CRDs  | A set of CRDs that Kratix require. |
 | 4️⃣ | An installation of [MinIO](https://min.io/) | [MinIO](https://min.io/) is a document store, which is what the Kratix `platform` cluster needs for storing generated resource definitions. MinIO is a local document storage that works well with KinD. Kratix can use any storage mechanism that speaks either S3 or Git.  |
 | 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters that Kratix will use. In this workshop, you run one single separate cluster to manage application workloads, but Kratix allows you to design the cluster architecture that makes sense in your context. |
