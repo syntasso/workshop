@@ -33,7 +33,7 @@ Now you will create and enhance a Promise as a response to user and business nee
 
 # From off-the-shelf to ready for the paved path
 
-## <a name="prerequisites"></a>Pre-requisites
+## <a name="prerequisites"></a>Prerequisites
 
 You need a fresh installation of Kratix for this section. The simplest way
 to do so is by running the quick-start script from within the Kratix
@@ -220,13 +220,17 @@ xaasCrd:
 
 `workerClusterResources` is the description of all of the Kubernetes resources required to create an instance of the Promise, such as CRDs, Operators and Deployments. 
 
-In the Promise definition, you divide resources based on the idea of _baseline capabilities_ and _per-instance resources_.  `workerClusterResources` is focused on the _baseline capabilities_. 
+In the Promise definition, you divide resources based on the idea of _prerequisite resources_ and _per-instance resources_. Prerequisite resources are resources that we create before any application team requests an instance. This can be helpful for two scenarios:
+1. Any CRDs or dependency resources are ready when an instance is requested which speeds up response time to application teams.
+1. Resources that can be shared across instances are only deployed once. This can reduce load on the cluster, and it can also allow defining a resource request as a portion of an existing resource (e.g. you could provide a whole database instance on each resource request, or you could provide a database within an existing instance on each resource request)
+
+The `workerClusterResources` section of the promise defines the _prerequisite capabilities_. 
 
 These capabilities are:
 * created once per cluster.
 * complete Kubernetes YAML documents stored in the `workerClusterResources` section of the Promise.
 
-For the Postgres Promise you're defining, the only cluster resources (baseline capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format. 
+For the Postgres Promise you're defining, the only cluster resources (prerequisite capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format. 
 
 ### Update `workerClusterResources`
 
