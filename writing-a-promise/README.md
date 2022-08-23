@@ -51,7 +51,7 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 ### Steps
 1. [Folder setup](#folder-setup)
 1. [Create a Promise template](#promise-template)
-1. [X-as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
+1. [X as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
 1. [Create your Promise instance base manifest](#base-instance)
 1. [Create simple request pipeline functionality](#pipeline-script)
 1. [Define your Docker image for the pipeline](#dockerfile)
