@@ -20,10 +20,10 @@ Before beginning this workshop, consider your answers to the following questions
 
 ## The series
 
-1. [Quick Start: Install Kratix](/installing-kratix/) <br>
+1. [Install Kratix](/installing-kratix/) <br>
 Learn more about Kratix and install Kratix locally using KinD
 
-1. [Quick Start: Install a Kratix Promise](/installing-a-promise/) <br>
+1. [Install a Kratix Promise](/installing-a-promise/) <br>
 Learn more about Kratix Promises and install a simple off-the-shelf Jenkins Promise in Kratix
 
 1. [Using multiple Kratix Promises](/using-multiple-promises/) <br>
@@ -39,4 +39,4 @@ Extend an existing off-the-shelf Postgres Promise by configuring specifically fo
 How can Kratix help you?
 
 ### 🥁 &nbsp; &nbsp; Let's start
-Begin with [Quick Start: Install Kratix](/installing-kratix/).
+Begin with [Install Kratix](/installing-kratix/).

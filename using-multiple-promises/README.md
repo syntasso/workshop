@@ -1,5 +1,5 @@
 This is Part 3 of [a series](../README.md) illustrating how Kratix works. <br/>
-👈🏾&nbsp;&nbsp; Previous: [Quick Start: Install a Kratix Promise](/installing-a-promise/) <br/>
+👈🏾&nbsp;&nbsp; Previous: [Install a Kratix Promise](/installing-a-promise/) <br/>
 👉🏾&nbsp;&nbsp; Next: [Writing and installing a Kratix Promise](/writing-a-promise/)
 
 <hr>
