@@ -49,28 +49,29 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 1. [Tear down your environment](#teardown)
 
 
-### <a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>Prerequisites
 
 You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory.
 
-You can run this command from the root of the Kratix repository:
+You can run this command from the root of `kratix`:
 
 ```bash
 ./scripts/quick-start.sh --recreate
 ```
 
-Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
+Alternatively, you can go back to [Install Kratix across two KinD clusters](/installing-kratix/).
 <br>
 
-### <a name="install-promise"></a>Install the off-the-shelf Jenkins Promise
+## <a name="install-promise"></a>Install the Kratix sample Jenkins Promise
 
-Install the provided Jenkins-as-a-service Kratix Promise.
+Install Kratix's sample Jenkins Promise.
 
 ```bash
 kubectl --context kind-platform apply --filename samples/jenkins/jenkins-promise.yaml
 ```
+<br/>
 
-Verify you know have the ability to create Jenkins instances.
+Verify you now have the ability to create Jenkins instances.
 ```bash
 kubectl --context kind-platform get crds jenkins.example.promise.syntasso.io
 ```
@@ -80,6 +81,7 @@ The above command will give an output similar to
 NAME                                     CREATED AT
 jenkins.example.promise.syntasso.io   2021-05-10T12:00:00Z
 ```
+<br/>
 
 Verify that the Jenkins operator is now installed.
 ```bash
@@ -91,20 +93,27 @@ The above command will give an output similar to
 NAME                                READY   STATUS    RESTARTS   AGE
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          1m
 ```
+<br/>
 
-Congratulations! You have installed your first Promise. The machinery to issue Jenkins instances on demand by application teams has now been installed.
+Congratulations! You have installed your first Kratix Promise, which means your application teams can now get on-demand instances of Jenkins from your platform.
 
-### <a name="request-instance"></a>Request a Jenkins Instance
+## <a name="request-instance"></a>Request a Jenkins Instance
 
-![Overview-Instance](../assets/images/Treasure_Trove-Get_an_instance.jpg)
+Application developers using your platform will be issued a Jenkins instance after applying a Kratix Resource Request.
+<br/>
+<br/>
 
-Submit a _resource request_ to get an instance of Jenkins.
+![Verify-Instance](../assets/images/Treasure_Trove-Get_an_instance.jpg)
+<br/>
+<br/>
+
+Test your platform by acting as an application developer and submitting a Kratix Resource Request.
 ```bash
 kubectl --context kind-platform apply --filename samples/jenkins/jenkins-resource-request.yaml
 ```
+<br/>
 
-Verify that the _resource request_ was issued on the platform cluster.
-
+Verify that the Kratix Resource Request was issued on the platform cluster.
 ```bash
 kubectl --context kind-platform get jenkins.example.promise.syntasso.io
 ```
@@ -114,8 +123,9 @@ The above command will give an output similar to
 NAME                   AGE
 my-jenkins             1m
 ```
+<br/>
 
-Verify the instance is created on the worker cluster (this may take a few minutes so `--watch` will append updates to the bottom of the output).
+Verify the instance was created on the worker cluster. This may take a few minutes so `--watch` will append updates to the bottom of the output.
 ```bash
 kubectl --context kind-worker --namespace default get pods --watch
 ```
@@ -127,18 +137,20 @@ jenkins-example                     1/1     Running   0          1m
 jenkins-operator-7886c47f9c-zschr   1/1     Running   0          10m
 ```
 
-### <a name="use-instance"></a>Use your Jenkins instance
+Congratulations! You have successfully requested and created an on-demand instance of Jenkins from your platform.
 
-You can access the Jenkins UI in a browser. 
+## <a name="use-instance"></a>Use your Jenkins instance
 
-Kubernetes allows you to port forward a service inside the cluster to a local port on your host computer. When doing this, it keeps the connection open and means you won't be able to use the same terminal for any other commands. Therefore, open a new terminal and use the following command to gain browser access to the Jenkins UI 
+Access the Jenkins UI in a browser to ensure the instance is working. Before you can do this, you must port forward from within the Kubernetes cluster to a local port on your computer. 
+
+⚠️ **Note:** Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br/> 
+_**Open a new terminal to request the port forward**_. 
 ```console
 kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
 <br>
 
-Navigate to http://localhost:8080 and login with the credentials you copy from the below commands.
-
+Navigate to http://localhost:8080 and log in with the credentials you copy from the below commands.
 <br>
 
 Copy and paste the Jenkins username into the login page
@@ -153,34 +165,33 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-example -o
 ```
 <br>
 
-Verify there is a Seed Job in the Jenkins UI and a corresponding Pod on your Worker cluster via the UI:
+Verify there is a Seed Job in Jenkins via the UI:
 
-<img
-  align="right"
-  src="../assets/images/installing-a-promise_validate-Jenkins.png"
-  alt="Kratix logo"
-/>
+![Verify-Seed-Job](../assets/images/installing-a-promise_validate-Jenkins.png)
+<br/>
+<br/>
 
-And by running the following command:
-
+And verify there is a corresponding Pod on your `worker` cluster by running the following command:
 ```bash
 kubectl --context kind-worker get pods
 ```
 
 which should result in output similar to
-
 ```console
 NAME                                     READY   STATUS    RESTARTS   AGE
 jenkins-example                          1/1     Running   0          5m
 jenkins-operator-778d6fc487-t5l9x        1/1     Running   0          2m
 seed-job-agent-example-597fcbfb7-qlzgm   1/1     Running   0          1m
 ```
+<br/>
 
-### <a name="teardown"></a>Tearing it all down
+Congratulations! You have verified that the Jenkins instance is operational and ready to be used.
+
+## <a name="teardown"></a>Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```console
+```bash
 kind delete clusters platform worker
 ```
 <br>
