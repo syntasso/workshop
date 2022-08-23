@@ -10,11 +10,11 @@ This is Part 3 of [a series](../README.md) illustrating how Kratix works. <br/>
 
 # <a name="power-of-promises"></a> The power of Promises
 
-As covered in previously, Promises are the blocks that enable teams to build platforms that specifically meet their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can use multiple simpler, low-level Promises to provide an experience tailored to their users needs.
+As covered previously, Promises are the building blocks that enable teams to design platforms that specifically meet their customer needs. Through writing and extending Promises, Platform teams can raise the value line of the platform they provide. They can use multiple simpler, low-level Promises to provide an experience tailored to their users needs.
 
 Consider the task of setting up development environments for application teams. This task is usually repetitive and requires many cookie-cutter steps. It may involve wiring up Git repos, spinning up a CI/CD server, creating a PaaS to run the applications, instructing CI/CD to listen to the Git repos and push successful builds into the PaaS, and finally wiring applications to their required data services.
 
-A Promise can encapsulate all the required steps and handle the toil of running those low-level tasks. It can be designed as a single Promise that does it all, or it can be a collection of Promises that, combined, deliver the desired functionality. All your users do is request a new environment. Behind the scenes, multiple Promises are working together, each with their own responsibility.
+A Promise can encapsulate all the required steps and handle the toil of running those low-level tasks. It can be designed as a single Promise that does it all, or it can be a collection of Promises that, combined, deliver the desired functionality.
 
 Now you will see the power of Kratix Promises by deploying a web app that uses multiple Promises.
 
@@ -32,6 +32,7 @@ Now you will see the power of Kratix Promises by deploying a web app that uses m
 1. [Request instances](#request-instances)
 1. [Run the deploy pipeline](#deploy-pipeline)
 1. [Test the application](#test-app)
+1. [Summary](#summary)
 1. [Tear down your environment](#teardown)
 
 ### <a name="prerequisites"></a>Pre-requisites
@@ -233,6 +234,23 @@ Now curl the app:
 curl -H "Host: todo.default.example.com" localhost:8081
 ```
 <br>
+
+<!-- start step marker DONE -->
+<hr/>
+
+## Summary
+<!-- end step marker -->
+
+Your platform has pieced together three different promises to provide a complete solution for an application team to deploy a new service to dev using your suggested CI/CD and hosting solutions. Well done!
+
+To recap the steps we took:
+1. ✅&nbsp;&nbsp;Installed all three promises
+1. ✅&nbsp;&nbsp;Requested an instance of each promise
+1. ✅&nbsp;&nbsp;Create and run a CI/CD pipeline for a new application
+1. ✅&nbsp;&nbsp;View an endpoint from a newly deployed and networked application
+1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
+
+This is only the beginning of working with Promises. Next you will learn how to write and update Promises, and in the final thoughts we will showcase the composability of Promises to further optimise this workflow from three requests down to one.
 
 ### <a name="teardown"></a>Tearing it all down
 
