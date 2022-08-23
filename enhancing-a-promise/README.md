@@ -709,7 +709,7 @@ request-pipeline-ha-postgres-promise-default-<SHA>       0/1     Completed   0  
 
 Then view the pipeline logs by running _(with the SHA from the output of running `get pods` above)_:
 ```console
-kubectl logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
+kubectl --context kind-platform logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
 ```
 
 On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`):
