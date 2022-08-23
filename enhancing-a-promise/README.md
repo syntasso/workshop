@@ -675,10 +675,10 @@ Then apply the request file to the platform cluster:
 kubectl --context kind-platform apply --filename postgres-resource-request.yaml
 ```
 
-On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`). In the next section, you'll run checks on the platform cluster.
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`). This may take a few minutes so `--watch` will append updates to the bottom of the output. In the next section, you'll run checks on the platform cluster.
 
 ```console
-kubectl --context kind-worker get pods
+kubectl --context kind-worker get pods --watch
 ```
 
 You should see something similar to
@@ -695,10 +695,10 @@ Back as a platform engineer, you want to ensure that the platform and Promise be
 
 After you applied the resource request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created. 
 
-Check by listing the pods on the platform:
+Check by listing the pods on the platform (this may take a few minutes so `--watch` will append updates to the bottom of the output):
 
 ```console
-kubectl --context kind-platform get pods
+kubectl --context kind-platform get pods --watch
 ```
 
 You should see something similar to
@@ -726,10 +726,10 @@ acid-minimal-cluster-1               1/1     Running   0          1h
 ...
 ```
 
-For the finance team, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value:
+For the finance team, the pods will provide cost tracking through your new `costCentre` label. This can be confirmed by only selecting pods that contain the provided cost centre value (this may take a few minutes so `--watch` will append updates to the bottom of the output):
 
 ```console
-kubectl --context kind-worker get pods --selector costCentre=rnd-10002
+kubectl --context kind-worker get pods --selector costCentre=rnd-10002 --watch
 ```
 
 You should see something similar to
