@@ -34,6 +34,8 @@ Kratix is a framework used by platform teams to build the custom platforms tailo
 <hr>
 <br>
 
+Before you begin installing Kratix: 
+
 ## <a name="prerequisites"></a>System setup
 For this workshop, we'll use Kratix on two local Kubernetes clusters. Install the prerequisites listed below if they aren't already on your system.
 
@@ -110,7 +112,7 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 Now that you know what the installation looks like, bring Kratix to life.
 <br/>
 
-### <a name="platform-setup"></a>Set up your `platform` cluster
+### <a name="platform-setup"></a>Set up your Kratix `platform` cluster
 
 Create your `platform` cluster and install Kratix and MinIO.
 ```bash
