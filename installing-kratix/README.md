@@ -161,7 +161,7 @@ sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resource
 
 ### <a name="worker-setup"></a>Set up your Kratix `worker` cluster
 
-Create your Kratix `worker` cluster and install [Flux](https://fluxcd.io/). This will create a cluster for running the X-as-a-service workloads:
+Create your Kratix `worker` cluster and install [Flux](https://fluxcd.io/). This will create a cluster for running the X as-a-Service workloads:
 ```bash
 kind create cluster --name worker #Also switches kubectl context to worker
 kubectl apply --filename config/samples/platform_v1alpha1_worker_cluster.yaml --context kind-platform #register the worker cluster with the platform cluster
