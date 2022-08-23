@@ -34,10 +34,8 @@ Now that you know more about Kratix Promises, follow the steps below to install 
 
 <br>
 <hr>
-<br>
 
 ## <a name="prerequisites"></a>Prerequisites
-
 You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory.
 
 You can run this command from the root of `kratix`:
@@ -47,7 +45,8 @@ You can run this command from the root of `kratix`:
 ```
 
 Alternatively, you can go back to [Install Kratix across two KinD clusters](/installing-kratix/).
-<br>
+<br/>
+<br/>
 
 ## <a name="install-promise"></a>Install the Kratix sample Jenkins Promise
 
@@ -144,25 +143,30 @@ Congratulations! You have successfully requested and created an on-demand instan
 
 ## <a name="use-instance"></a>Use your Jenkins instance
 
-Access the Jenkins UI in a browser to ensure the instance is working. Before you can do this, you must port forward from within the Kubernetes cluster to a local port on your computer. 
+Access the Jenkins UI in a browser to ensure the instance is working. 
+<br/>
+<br/> 
 
-⚠️ **Note:** Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br/> 
+⚠️ **Note:** Before you can access Jenkins in the UI, you must port forward from within the Kubernetes cluster to a local port on your computer. Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br/> 
 _**Open a new terminal to request the port forward**_. 
 ```console
 kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
 <br>
 
-Navigate to http://localhost:8080 and log in with the credentials you get.
+Navigate to http://localhost:8080 and log in with the credentials you get from the commands below.
+<br>
 <br>
 
-Copy and paste the Jenkins username into the login page
+Leave the `port-forward` running in the separate terminal and return to your main terminal. 
+
+Copy and paste the Jenkins username into the login page.
 ```console
 kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.user}' | base64 -d
 ```
 <br>
 
-Copy and paste the Jenkins password into the login page
+Copy and paste the Jenkins password into the login page.
 ```console
 kubectl --context kind-worker get secret jenkins-operator-credentials-example -o 'jsonpath={.data.password}' | base64 -d
 ```
