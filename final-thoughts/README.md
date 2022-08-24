@@ -31,9 +31,9 @@ After learning about the four 'shadow IT' Postgres databases, you poll applicati
 <br/>
 <br/>
 
-For a single service, a Postgres database, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns without endless toil.
+For any single service, like this database example, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns without endless toil.
 
-Kratix allows you to encapsulate a service in a Kratix Promise with a robust Kratix Request Pipeline, and with this you can create a platform that _does_ offer standardised development tools that are pre-configured to meet your business requirements; secured according to your policies; and optimised for scale.
+Kratix allows you to encapsulate a service in a Promise with a robust Request Pipeline, and with this you can create a platform that _does_ offer standardised development tools that are pre-configured to meet your business requirements; secured according to your policies; and optimised for scale.
 
 ## Designing the right Golden Paths with multiple Promises
 Extending the idea that your platform as-a-Product provides value by giving teams what they need when they need it, Kratix makes it easy to [pave Golden Paths](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) through complex Promise composition.
