@@ -75,10 +75,11 @@ knative-serving-promise   1m
 ```
 <br />
 
-Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster (this may take a few minutes so `--watch` will watch the command)
+Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster
 ```console
 kubectl --context kind-worker get pods --watch
 ```
+_(this may take a few minutes so `--watch` will watch the command)_
 <br />
 
 The above command will give an output similar to
@@ -93,7 +94,7 @@ postgres-operator-7dccdbff7c-2hqhc   1/1     Running   0          1m
 
 ![Overview-instances](../assets/images/Treasure_Trove-Get_instances_of_multiple_Promises.jpg)
 
-Submit a _resource request_ to get a Knative Serving component, a Jenkins instance and a Postgres database.
+Submit a set of Kratix Resource Requests to get a Knative Serving component, a Jenkins instance and a Postgres database.
 ```console
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/postgres/postgres-resource-request.yaml
 kubectl --context kind-platform apply --filename https://raw.githubusercontent.com/syntasso/kratix/main/samples/knative-serving/knative-serving-resource-request.yaml
@@ -101,10 +102,11 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 ```
 <br />
 
-By requesting these three resources, you will start a Jenkins server (named `jenkins-example`), as well as a cluster of two postgres pods (named after the resource request name, `acid-minimal-cluster`). To verify you have all the necessary resources up and running (this may take a few minutes so `--watch` will watch the command).
+By requesting these three resources, you will start three pods, one for the Jenkins server (named `jenkins-example`), and two which create a postgres cluster (named per the Resource Request name, `acid-minimal`). To verify you have all the necessary resources up and running
 ```console
 kubectl --context kind-worker get pods --watch
 ```
+_(this may take a few minutes so `--watch` will watch the command)_
 <br />
 
 The above command will give an output similar to
@@ -122,7 +124,7 @@ and knative will also have installed it's networking resources into two new name
 <br />
 
 ```console
-kubectl --context kind-worker get namespaces --watch
+kubectl --context kind-worker get namespaces
 ```
 <br />
 
@@ -135,7 +137,7 @@ kourier-system         Active   1h
 ```
 <br />
 
-Verify that the _resource request_ was issued on the platform cluster.
+Verify that the Kratix Resource Request was issued on the platform cluster.
 ```console
 kubectl get jenkins.example.promise.syntasso.io
 ```
@@ -148,10 +150,11 @@ my-jenkins    1m
 ```
 <br />
 
-Verify the instance is created on the worker cluster (this may take a few minutes so `--watch` will watch the output).
+Verify the instance is created on the worker cluster
 ```console
 kubectl get pods --namespace default --context kind-worker --watch
 ```
+_(this may take a few minutes so `--watch` will watch the output)_
 <br />
 
 The above command will give an output similar to
@@ -244,8 +247,8 @@ curl -H "Host: todo.default.example.com" localhost:8081
 Your platform has pieced together three different Promises to provide a complete solution for an application team to deploy a new service to dev using your suggested CI/CD and hosting solutions. Well done!
 
 To recap the steps we took:
-1. ✅&nbsp;&nbsp;Installed all three promises
-1. ✅&nbsp;&nbsp;Requested an instance of each promise
+1. ✅&nbsp;&nbsp;Installed all three Kratix Promises
+1. ✅&nbsp;&nbsp;Requested an instance of each Kratix Promise
 1. ✅&nbsp;&nbsp;Create and run a CI/CD pipeline for a new application
 1. ✅&nbsp;&nbsp;View an endpoint from a newly deployed and networked application
 

@@ -98,13 +98,13 @@ Application developers using your platform will be issued a Jenkins instance aft
 <br />
 <br />
 
-Test your platform by acting as an application developer and submitting a Kratix Resource Request.
+Test your platform by acting as an application developer and submitting a Resource Request.
 ```bash
 kubectl --context kind-platform apply --filename samples/jenkins/jenkins-resource-request.yaml
 ```
 <br />
 
-Verify that the Kratix Resource Request was issued on the `platform` cluster.
+Verify that the Resource Request was issued on the `platform` cluster.
 ```bash
 kubectl --context kind-platform get jenkins.example.promise.syntasso.io
 ```

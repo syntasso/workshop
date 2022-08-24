@@ -15,7 +15,7 @@ You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promi
 From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally.
 
 A Promise consists of three parts:
-1. `xaasCrd`: the CRD that an application developer uses to request an instance of the promise from the platform cluster.
+1. `xaasCrd`: the CRD that an application developer uses to request an instance of the Kratix Promise from the platform cluster.
 1. `workerClusterResources`: a collection of Kubernetes resources that enable the creation of an instance and will be pre-installed in the worker clusters.
 1. `xaasRequestPipeline`: an ordered list of docker containers that result in the creation an instance of the promised service on a worker cluster.
 
@@ -30,12 +30,12 @@ At a very high level
   * In `xaasRequestPipeline`, you list Docker images that will take the user's request and decorate it with configuration that you or the business require.
 * You install the Promise on your platform cluster, where Kratix is installed.
 * Your user wants an instance of the Promise.
-* Your user submit what Kratix calls a _resource request_ that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later).
-* Kratix fires off the request pipeline that you defined in `xaasRequestPipeline` and passes the _resource request_ as an input.
+* Your user submit a Kratix Resource Request that lists what they want and how they want it, and this complies with the `xaasCrd` (more details on this request later).
+* Kratix fires off the request pipeline that you defined in `xaasRequestPipeline` and passes the Resource Request as an input.
 * The pipeline outputs valid Kubernetes documents that say what the user wants and what the business wants for that Promise instance.
 * The worker cluster has what it needs based on the `workerClusterResources` and is ready to create the instance when the request comes through.
 
-## A Jenkins Promise
+## A Kratix Promise to deliver Jenkins
 
 Imagine your platform team has received its fourth request from its fourth team for a Jenkins instance. You decide four times is too many times to manually set up Jenkins.
 
@@ -59,8 +59,8 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 1. [Create your Promise definition and define your `workerClusterResources`](#worker-cluster-resources)
 1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
-1. [Create and submit a resource request](#create-resource-request)
-1. [Summary of a promise parts (in detail)](#summary)
+1. [Create and submit a Kratix Resource Request](#create-resource-request)
+1. [Summary of a Kratix Promise parts (in detail)](#summary)
 1. [Tear down your environment](#teardown)
 
 
@@ -143,7 +143,7 @@ You have now created the as-a-Service API.
 
 ### <a name="base-instance">Create your Promise instance base manifest
 
-Next build the pipeline to transform a Promise _resource request_ into the Kubernetes resources required to create a running instance of the Jenkins service.
+Next build the pipeline to use details from a Kratix Promise _Resource Request_ into the Kubernetes resources required to create a running instance of the Jenkins service.
 
 ```bash
 cd request-pipeline-image
@@ -247,7 +247,7 @@ EOF
 
 Kratix takes no opinion on the tooling used within a pipeline. Kratix will pass a set of resources to the pipeline, and expect back a set of resources. What happens within the pipeline, and what tooling is used, is a decision left entirely to you.
 
-For this example, you're taking a name from the _resource request_ for an instance and passing it to the Jenkins custom resource output.
+For this example, you're taking a name from the Kratix Resource Request for an instance and passing it to the Jenkins custom resource output.
 
 To keep this transformation simple, you'll use a combination of `sed` and `yq` to do the work.
 
@@ -341,9 +341,9 @@ Your file directory should now include the new file as shown below
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml
 
-The `/input` directory is where your incoming _resource request_ will be written when a user wants an instance.
+The `/input` directory is where your incoming Kratix Resource Request will be written when a user wants an instance.
 
-Create a sample user resource request to the `/input` directory without changing your current working directory by running
+Create a sample Resource Request to the `/input` directory without changing your current working directory by running
 
 ```bash
 cat > input/object.yaml <<EOF
@@ -493,7 +493,7 @@ Alternatively, you can go back to the first step on this series: [Install Kratix
 
 ### <a name="install-promise">Install your Promise
 
-From back in your promise directory, install the Promise in Kratix.
+From back in your Promise directory, install the Promise in Kratix.
 
 <!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
 👩🏾‍💻 . 📂 jenkins-promise<br />
@@ -533,7 +533,7 @@ kubectl --context=kind-worker get pods --all-namespaces --watch
 ```
 <br />
 
-### <a name="create-resource-request">Create and submit a resource request
+### <a name="create-resource-request">Create and submit a Kratix Resource Request
 
 You can now request instances of Jenkins.
 ```bash
@@ -550,7 +550,7 @@ kubectl apply --context kind-platform --filename jenkins-resource-request.yaml
 ```
 <br />
 
-Applying the promise will trigger your pipeline steps which in turn requests an instance of Jenkins from the operator. While the pipeline can run quite quickly, Jenkins requires quite a few resources to be installed including a deployment and a runner which means the full install may take a few minutes.
+Applying the Kratix Promise will trigger your pipeline steps which in turn requests an instance of Jenkins from the operator. While the pipeline can run quite quickly, Jenkins requires quite a few resources to be installed including a deployment and a runner which means the full install may take a few minutes.
 
 You can see a bit of what is happening by first looking for your pipeline completion
 ```bash
@@ -620,7 +620,7 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing
 ```
 <br />
 
-### <a name="summary">Summary of a promise parts (in detail)
+### <a name="summary">Summary of a Kratix Promise parts (in detail)
 
 #### `xaasCrd`
 The `xaasCrd` is your user-facing API for the Promise. It defines the options that users can configure when they request the Promise. The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).

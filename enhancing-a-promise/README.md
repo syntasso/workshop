@@ -222,9 +222,9 @@ xaasCrd:
 
 In the Promise definition, you divide resources based on the idea of _prerequisite resources_ and _per-instance resources_. Prerequisite resources are resources that we create before any application team requests an instance. This can be helpful for two scenarios:
 1. Any CRDs or dependency resources are ready when an instance is requested which speeds up response time to application teams.
-1. Resources that can be shared across instances are only deployed once. This can reduce load on the cluster, and it can also allow defining a resource request as a portion of an existing resource (e.g. you could provide a whole database instance on each resource request, or you could provide a database within an existing instance on each resource request)
+1. Resources that can be shared across instances are only deployed once. This can reduce load on the cluster, and it can also allow defining a Kratix Resource Request as a portion of an existing resource (e.g. you could provide a whole database instance on each Resource Request, or you could provide a database within an existing instance on each Resource Request)
 
-The `workerClusterResources` section of the promise defines the _prerequisite capabilities_. 
+The `workerClusterResources` section of the Kratix Promise defines the _prerequisite capabilities_. 
 
 These capabilities are:
 * created once per cluster.
@@ -403,7 +403,7 @@ The `execute-pipeline.sh` runs when Docker builds the image for the pipeline. Th
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;postgres-promise.yaml<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;postgres-resource-request.yaml<br />
 
-You can see that the script is already parsing the resource request to identify key user variables (`name`, `namespace`, `preparedDatabases`). The script then uses [yq](https://github.com/mikefarah/yq) to add those user-provided values to the output document. You can do the same to process the user's `costCentre`. 
+You can see that the script is already parsing the Kratix Resource Request to identify key user variables (`name`, `namespace`, `preparedDatabases`). The script then uses [yq](https://github.com/mikefarah/yq) to add those user-provided values to the output document. You can do the same to process the user's `costCentre`. 
 
 In the `execute-pipeline.sh`
 1. Export another environment variable to store the value 
@@ -426,7 +426,7 @@ set -x
 # Store all input files in a known location
 cp -r /tmp/transfer/* /input/
 
-# Read current values from the provided resource request
+# Read current values from the provided Kratix Resource Request
 export NAME=$(yq eval '.metadata.name' /input/object.yaml)
 export NAMESPACE=$(yq eval '.metadata.namespace' /input/object.yaml)
 export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)
@@ -643,21 +643,21 @@ You have successfully released a new platform capability! Your users can request
 > Check it works: make a request to your platform for a Postgres instance
 <!-- end step marker -->
 
-### Verifying your promise can be fulfiled
+### Verifying your Kratix Promise can be fulfiled
 
 Switching hats to test your release, now act as one of your users to make sure the Promise creates working instances.
 
-You need to create what Kratix calls a _resource request_, which is a valid Kubernetes resource. Like all Kubernetes resources, this  must include all [required fields](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/#required-fields):
+You need to create a Kratix Resource Request, which is a valid Kubernetes resource. Like all Kubernetes resources, this  must include all [required fields](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/#required-fields):
 
 1. `apiVersion` where the resource can be found. This is `example.promise.syntasso.io/v1` in your Postgres Promise (from `spec.xaasCrd.spec.group` in `postgres-promise.yaml`).
 1. `kind`. This is `postgres` in your Postgres Promise (from `spec.xaasCrd.spec.name` in `postgres-promise.yaml`).
 1. Values for required fields. Fields are `preparedDatabases` and `costCentre` in your Postgres Promise (from `spec` > `xaasCrd` > `spec` > `versions`[0] > `schema` > `openAPIV3Schema` > `properties` > `spec` > `properties` in `postgres-promise.yaml`).
 1. A unique name and namespace combination.
 
-In the sample _resource request_ (`postgres-resource-request.yaml`) add the additional `costCentre` field as a sibling to the `preparedDatabases` field with any valid input. For example, `costCentre: "rnd-10002"`.
+In the sample Resource Request (`postgres-resource-request.yaml`) add the additional `costCentre` field as a sibling to the `preparedDatabases` field with any valid input. For example, `costCentre: "rnd-10002"`.
 
 <details>
-<summary>👀&nbsp;&nbsp;Click here for the full Postgres resource request</summary>
+<summary>👀&nbsp;&nbsp;Click here for the full Postgres Resource Request</summary>
 
 ```yaml
 apiVersion: example.promise.syntasso.io/v1
@@ -685,7 +685,7 @@ We will validate the outcomes of this command in the next section.
 
 Back as a platform engineer, you want to ensure that the platform and Promise behaved as it should when creating the instances and that the instances have met the reequirements for the feature.
 
-After you applied the resource request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created. 
+After you applied the Kratix Resource Request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created. 
 
 Check by listing the pods on the platform (this may take a few minutes so `--watch` will append updates to the bottom of the output):
 
