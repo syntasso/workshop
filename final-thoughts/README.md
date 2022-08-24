@@ -15,10 +15,16 @@ In your context, what were the answers to these questions:
 
 ## Designing the right Promise for a single service
 
-You may identify with any of the below scenarios, or the whole story might be familiar!
+Platform teams in any form add tremendous value to an organisation. They reduce cognitive load for application teams, which enables those teams to ship value faster. 
 
-### Standardised development tools...
-Through a Slack message, you happen to learn that four application teams are all using four different flavours of Postgres. Each team's database is in a different cloud, each has a different backup strategy, and each uses different levels of monitoring. 
+However, reducing cognitive load for application teams generally, in our experience, increases toil for platform team members. The closer a platform team gets to effective enablement of application teams, the higher the likelihood is that behind the scenes, platform team members are stretched beyond capacity. 
+
+Here is an experience you might have on a platform team as you work to support your application teams who need data storage for their applications.
+
+What you aim to deliver is:
+
+### A standardised development tool...
+Through a Slack message, you happen to learn that four application teams are all using four different flavours of Postgres. Each team's database is in a different cloud, each has a different backup strategy, and each uses different levels of monitoring.
 
 ### ...optimised for scale...
 After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
