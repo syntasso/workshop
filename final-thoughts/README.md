@@ -15,7 +15,7 @@ In your context, what were the answers to these questions:
 
 ## Designing the right Promise for a single service
 
-Platform teams in any form add tremendous value to an organisation. They reduce cognitive load for application teams, which enables those teams to ship value faster. 
+Platform teams in any form add tremendous value to an organisation. They reduce cognitive load for application teams, which enables those teams to have faster 'flow'. 
 
 However, reducing cognitive load for application teams generally, in our experience, increases toil for platform team members. The closer a platform team gets to effective enablement of application teams, the higher the likelihood is that behind the scenes, platform team members are stretched beyond capacity. 
 
@@ -30,10 +30,10 @@ Through a Slack message, you happen to learn that four application teams are all
 After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
 
 ### ...pre-configured to meet your business requirements...
-For each of those Postgres databases, you have complex billing scenarios where you need to enforce quotas; you need to send a request to an external API to validate permission to bill that particular cost centre; and you need to inform interested stakeholders via email.
+For each of those Postgres databases, you have complex billing scenarios where you need to enforce quotas (via a script); you need to send a request to an external API to validate permission to bill that particular cost centre (via another script); and you need to inform interested stakeholders via email (via sharing a manual process with each application team).
 
 ### ...and secured according to your policies.
-In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols; you need to verify proper signoff has happened before deployments move forward; and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation.
+In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols (manually, one-by-one); you need to verify proper signoff has happened before deployments move forward (manually, one-by-one); and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation (with third-party scanning software that teams need to manage themselves).
 <br/>
 <br/>
 
