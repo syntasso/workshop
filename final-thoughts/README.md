@@ -27,7 +27,7 @@ For each of those Postgres databases, you have complex billing scenarios where y
 In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols; you need to verify proper signoff has happened before deployments move forward; and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation.
 
 ### ...and optimised for scale.
-After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams are using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
+After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
 <br/>
 <br/>
 
