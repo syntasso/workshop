@@ -106,7 +106,7 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 | 3️⃣ | Kratix CRDs  | A set of CRDs that Kratix requires. |
 | 4️⃣ | An installation of [MinIO](https://min.io/) | [MinIO](https://min.io/) is a document store, which is what the Kratix `platform` cluster needs for storing generated resource definitions. MinIO is a local document storage that works well with KinD. Kratix can use any storage mechanism that speaks either S3 or Git.  |
 | 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters that Kratix will use. In this workshop, you run one single separate cluster to manage application workloads, but Kratix allows you to design the cluster architecture that makes sense in your context. |
-| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and [Flux](https://fluxcd.io/) is the mechanism to continuously synchronise the `platform` and `worker` clusters. Flux uses the documents in the MinIO store for synchronisation. Similar to document storage, this workshop uses Flux, but Kratix can use any tool that follows the GitOps pattern of using repositories as the source of truth for defining desired Kubernetes state.  | 
+| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and [Flux](https://fluxcd.io/) is the mechanism to continuously synchronise the resources defined in the document store (MinIO) to the `worker` clusters. Similar to document storage, this workshop uses Flux, but Kratix can use any tool that follows the GitOps pattern of using repositories as the source of truth for defining desired Kubernetes state.  | 
 
 <br />
 Now that you know what the installation looks like, bring Kratix to life.
@@ -207,7 +207,12 @@ kube-system            Active   3m33s
 You created a platform using Kratix. Well done!
 
 To recap the steps we took:
-1. ✅&nbsp;&nbsp;X
+1. ✅&nbsp;&nbsp;Setup your machine to run multiple Kubernetes clusters via KinD
+1. ✅&nbsp;&nbsp;Installed Kratix on the `platform` cluster
+1. ✅&nbsp;&nbsp;Installed MinIO on the `platform` cluster as the document store for our GitOps solution
+1. ✅&nbsp;&nbsp;Confirmed that local networking allows those clusters to communicate
+1. ✅&nbsp;&nbsp;Registered the `worker` cluster with Kratix
+1. ✅&nbsp;&nbsp;Installed Flux on the `worker` cluster to continuously synchronise documents in MinIO to the `worker` cluster
 
 <br />
 
