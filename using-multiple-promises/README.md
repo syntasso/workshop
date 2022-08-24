@@ -75,11 +75,11 @@ knative-serving-promise   1m
 ```
 <br />
 
-Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster
+Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```console
 kubectl --context kind-worker get pods --watch
 ```
-_(this may take a few minutes so `--watch` will watch the command)_
 <br />
 
 The above command will give an output similar to
@@ -102,11 +102,11 @@ kubectl --context kind-platform apply --filename https://raw.githubusercontent.c
 ```
 <br />
 
-By requesting these three resources, you will start three pods, one for the Jenkins server (named `jenkins-example`), and two which create a postgres cluster (named per the Resource Request name, `acid-minimal`). To verify you have all the necessary resources up and running
+By requesting these three resources, you will start three pods, one for the Jenkins server (named `jenkins-example`), and two which create a postgres cluster (named per the Resource Request name, `acid-minimal`). To verify you have all the necessary resources up and running<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```console
 kubectl --context kind-worker get pods --watch
 ```
-_(this may take a few minutes so `--watch` will watch the command)_
 <br />
 
 The above command will give an output similar to
@@ -150,11 +150,11 @@ my-jenkins    1m
 ```
 <br />
 
-Verify the instance is created on the worker cluster
+Verify the instance is created on the worker cluster<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```console
 kubectl get pods --namespace default --context kind-worker --watch
 ```
-_(this may take a few minutes so `--watch` will watch the output)_
 <br />
 
 The above command will give an output similar to
