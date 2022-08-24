@@ -13,35 +13,29 @@ In your context, what were the answers to these questions:
 * How easy is it for application developers to use that service?
 * How can you enhance flow for your application developers and reduce effort for you and your platform team?
 
-## Opportunities
+## Designing the right Promise for a single service
 
-### Configuring your platform offerings with business requirements
-We saw that Postgres could be configured to identify cost centres. Perhaps you have more complex billing scenarios. Or perhaps there are quotas associated with your platform's offerings. 
+You may identify with any of the below scenarios, or the whole story might be familiar!
 
-Imagine customising the pipeline for one of your services, like we did with Postgres, so that it:
-* sends a request to an external API to validate the user sending the request has permission to bill that particular cost centre.
-* verifies any quotas that may have been setup and sends an email to inform interested parties.
+### Standardised development tools...
+Through a Slack message, you happen to learn that four application teams are all using four different flavours of Postgres. Each team's database is in a different cloud, each has a different backup strategy, and each uses different levels of monitoring. 
 
-### Securing your platform
-As an enhancement to our Postgres Promise, we added validations that are executed when a new resource request is received by the platform cluster. 
+### ...pre-configured to meet your business requirements...
+For each of those Postgres databases, you have complex billing scenarios where you need to enforce quotas; you need to send a request to an external API to validate permission to bill that particular cost centre; and you need to inform interested stakeholders via email.
 
-Imagine customising your platform to have more rigorous validation so that it:
-* has robust validations for resource requests coming to production environments&mdash;for example, only specific values are accepted in the request. A list of possible validations can be found [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schemaObject).
+### ...secured according to your policies...
+In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols; you need to verify proper signoff has happened before deployments move forward; and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation.
 
-### Optimising your platform
-It's easy to imagine improvements to your service request pipeline and pipeline assets to make the platform more consistent and extensible.
+### ...and optimised for scale.
+After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams are using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
+<br/>
+<br/>
 
-Imagine customising the pipeline for one of your services, like we did with Postgres, so that it:
-* has reusable logic in all the Promises you publish in your platform. Instead of editing the script being executed by the `postgres-request-pipeline` image, you could move logic from each step into its own dedicated image and just add these images to the `xaasRequestPipeline`. 
+For a single service, a Postgres database, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns endless toil.
 
-### Designing the right Promise for your users
-Core to designing the right platform is understanding your users and what they need&mdash;you need to treat your platform as a product. 
+Kratix allows you to encapsulate a service in a Kratix Promise with a robust Kratix Request Pipeline, and with this you can create a platform that _does_ offer standardised development tools that are pre-configured to meet your business requirements; secured according to your policies; and optimised for scale.
 
-Imagine discovering that four application teams all use the same database but each team's database has different backup strategies and different levels of monitoring. 
-
-With Kratix, you can offer this database as-a-Service as a Promise on your platform. The Promise definition ensures that every database instance includes the paved golden path backup strategy and monitoring.
-
-### Paving Golden Paths with complex Promise composition
+## Designing the right Golden Paths with multiple Promises
 Extending the idea that your platform as-a-Product provides value by giving teams what they need when they need it, Kratix makes it easy to [pave Golden Paths](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) through complex Promise composition.
 
 A “Golden Path” is the opinionated and supported path to “build something”. Imagine a complete development environment setup&mdash;networking, integration, security, governance, compliance, and deployment&mdash;all available on-demand. By paving a Golden Path the platform team makes doing the right thing easy for the application teams.
@@ -50,10 +44,12 @@ Creating your Golden Paths on Kratix is easy: decide on, define, and install the
 
 An application developer goes from making separate Kratix Resource Requests to get access to separate service instances to being able to make one single Resource Request to get pre-configured, ready-to-go instances of everything they need. 
 
-We believe composable Promises are at the core of the value that Kratix provides to platform teams. Can you imagine the most valuable composed Promise your platform could offer to your application teams? 
+We believe composable Promises are at the core of the value that Kratix provides to platform teams. 
+
+Take a moment to imagine the most valuable bundle of services that your platform could offer to your application teams. Now that you've had experience building a platform with Kratix, translate that bundle of services into a composed Promise using Kratix as the supporting framework. 
 
 ## Learn more 
-If the idea of treating your platform as a product is new concept to you, watch this short talk by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90) or read our two-part series about [Paving Golden Paths](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) on the Syntasso blog.
+If the idea of treating your platform as-a-Product is new concept to you, watch this short talk by [Paula Kennedy](https://twitter.com/PaulaLKennedy) at Devoxx UK: [Crossing the Platform Gap](https://youtu.be/pAk5GReIs90) or read our two-part series about [Paving Golden Paths](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) on the Syntasso blog.
 
 ## Get in touch
 💭&nbsp;&nbsp; If learning about Kratix and platforms as products sounds intriguing and you'd like to chat with us, we'd love to hear from you. Please reach out on https://www.syntasso.io/contact-us.
