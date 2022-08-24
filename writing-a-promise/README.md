@@ -515,7 +515,8 @@ kubectl apply --context kind-platform --filename jenkins-promise.yaml
 ```
 <br />
 
-Verify the Promise installed (this may take a few minutes so `--watch` will append updates to the bottom of the output)
+Verify the Promise installed<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```bash
 kubectl --context kind-platform get crds --watch
 ```
@@ -528,7 +529,8 @@ jenkins.promise.example.com   2021-09-09T11:21:10Z
 ```
 <br />
 
-Verify the Jenkins Operator is running (this will take a few minutes so `--watch` will append updates to the bottom of the output)
+Verify the Jenkins Operator is running<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```bash
 kubectl --context=kind-worker get pods --all-namespaces --watch
 ```

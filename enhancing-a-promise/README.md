@@ -687,7 +687,8 @@ Back as a platform engineer, you want to ensure that the platform and Promise be
 
 After you applied the Kratix Resource Request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created. 
 
-Check by listing the pods on the platform (this may take a few minutes so `--watch` will append updates to the bottom of the output):
+Check by listing the pods on the platform:<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 
 ```console
 kubectl --context kind-platform get pods --watch
@@ -704,7 +705,8 @@ Then view the pipeline logs by running _(with the SHA from the output of running
 kubectl --context kind-platform logs --container xaas-request-pipeline-stage-1 pods/request-pipeline-ha-postgres-promise-default-<SHA>
 ```
 
-On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`). This may take a few minutes so `--watch` will append updates to the bottom of the output:
+On the worker cluster, you will eventually see a Postgres service as a two-pod cluster in the `Running` state with the name defined in the request (`postgres-resource-request.yaml`):<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 
 ```console
 kubectl --context kind-worker get pods --watch

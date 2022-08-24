@@ -116,7 +116,8 @@ my-jenkins             1m
 ```
 <br />
 
-Verify the instance was created on the worker cluster. This may take a few minutes so `--watch` will append updates to the bottom of the output.
+Verify the instance was created on the worker cluster<br/>
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```bash
 kubectl --context kind-worker --namespace default get pods --watch
 ```
