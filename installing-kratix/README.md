@@ -51,7 +51,7 @@ For this workshop, we'll use Kratix on two local Kubernetes clusters. Install th
 The CLI for Kubernetes&mdash;allows you to run commands against Kubernetes clusters.<br />
 See [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
-## <a name="delete-clusters"></a>Update your Docker resource allocations
+## <a name="docker-config"></a>Update your Docker resource allocations
 In order to complete all tutorials in this series, you must allocate enough resources to Docker. Docker requires:<br /><br />
 * 5 CPU
 * 12GB Memory
@@ -86,7 +86,7 @@ cd kratix
 ```
 <br />
 
-# Installation
+# <a name="install-kratix"></a>Installation
 
 Now that your system is set up for the workshop, you can install Kratix! You should be in the `kratix` folder.
 

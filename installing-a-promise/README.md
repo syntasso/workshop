@@ -6,7 +6,7 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br />
 
 ### In this tutorial, you will
 1. [learn more about Kratix Promises](#promise)
-1. [install Jenkins as a Kratix Promise](#install-jenkins)
+1. [install Jenkins as a Kratix Promise](#install-promise)
 
 # <a name="promise"></a>What is a Kratix Promise?
 

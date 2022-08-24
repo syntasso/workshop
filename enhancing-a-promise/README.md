@@ -63,12 +63,12 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 <hr/>
 
 ## The steps:
-1. Get a base Promise
-1. Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply your new `costCentre` label `costCentre`
-1. Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
-1. Install the modified Promise on your platform
-1. Check it works: make a request to your platform for a Postgres instance
+1. [Get a base Promise](#base-promise)
+1. [Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform](#xaas-crd)
+1. [Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply your new `costCentre` label `costCentre`](#worker-cluster-resources)
+1. [Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance](#xaas-request-pipeline)
+1. [Install the modified Promise on your platform](#install-promise)
+1. [Check it works: make a request to your platform for a Postgres instance](#verify-resource)
 
 <br />
 <!-- end step marker -->
@@ -76,7 +76,7 @@ _Today, you only need create a new Postgres Promise that creates Postgres instan
 <!-- start step marker ONE -->
 <hr/>
 
-## Step one: Get a base Promise
+## <a name="base-promise"></a>Step one: Get a base Promise
 <!-- end step marker -->
 
 Kratix has a sample Postgres Promise. You'll use that as your base. <br />
@@ -115,7 +115,7 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 <!-- start step marker TWO -->
 <hr/>
 
-## Step two: `xaasCrd`
+## <a name="xaas-crd"></a>Step two: `xaasCrd`
 > Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
 <!-- end step marker -->
 
@@ -206,7 +206,7 @@ xaasCrd:
 <!-- start step marker THREE -->
 <hr/>
 
-## Step three: `workerClusterResources`
+## <a name="worker-cluster-resources"></a>Step three: `workerClusterResources`
 > Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply your new `costCentre` label `costCentre`
 <!-- end step marker -->
 
@@ -319,7 +319,7 @@ Under the `data` map, add `inherited_labels: costCentre`.
 <!-- start step marker FOUR -->
 <hr/>
 
-## Step four: `xaasRequestPipeline`
+## <a name="xaas-request-pipeline"></a>Step four: `xaasRequestPipeline`
 > Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 <!-- end step marker -->
 
@@ -575,7 +575,7 @@ Open the Promise definition file (`postgres-promise.yaml`). From the top of the 
 <!-- start step marker FIVE -->
 <hr/>
 
-## Step five: Install
+## <a name="install-promise"></a>Step five: Install
 > Install the modified Promise on your platform
 <!-- end step marker -->
 
@@ -639,7 +639,7 @@ You have successfully released a new platform capability! Your users can request
 <!-- start step marker SIX -->
 <hr/>
 
-## Step six: Verify
+## <a name="verify-resource"></a>Step six: Verify
 > Check it works: make a request to your platform for a Postgres instance
 <!-- end step marker -->
 
