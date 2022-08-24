@@ -248,7 +248,6 @@ To recap the steps we took:
 1. ✅&nbsp;&nbsp;Requested an instance of each promise
 1. ✅&nbsp;&nbsp;Create and run a CI/CD pipeline for a new application
 1. ✅&nbsp;&nbsp;View an endpoint from a newly deployed and networked application
-1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
 
 This is only the beginning of working with Promises. Next you will learn how to write and update Promises, and in the final thoughts we will showcase the composability of Promises to further optimise this workflow from three requests down to one.
 
