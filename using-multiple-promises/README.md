@@ -235,19 +235,15 @@ curl -H "Host: todo.default.example.com" localhost:8081
 ```
 <br />
 
-<!-- start step marker DONE -->
-<hr/>
 
-## Summary
-<!-- end step marker -->
-
+## <a name="summary"></a>Summary
 Your platform has pieced together three different Promises to provide a complete solution for an application team to deploy a new service to dev using your suggested CI/CD and hosting solutions. Well done!
 
 To recap the steps we took:
 1. ✅&nbsp;&nbsp;Installed all three Kratix Promises
 1. ✅&nbsp;&nbsp;Requested an instance of each Kratix Promise
-1. ✅&nbsp;&nbsp;Create and run a CI/CD pipeline for a new application
-1. ✅&nbsp;&nbsp;View an endpoint from a newly deployed and networked application
+1. ✅&nbsp;&nbsp;Created and run a CI/CD pipeline for a new application
+1. ✅&nbsp;&nbsp;Viewed an endpoint from a newly deployed and networked application
 
 This is only the beginning of working with Promises. Next you will learn how to write and update Promises, and in the final thoughts we will showcase the composability of Promises to further optimise this workflow from three requests down to one.
 

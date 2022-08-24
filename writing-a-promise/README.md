@@ -8,7 +8,7 @@ This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br />
 1. [learn more about what's inside a Kratix Promise](#inside-a-promise)
 1. [write and install your own Kratix Promise](#write-promise-start)
 
-# <a name="inside-a-promise">What's inside a Kratix Promise?
+# <a name="inside-a-promise"></a>What's inside a Kratix Promise?
 
 You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promises/README.md). Now you'll create a Promise from scratch.
 
@@ -46,25 +46,26 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 <br />
 
 
-## <a name="write-promise-start"> Writing your own Kratix Promise
+## <a name="write-promise-start"></a>Writing your own Kratix Promise
 
 ### Steps
 1. [Folder setup](#folder-setup)
-1. [Create a Promise template](#promise-template)
+1. [Generate a Promise template](#promise-template)
 1. [X as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
 1. [Create your Promise instance base manifest](#base-instance)
-1. [Create simple request pipeline functionality](#pipeline-script)
-1. [Define your Docker image for the pipeline](#dockerfile)
+1. [Build a simple request pipeline](#pipeline-script)
+1. [Package your pipeline step as a Docker image](#dockerfile)
 1. [Test your container image](#test-image)
-1. [Create your Promise definition and define your `workerClusterResources`](#worker-cluster-resources)
+1. [Define your `workerClusterResources` in your Promise definition](#worker-cluster-resources)
 1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
 1. [Create and submit a Kratix Resource Request](#create-resource-request)
-1. [Summary of a Kratix Promise parts (in detail)](#summary)
+1. [Review of a Kratix Promise parts (in detail)](#promise-review)
+1. [Summary](#summary)
 1. [Tear down your environment](#teardown)
 
 
-### <a name="folder-setup">Folder setup
+### <a name="folder-setup"></a>Folder setup
 
 To begin writing a Promise you will need a basic directory structure to work in. You can generate this folder structure in any local directory by running
 
@@ -80,9 +81,9 @@ Below should now represent how your directory is organised and your current work
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 resources<br />
 
-### <a name="promise-template">Create a Promise template
+### <a name="promise-template"></a>Generate a Promise template
 
-Create a basic `jenkins-promise-template.yaml` to work with
+Generate a basic `jenkins-promise-template.yaml` to work with
 ```bash
 cat > jenkins-promise-template.yaml <<EOF
 apiVersion: platform.kratix.io/v1alpha1
@@ -106,7 +107,7 @@ EOF
 
 You will fill in the fields under `spec` as you progress through the tutorial.
 
-### <a name="define-crd">X-as-a-Service Custom Resource Definition: define your Promise API
+### <a name="define-crd"></a>X-as-a-Service Custom Resource Definition: define your Promise API
 For the purpose of this tutorial, you will create an API that accepts a single `string` parameter called `name`. This API can be as complex or as simple as you design it to be.
 
 Replace the `xaasCrd` field in `jenkins-promise-template.yaml` with the complete field details below. Ensure the indentation is correct (`xaasCrd` is nested under `spec`).
@@ -141,7 +142,7 @@ Replace the `xaasCrd` field in `jenkins-promise-template.yaml` with the complete
 
 You have now created the as-a-Service API.
 
-### <a name="base-instance">Create your Promise instance base manifest
+### <a name="base-instance"></a>Create your Promise instance base manifest
 
 Next build the pipeline to use details from a Kratix Promise _Resource Request_ into the Kubernetes resources required to create a running instance of the Jenkins service.
 
@@ -243,7 +244,7 @@ EOF
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise-template.yaml
 
-### <a name="pipeline-script"> Create simple request pipeline functionality
+### <a name="pipeline-script"></a>Build a simple request pipeline
 
 Kratix takes no opinion on the tooling used within a pipeline. Kratix will pass a set of resources to the pipeline, and expect back a set of resources. What happens within the pipeline, and what tooling is used, is a decision left entirely to you.
 
@@ -285,7 +286,7 @@ chmod +x execute-pipeline.sh
 <br />
 
 
-### <a name="dockerfile"> Define your Docker image for the pipeline
+### <a name="dockerfile"></a>Package your pipeline step as a Docker image
 
 Run the code below, to create your `Dockerfile`
 ```bash
@@ -318,7 +319,7 @@ Next build your Docker image. You will later load the image to the KinD local ca
 docker build . --tag kratix-workshop/jenkins-request-pipeline:dev
 ```
 
-### <a name="test-image">Test your Docker container image
+### <a name="test-image"></a>Test your Docker container image
 
 Test the Docker container image by supplying an input resource and examining the output resource.
 
@@ -423,7 +424,7 @@ In summary, you have:
 - Added the image to the Promise definition in the `xaasRequestPipeline` array
 
 
-### <a name="worker-cluster-resources">Define your `workerClusterResources` in your Promise definition
+### <a name="worker-cluster-resources"><a>Define your `workerClusterResources` in your Promise definition
 
 The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters.
 
@@ -474,7 +475,7 @@ chmod +x worker-resource-builder
 This created your finished Promise definition, `jenkins-promise.yaml`.
 
 
-### <a name="prepare-your-environment">Prepare your environment
+### <a name="prepare-your-environment"></a>Prepare your environment
 
 You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script. This script is found in the kratix directory as seen here:
 
@@ -491,7 +492,7 @@ You need a fresh installation of Kratix for this section. The simplest way to do
 Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
 <br />
 
-### <a name="install-promise">Install your Promise
+### <a name="install-promise"></a>Install your Promise
 
 From back in your Promise directory, install the Promise in Kratix.
 
@@ -533,7 +534,7 @@ kubectl --context=kind-worker get pods --all-namespaces --watch
 ```
 <br />
 
-### <a name="create-resource-request">Create and submit a Kratix Resource Request
+### <a name="create-resource-request"></a>Create and submit a Kratix Resource Request
 
 You can now request instances of Jenkins.
 ```bash
@@ -620,7 +621,7 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-my-amazing
 ```
 <br />
 
-### <a name="summary">Summary of a Kratix Promise parts (in detail)
+### <a name="promise-review"></a>Review of a Kratix Promise parts (in detail)
 
 #### `xaasCrd`
 The `xaasCrd` is your user-facing API for the Promise. It defines the options that users can configure when they request the Promise. The complexity of the `xaasCrd` API is up to you. You can read more about writing Custom Resource Definitions in the [Kubernetes docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition).
@@ -643,7 +644,23 @@ The contract with each pipeline container is simple and straightforward:
 * The container writes any resources to be created to `/output/`.
 * The resources in `/output` of the last container in the `xaasRequestPipeline` array will be scheduled and applied to the appropriate worker clusters.
 
-### <a name="teardown">Tearing it all down
+
+## <a name="summary"></a>Summary
+You have now authored your firs promise. Congratulations 🎉
+
+To recap the steps we took:
+1. ✅&nbsp;&nbsp;Generated a Kratix Promise template
+1. ✅&nbsp;&nbsp;Defined your Promise API with a X as-a-Service Custom Resource Definition
+1. ✅&nbsp;&nbsp;Created your Promise instance base manifest
+1. ✅&nbsp;&nbsp;Built a simple request pipeline
+1. ✅&nbsp;&nbsp;Packaged the pipeline as a Docker image
+1. ✅&nbsp;&nbsp;Tested the pipeline Docker image
+1. ✅&nbsp;&nbsp;Defined your `workerClusterResources` in your Promise definition
+1. ✅&nbsp;&nbsp;Installed your Kratix Promise
+1. ✅&nbsp;&nbsp;Created and submitted a Resource Request
+1. ✅&nbsp;&nbsp;Reviewed the components of a Promise
+
+### <a name="teardown"></a>Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 

@@ -730,22 +730,18 @@ NAME                     READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0   1/1     Running   0          1h
 acid-minimal-cluster-1   1/1     Running   0          1h
 ```
-
-<!-- start step marker DONE -->
-<hr/>
+</br>
 
 ## Summary
-<!-- end step marker -->
-
 Your platform has a new Promise. Your users have access to a new service from the Promise. Your finance team has the ability to track service usage. Well done!
 
 To recap the steps we took:
-1. ✅&nbsp;&nbsp;Get a base Promise
-1. ✅&nbsp;&nbsp;Change the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
-1. ✅&nbsp;&nbsp;Change the Promise so that _the worker cluster_ Operator that creates the instance knows to apply the new `costCentre` label `costCentre`
-1. ✅&nbsp;&nbsp;Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
-1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
-1. ✅&nbsp;&nbsp;Check it works: make a request to your platform for a Postgres instance
+1. ✅&nbsp;&nbsp;Aquired a base Promise
+1. ✅&nbsp;&nbsp;Changed the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
+1. ✅&nbsp;&nbsp;Changed the Promise so that _the worker cluster_ Operator that creates the instance knows to apply the new `costCentre` label `costCentre`
+1. ✅&nbsp;&nbsp;Changed the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
+1. ✅&nbsp;&nbsp;Installed the modified Promise on your platform
+1. ✅&nbsp;&nbsp;Checked it works: make a request to your platform for a Postgres instance
 <br />
 <br />
 
