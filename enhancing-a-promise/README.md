@@ -746,6 +746,9 @@ To recap the steps we took:
 1. ✅&nbsp;&nbsp;Change the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. ✅&nbsp;&nbsp;Install the modified Promise on your platform
 1. ✅&nbsp;&nbsp;Check it works: make a request to your platform for a Postgres instance
+<br />
+<br />
 
+### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have enhanced a Kratix Promise to suit your organisation's needs. This concludes our introduction to Kratix. <br />
 👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).

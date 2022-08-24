@@ -194,10 +194,9 @@ To recap the steps you took:
 This is only the beginning of working with Promises. Next you will deploy three different Promises to provide a complete solution for an application team.
 
 ## <a name="teardown"></a>Tearing it all down
-
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```console
+```bash
 kind delete clusters platform worker
 ```
 <br />

@@ -255,7 +255,7 @@ This is only the beginning of working with Promises. Next you will learn how to 
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```console
+```bash
 kind delete clusters platform worker
 ```
 <br />

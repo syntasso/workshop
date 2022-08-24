@@ -203,6 +203,15 @@ kube-system            Active   3m33s
 ```
 <br /> 
 
+## Summary
+You created a platform using Kratix. Well done!
+
+To recap the steps we took:
+1. ✅&nbsp;&nbsp;X
+
+<br />
+
+
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; Kratix is now installed. <br />
 👉🏾&nbsp;&nbsp; Next you will [install an off-the-shelf Kratix Promise](/installing-a-promise/README.md).
