@@ -20,20 +20,21 @@ You may identify with any of the below scenarios, or the whole story might be fa
 ### Standardised development tools...
 Through a Slack message, you happen to learn that four application teams are all using four different flavours of Postgres. Each team's database is in a different cloud, each has a different backup strategy, and each uses different levels of monitoring. 
 
+### ...optimised for scale...
+After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
+
 ### ...pre-configured to meet your business requirements...
 For each of those Postgres databases, you have complex billing scenarios where you need to enforce quotas; you need to send a request to an external API to validate permission to bill that particular cost centre; and you need to inform interested stakeholders via email.
 
-### ...secured according to your policies...
+### ...and secured according to your policies.
 In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols; you need to verify proper signoff has happened before deployments move forward; and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation.
 
-### ...and optimised for scale.
-After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
 <br/>
 <br/>
 
 For any single service, like this database example, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns without endless toil.
 
-Kratix allows you to encapsulate a service in a Promise with a robust Request Pipeline. With this, your platform will _offer standardised development tools_ that are _pre-configured to meet your business requirements_; _secured according to your policies_; and _optimised for scale_.
+Kratix allows you to encapsulate a service in a Promise with a robust Request Pipeline. With this, your platform will _offer standardised development tools_, _optimised for scale_, that are _pre-configured to meet your business requirements_ and _secured according to your policies_.
 
 ## Designing the right Golden Paths with multiple Promises
 Extending the idea that your platform as-a-Product provides value by giving teams what they need when they need it, Kratix makes it easy to [pave Golden Paths](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) through complex Promise composition.
