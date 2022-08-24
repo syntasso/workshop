@@ -31,7 +31,7 @@ After learning about the four 'shadow IT' Postgres databases, you poll applicati
 <br/>
 <br/>
 
-For a single service, a Postgres database, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns endless toil.
+For a single service, a Postgres database, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns without endless toil.
 
 Kratix allows you to encapsulate a service in a Kratix Promise with a robust Kratix Request Pipeline, and with this you can create a platform that _does_ offer standardised development tools that are pre-configured to meet your business requirements; secured according to your policies; and optimised for scale.
 
