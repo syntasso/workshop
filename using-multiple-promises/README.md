@@ -119,10 +119,7 @@ jenkins-example                           1/1     Running   0                5m
 ```
 <br />
 
-and knative will also have installed it's networking resources into two new namespaces that you can verify by running
-
-<br />
-
+Verify that knative has also installed its networking resources into two new namespaces 
 ```console
 kubectl --context kind-worker get namespaces
 ```
