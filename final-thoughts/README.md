@@ -28,13 +28,12 @@ For each of those Postgres databases, you have complex billing scenarios where y
 
 ### ...and secured according to your policies.
 In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols; you need to verify proper signoff has happened before deployments move forward; and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation.
-
 <br/>
 <br/>
 
-For any single service, like this database example, there are _a lot_ of platform concerns. With Kratix you can address the platform concerns without endless toil.
+It's clear from this example that there are _a lot_ of platform concerns when delivering a service. With Kratix you can develop a platform that will easily _offer standardised development tools_, _optimised for scale_, that is _pre-configured to meet your business requirements_ and _secured according to your policies_.
 
-Kratix allows you to encapsulate a service in a Promise with a robust Request Pipeline. With this, your platform will _offer standardised development tools_, _optimised for scale_, that are _pre-configured to meet your business requirements_ and _secured according to your policies_.
+Stepping back, the beauty of Kratix is in its flexibility. It allows you to encapsulate a service in a Promise with a robust Request Pipeline. Our example above highlights some of the most common challenges where Kratix has helped platform teams we've worked with move past toil toward higher-value enablement. But we know your organisational challenges are unique, and Kratix is built so that you can adapt it to your context.
 
 ## Designing the right Golden Paths with multiple Promises
 Extending the idea that your platform as-a-Product provides value by giving teams what they need when they need it, Kratix makes it easy to [pave Golden Paths](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) through complex Promise composition.
