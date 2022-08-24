@@ -10,16 +10,6 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br />
 
 # <a name="promise"></a>What is a Kratix Promise?
 
-If you are, or have been, a member of a platform team, you'll know how hard it can be. We've been platform team members, we've worked with many platform teams, and we've consistently experienced shared pains such as:
-
-* Work is hard, but for the wrong reasons.
-* Work involves managing tension from many teams, parts of the business, and key stakeholders.
-* Customers or users expect software served from the platform to be as simple, quick to consume, and performant as commodity public-cloud services.
-
-Kratix and Promises _exist_ to help platform teams to minimise these pains and deliver value more easily.
-
-We described the Kratix framework in the [previous step](/installing-kratix/README.md), now we want to talk through the high-level capabilities and anatomy of a Kratix Promise.
-
 Conceptually, Promises are the building blocks of Kratix that allow you to develop your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about this contract and the internals of a Kratix Promise in part 4 where you will [write your own Promise](/writing-a-promise/README.md).
 
 ## Kratix Promises
@@ -192,16 +182,26 @@ seed-job-agent-example-597fcbfb7-qlzgm   1/1     Running   0          1m
 ```
 <br />
 
-Congratulations! You have verified that the Jenkins instance is operational and ready to be used.
+## Summary
+
+You installed your first Kratix Promise on your platform. Well done!
+
+To recap the steps you took:
+1. ✅&nbsp;&nbsp;Installed the sample Jenkins Promise
+1. ✅&nbsp;&nbsp;Requested an instance of Jenkins
+1. ✅&nbsp;&nbsp;Tested the instance by logging in to the Jenkins UI and checking for pods on your `worker` cluster 
+
+This is only the beginning of working with Promises. Next you will deploy three different Promises to provide a complete solution for an application team.
 
 ## <a name="teardown"></a>Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
-```bash
+```console
 kind delete clusters platform worker
 ```
 <br />
+
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br />

@@ -241,7 +241,7 @@ curl -H "Host: todo.default.example.com" localhost:8081
 ## Summary
 <!-- end step marker -->
 
-Your platform has pieced together three different promises to provide a complete solution for an application team to deploy a new service to dev using your suggested CI/CD and hosting solutions. Well done!
+Your platform has pieced together three different Promises to provide a complete solution for an application team to deploy a new service to dev using your suggested CI/CD and hosting solutions. Well done!
 
 To recap the steps we took:
 1. ✅&nbsp;&nbsp;Installed all three promises
@@ -252,7 +252,7 @@ To recap the steps we took:
 
 This is only the beginning of working with Promises. Next you will learn how to write and update Promises, and in the final thoughts we will showcase the composability of Promises to further optimise this workflow from three requests down to one.
 
-### <a name="teardown"></a>Tearing it all down
+## <a name="teardown"></a>Tearing it all down
 
 The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
 
