@@ -2,18 +2,18 @@
 
 # What's next?
 
-Our last hands-on session went through how to [enhance a Kratix Promise](/enhancing-a-promise/README.md). 
+Our last hands-on session went through how to [enhance a Postgres Promise](/enhancing-a-promise/README.md). 
 
-Thinking back to the questions at the start of the workshop, you are the best person to decide what is most valuable to continue exploration in Kratix. 
-
-In your context, what were the answers to these questions:
-
-* What is the highest value service your platform provides to your application development teams? 
-* How easy is it for you to provide and maintain that service?
-* How easy is it for application developers to use that service?
-* How can you enhance flow for your application developers and reduce effort for you and your platform team?
+What about further enhancements? What about more Promises?
 
 ## Designing the right Promise for a single service
+
+<img
+  align="right"
+  width="500px"
+  src="../assets/images/Treasure_Trove-Final_Thoughts-Single_Promise.jpg"
+  alt="Single Kratix Promise"
+/>
 
 Platform teams in any form add tremendous value to an organisation. They reduce cognitive load for application teams, which enables those teams to have faster 'flow'. 
 
@@ -24,24 +24,34 @@ Here is an experience you might have on a platform team as you work to support y
 What you aim to deliver is:
 
 ### A standardised development tool...
-Through a Slack message, you happen to learn that four application teams are all using four different flavours of Postgres. Each team's database is in a different cloud, each has a different backup strategy, and each uses different levels of monitoring.
+But through a Slack message, you happen to learn that four application teams are all using four different flavours of Postgres. Each team's database is in a different cloud, each has a different backup strategy, and each uses different levels of monitoring.
 
 ### ...optimised for scale...
-After learning about the four 'shadow IT' Postgres databases, you poll application teams. Turns out there are at least six more teams using a mix of cloud providers to get Postgres databases to suit their needs. You need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
+However after learning about the four 'shadow IT' Postgres databases, you poll application teams and realise the problem is bigger than you thought. Now you need to manually intervene in each team's backlog to audit the situation and ensure each database is healthy and compliant. 
 
 ### ...pre-configured to meet your business requirements...
-For each of those Postgres databases, you have complex billing scenarios where you need to enforce quotas (via a script); you need to send a request to an external API to validate permission to bill that particular cost centre (via another script); and you need to inform interested stakeholders via email (via sharing a manual process with each application team).
+Requirements are fixed, but you have to deal with the nuance in each type of Postgres. So you have to manually enforce quotas via your audits at the end of each month; manually reconcile service instances, teams, and billed cost centres; and manually inform interested stakeholders when costs change.
 
-### ...and secured according to your policies.
-In addition to more complex billing scenarios, you need to implement more rigorous security policies. You need to ensure that configuration values are acceptable according to the broader security protocols (manually, one-by-one); you need to verify proper signoff has happened before deployments move forward (manually, one-by-one); and you need to make sure that teams have confidence that they are shipping with dependencies that are risk-free for the organisation (with third-party scanning software that teams need to manage themselves).
+### ...and automatically secured according to your policies.
+Security is complex, and each Postgres defines their security details in different places. So you need to manually verify that each Postgres configuration is acceptable according to the broader security protocols; manually make sure proper signoff has happened before deployments move forward; and manually run third-party software against code that is being shipped to make sure dependecies don't have vulnerabilities.
 <br/>
 <br/>
 
-It's clear from this example that there are _a lot_ of platform concerns when delivering a service. With Kratix you can develop a platform that will easily _offer standardised development tools_, _optimised for scale_, that is _pre-configured to meet your business requirements_ and _secured according to your policies_.
+This example has _a lot_ of platform concerns, and we've only listed a few.
+
+With Kratix you can develop a platform that will easily _offer standardised development tools_, _optimised for scale_, that is _pre-configured to meet your business requirements_ and _secured according to your policies_.
 
 Stepping back, the beauty of Kratix is in its flexibility. It allows you to encapsulate a service in a Promise with a robust Request Pipeline. Our example above highlights some of the most common challenges where Kratix has helped platform teams we've worked with move past toil toward higher-value enablement. But we know your organisational challenges are unique, and Kratix is built so that you can adapt it to your context.
 
 ## Designing the right Golden Paths with multiple Promises
+
+<img
+  align="right"
+  width="500px"
+  src="../assets/images/Treasure_Trove-Final_Thoughts-Higher_Level_Promise.jpg"
+  alt="Single Kratix Promise"
+/>
+
 The value of your platform increases dramatically when you offer application teams tailored Golden Paths. A [“Golden Path”](https://www.syntasso.io/post/paving-golden-paths-on-multi-cluster-kubernetes-part-1-the-theory) is the opinionated and supported path to “build something”. Imagine a complete development environment setup&mdash;networking, integration, security, governance, compliance, and deployment&mdash;all available on-demand. By paving a Golden Path the platform team makes doing the right thing easy for application teams.
 
 Creating a Golden Path on Kratix is easy: decide on, define, and install the individual Promises that are required, then define a higher-level Promise that brings those individual Promises together. 
