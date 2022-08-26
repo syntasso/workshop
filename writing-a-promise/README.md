@@ -10,7 +10,7 @@ This is Part 4 of [a series](../README.md) illustrating how Kratix works. <br />
 
 # <a name="inside-a-promise"></a>What's inside a Kratix Promise?
 
-You've [installed Kratix and three off-the-shelf Promises](/using-multiple-promises/README.md). Now you'll create a Promise from scratch.
+You've [installed Kratix and three sample Promises](/using-multiple-promises/README.md). Now you'll create a Promise from scratch.
 
 From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally.
 
