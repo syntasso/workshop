@@ -1,0 +1,12 @@
+apiVersion: platform.kratix.io/v1alpha1
+kind: Promise
+metadata:
+  creationTimestamp: null
+  name: jenkins-promise
+spec:
+  workerClusterResources:
+  xaasCrd:
+  xaasRequestPipeline:
+
+
+

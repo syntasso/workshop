@@ -14,7 +14,12 @@ You've [installed Kratix and three sample Promises](/using-multiple-promises/REA
 
 From [installing a Promise](/installing-a-promise/README.md), a Kratix Promise is a YAML document that defines a contract between the platform and its users. It is what allows platforms to be built incrementally.
 
-A Promise consists of three parts:
+### A Promise consists of three parts:
+<img
+  align="right"
+  src="../assets/images/base-promise-structure.png"
+  alt="Kratix logo"
+/>
 1. `xaasCrd`: the CRD that an application developer uses to request an instance of the Kratix Promise from the platform cluster.
 1. `workerClusterResources`: a collection of Kubernetes resources that enable the creation of an instance and will be pre-installed in the worker clusters.
 1. `xaasRequestPipeline`: an ordered list of docker containers that result in the creation an instance of the promised service on a worker cluster.
