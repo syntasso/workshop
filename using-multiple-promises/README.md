@@ -143,7 +143,7 @@ kubectl get jenkins.example.promise.syntasso.io
 The above command will give an output similar to
 ```console
 NAME          AGE
-my-jenkins    1m
+example       1m
 ```
 <br />
 
