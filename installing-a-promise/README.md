@@ -163,12 +163,6 @@ kubectl --context kind-worker get secret jenkins-operator-credentials-example -o
 ```
 <br />
 
-Verify there is a Seed Job in Jenkins via the UI:
-
-![Verify-Seed-Job](../assets/images/installing-a-promise_validate-Jenkins.png)
-<br />
-<br />
-
 And verify there is a corresponding Pod on your `worker` cluster by running the following command:
 ```bash
 kubectl --context kind-worker get pods
@@ -179,7 +173,6 @@ which should result in output similar to
 NAME                                     READY   STATUS    RESTARTS   AGE
 jenkins-example                          1/1     Running   0          5m
 jenkins-operator-778d6fc487-t5l9x        1/1     Running   0          2m
-seed-job-agent-example-597fcbfb7-qlzgm   1/1     Running   0          1m
 ```
 <br />
 
