@@ -122,9 +122,9 @@ Replace the `xaasCrd` field in `jenkins-promise-template.yaml` with the complete
     apiVersion: apiextensions.k8s.io/v1
     kind: CustomResourceDefinition
     metadata:
-      name: jenkins.promise.example.com
+      name: jenkins.example.promise.syntasso.io
     spec:
-      group: promise.example.com
+      group: example.promise.syntasso.io
       scope: Namespaced
       names:
         plural: jenkins
@@ -255,6 +255,9 @@ Create a script file that will execute when the pipeline runs.
 ```bash
 cat > execute-pipeline.sh <<EOF
 #!/bin/sh
+
+set -x
+
 #Get the name from the Promise Custom resource
 instanceName=\$(yq eval '.spec.name' /input/object.yaml)
 
@@ -523,8 +526,8 @@ kubectl --context kind-platform get crds --watch
 
 The above command will give an output similar to
 ```console
-NAME                          CREATED AT
-jenkins.promise.example.com   2021-09-09T11:21:10Z
+NAME                                  CREATED AT
+jenkins.example.promise.syntasso.io   2021-09-09T11:21:10Z
 ```
 <br />
 
@@ -540,7 +543,7 @@ kubectl --context=kind-worker get pods --all-namespaces --watch
 You can now request instances of Jenkins.
 ```bash
 cat > jenkins-resource-request.yaml <<EOF
-apiVersion: promise.example.com/v1
+apiVersion: example.promise.syntasso.io/v1
 kind: jenkins
 metadata:
   name: my-jenkins-promise-request
@@ -575,11 +578,10 @@ kubectl --context kind-platform logs --selector kratix-promise-id=jenkins-promis
 
 This should result in something like
 ```console
-+ yq eval .metadata.name /input/object.yaml
-+ export 'NAME=example'
-+ cat /tmp/transfer/jenkins_instance.yaml
-+ yq eval '.metadata.name = env(NAME)' -
-+ sed s/NAME/example/g /tmp/transfer/service_account.yaml
++ yq eval .spec.name /input/object.yaml
++ instanceName=my-amazing-jenkins
++ find /tmp/transfer -type f -exec sed -i -e 's/<tbr-name>/my-amazing-jenkins/g' '{}' ';'
++ cp /tmp/transfer/jenkins-instance.yaml /output/
 ```
 
 Then you can watch for the creation of your Jenkins instance by targeting the worker cluster:
