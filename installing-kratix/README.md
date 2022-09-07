@@ -183,9 +183,9 @@ kratix-workload-resources         True    Fetched revision: f2d918e21d4c5cc65791
 ```
 <br />
 
-Once Flux is installed and running, the Kratix resources will be visible on the `worker` cluster. 
+Once Flux is running, the Kratix installation on the `platform` cluster will have the ability to manage resources on the `worker` cluster. 
 
-Verify that you can deploy resources to `worker`&mdash;check if your "canary" resource has been deployed. This may take a few minutes so `--watch` will append updates to the bottom of the output.
+Verify that Kratix can deploy resources to the `worker` cluster&mdash;the first resource created by default is the `kratix-worker-system` namespace, check that the namespace has been created. This may take a few minutes so `--watch` will append updates to the bottom of the output.
 ```bash
 kubectl --context kind-worker get namespaces --watch
 ```
