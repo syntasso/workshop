@@ -258,4 +258,5 @@ kind delete clusters platform worker
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have deployed a web app that uses multiple Kratix Promises. <br />
-👉🏾&nbsp;&nbsp; Now you will [write your own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).
+
+## 👉🏾&nbsp;&nbsp; Now you will [write your own Jenkins Promise to learn more about how Kratix Promises work](/writing-a-promise/README.md).

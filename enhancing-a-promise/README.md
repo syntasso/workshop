@@ -749,4 +749,5 @@ To recap the steps we took:
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have enhanced a Kratix Promise to suit your organisation's needs. This concludes our introduction to Kratix. <br />
-👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).
+
+## 👉🏾&nbsp;&nbsp; Let's [see where to go from here](/final-thoughts/README.md).

@@ -674,4 +674,5 @@ kind delete clusters platform worker
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have written a Kratix Promise. <br />
-👉🏾&nbsp;&nbsp; Let's [see how to tailor Kratix Promises based on organisational context](/enhancing-a-promise/README.md).
+
+## 👉🏾&nbsp;&nbsp; Let's [see how to tailor Kratix Promises based on organisational context](/enhancing-a-promise/README.md).
