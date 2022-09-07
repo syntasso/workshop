@@ -189,15 +189,6 @@ To recap the steps you took:
 
 This is only the beginning of working with Promises. Next you will deploy three different Promises to provide a complete solution for an application team.
 
-## <a name="teardown"></a>Tearing it all down
-The next section in this tutorial requires a clean Kratix installation. Before heading to it, please clean up your environment by running:
-
-```bash
-kind delete clusters platform worker
-```
-<br />
-
-
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br />
 ## 👉🏾&nbsp;&nbsp; Now you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
