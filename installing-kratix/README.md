@@ -219,4 +219,4 @@ To recap the steps we took:
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; Kratix is now installed. <br />
-👉🏾&nbsp;&nbsp; Next you will [install an sample Kratix Promise](/installing-a-promise/README.md).
+## 👉🏾&nbsp;&nbsp; Next you will [install an sample Kratix Promise](/installing-a-promise/README.md).

@@ -10,7 +10,7 @@ This is Part 2 of [a series](../README.md) illustrating how Kratix works. <br />
 
 # <a name="promise"></a>What is a Kratix Promise?
 
-Conceptually, Promises are the building blocks of Kratix that allow you to develop your platform incrementally. Technically, a Promise is a YAML document that defines a contract between the Platform and its users. We will explore more about this contract and the internals of a Kratix Promise in part 4 where you will [write your own Promise](/writing-a-promise/README.md).
+Promises are the building blocks of Kratix, they define a contract between the Platform and its users. We will explore more about this contract and the internals of a Kratix Promise in part 4 where you will [write your own Promise](/writing-a-promise/README.md).
 
 ## Kratix Promises
 
@@ -20,13 +20,15 @@ Conceptually, Promises are the building blocks of Kratix that allow you to devel
 * are sharable and reusable between platforms, teams, business units, and other organisations.
 * add up to a frictionless experience when platform users want to create services that they need to deliver value.
 
-Now that you know more about Kratix Promises, follow the steps below to install a Promise.
+Now that you know more about Promises, follow the steps below to install a Promise.
 
 <br />
 <hr>
 
 ## <a name="prerequisites"></a>Prerequisites
-You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script from within the Kratix directory.
+You need a fresh installation of Kratix for this section, if you've only just completed Step 1 [Install Kratix across two KinD clusters](/installing-kratix/) your good to go, otherwise follow the instruction below.
+
+The simplest way to do so is by running the quick-start script from within the Kratix directory.
 
 You can run this command from the root of `kratix`:
 
@@ -34,7 +36,6 @@ You can run this command from the root of `kratix`:
 ./scripts/quick-start.sh --recreate
 ```
 
-Alternatively, you can go back to [Install Kratix across two KinD clusters](/installing-kratix/).
 <br />
 <br />
 
@@ -55,6 +56,7 @@ Now that your system is set up, you can install your first Kratix Promise! You s
 <br />
 
 ### <a name="install-promise"></a>Install the Promise
+In this example we are going to make Jenkins available to applications teams by publishing a Jenskins promise. For now we will use a pre-created Promise, in part 4 we will explore [writing a Promise](/writing-a-promise/).
 
 Install Kratix's sample Jenkins Promise.
 ```bash
@@ -74,7 +76,7 @@ jenkins.example.promise.syntasso.io   2021-05-10T12:00:00Z
 ```
 <br />
 
-Verify that your `worker` cluster has the Jenkins Operator to be able to create Jenkins instances.
+Part of deploying the Promise involves Kratix deploying the Jenkins Operator to the worker clusters. Verify its been deployed
 ```bash
 kubectl --context kind-worker --namespace default get pods
 ```
@@ -198,4 +200,4 @@ kind delete clusters platform worker
 
 ### 🎉 &nbsp; Congratulations!
 ✅&nbsp;&nbsp; You have installed a Kratix Promise and used it to create on-demand instances of a service. <br />
-👉🏾&nbsp;&nbsp; Now you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
+## 👉🏾&nbsp;&nbsp; Now you will [deploy a web app that uses multiple Kratix Promises](/using-multiple-promises/README.md).
