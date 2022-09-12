@@ -214,6 +214,7 @@ To recap the steps we took:
 1. ✅&nbsp;&nbsp;Registered the `worker` cluster with Kratix
 1. ✅&nbsp;&nbsp;Installed Flux on the `worker` cluster to continuously synchronise documents in MinIO to the `worker` cluster
 
+Next you will install your first Kratix Promise.
 <br />
 
 
