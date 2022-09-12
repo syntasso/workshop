@@ -660,7 +660,7 @@ To recap the steps we took:
 1. ✅&nbsp;&nbsp;Tested the pipeline Docker image
 1. ✅&nbsp;&nbsp;`workerClusterResources`: Defined what needs to be present on your worker clusters to fulfil this Promise
 1. ✅&nbsp;&nbsp;Installed your Kratix Promise
-1. ✅&nbsp;&nbsp;Created and submitted a Resource Request
+1. ✅&nbsp;&nbsp;Created and submitted a Kratix Resource Request
 1. ✅&nbsp;&nbsp;Reviewed the components of a Promise
 
 ### <a name="teardown"></a>Tearing it all down
