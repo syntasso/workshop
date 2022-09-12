@@ -738,7 +738,7 @@ acid-minimal-cluster-1   1/1     Running   0          1h
 Your platform has a new Promise. Your users have access to a new service from the Promise. Your finance team has the ability to track service usage. Well done!
 
 To recap the steps we took:
-1. ✅&nbsp;&nbsp;Aquired a base Promise
+1. ✅&nbsp;&nbsp;Acquired a base Promise
 1. ✅&nbsp;&nbsp;Changed the Promise so that _the user who wants an instance_ knows they need to include their `costCentre` name when they make their request to the platform
 1. ✅&nbsp;&nbsp;Changed the Promise so that _the worker cluster_ Operator that creates the instance knows to apply the new `costCentre` label `costCentre`
 1. ✅&nbsp;&nbsp;Changed the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
