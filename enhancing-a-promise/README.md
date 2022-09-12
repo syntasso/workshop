@@ -743,7 +743,7 @@ To recap the steps we took:
 1. ✅&nbsp;&nbsp;Changed the Promise so that _the worker cluster_ Operator that creates the instance knows to apply the new `costCentre` label `costCentre`
 1. ✅&nbsp;&nbsp;Changed the Promise so that _the pipeline_ knows how to add the user's `costCentre` to the request for the instance
 1. ✅&nbsp;&nbsp;Installed the modified Promise on your platform
-1. ✅&nbsp;&nbsp;Checked it works: make a request to your platform for a Postgres instance
+1. ✅&nbsp;&nbsp;Checked it works: made a Kratix Resource Request to your platform for a Postgres instance
 <br />
 <br />
 
