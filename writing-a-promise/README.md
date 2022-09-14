@@ -54,14 +54,25 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 ## <a name="write-promise-start"></a>Writing your own Kratix Promise
 
 ### Steps
+
+#### Define Promise
 1. [Folder setup](#folder-setup)
 1. [Generate a Promise template](#promise-template)
+
+#### Promise definition: xaasCrd 
 1. [X as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
+
+### Promise definition: xaasRequestPipeline 
 1. [Create your Promise instance base manifest](#base-instance)
 1. [Build a simple request pipeline](#pipeline-script)
 1. [Package your pipeline step as a Docker image](#dockerfile)
 1. [Test your container image](#test-image)
+1. ### Start Promise definition file
+
+### Promise definition: workerClusterResources
 1. [Define your `workerClusterResources` in your Promise definition](#worker-cluster-resources)
+
+## Test Promise
 1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
 1. [Create and submit a Kratix Resource Request](#create-resource-request)
