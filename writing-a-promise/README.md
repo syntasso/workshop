@@ -71,7 +71,7 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 ### Promise definition: workerClusterResources
 1. [Define your `workerClusterResources` in your Promise definition](#worker-cluster-resources)
 
-## Test Promise
+#### Test Promise
 1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
 1. [Create and submit a Kratix Resource Request](#create-resource-request)
