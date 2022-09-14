@@ -62,13 +62,13 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 #### Promise definition: xaasCrd 
 1. [X as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
 
-### Promise definition: xaasRequestPipeline 
+#### Promise definition: xaasRequestPipeline 
 1. [Create your Promise instance base manifest](#base-instance)
 1. [Build a simple request pipeline](#pipeline-script)
 1. [Package your pipeline step as a Docker image](#dockerfile)
 1. [Test your container image](#test-image)
 
-### Promise definition: workerClusterResources
+#### Promise definition: workerClusterResources
 1. [Define your `workerClusterResources` in your Promise definition](#worker-cluster-resources)
 
 #### Test Promise
