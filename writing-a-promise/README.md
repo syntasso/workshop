@@ -67,7 +67,6 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 1. [Build a simple request pipeline](#pipeline-script)
 1. [Package your pipeline step as a Docker image](#dockerfile)
 1. [Test your container image](#test-image)
-1. ### Start Promise definition file
 
 ### Promise definition: workerClusterResources
 1. [Define your `workerClusterResources` in your Promise definition](#worker-cluster-resources)
