@@ -436,7 +436,7 @@ In summary, you have:
 - Added the image to the Promise definition in the `xaasRequestPipeline` array
 
 
-### <a name="worker-cluster-resources"><a>Define your `workerClusterResources` in your Promise definition
+### <a name="worker-cluster-resources"></a>Define your `workerClusterResources` in your Promise definition
 
 The `workerClusterResources` describes everything required to fulfil the Promise. Kratix applies this content on all registered worker clusters.
 
@@ -470,12 +470,45 @@ The script will download the necessary files in the `resources` directory. You a
 
 To make this step simpler we have written a _very basic_ tool to grab all YAML documents from all YAML files located in `resources` and inject them into the `workerClusterResources` field.
 
-To use this tool, you will need to download the correct binary for your computer from [GitHub releases](https://github.com/syntasso/kratix/releases/tag/v0.0.1):
+To use this tool, you will need to download the correct binary for your computer:
+
+<details>
+  <summary>👀&nbsp;&nbsp;Intel Mac</summary>
 
 ```bash
-curl -sLo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-"$(uname -s)"-"$(uname -m)"
+curl -sLo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-darwin-amd64
 chmod +x worker-resource-builder
 ```
+</details>
+
+<details>
+  <summary>👀&nbsp;&nbsp;Apple Silicon Mac</summary>
+
+```bash
+curl -sLo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-darwin-arm64
+chmod +x worker-resource-builder
+```
+</details>
+
+<details>
+  <summary>👀&nbsp;&nbsp;Linux ARM64</summary>
+
+```bash
+curl -sLo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-linux-arm64
+chmod +x worker-resource-builder
+```
+</details>
+
+<details>
+  <summary>👀&nbsp;&nbsp;Linux AMD64</summary>
+
+```bash
+curl -sLo worker-resource-builder https://github.com/syntasso/kratix/releases/download/v0.0.1/worker-resource-builder-v0.0.0-1-linux-amd64
+chmod +x worker-resource-builder
+```
+</details>
+
+Once you have downloaded the correct binary, run:
 
 ```bash
 ./worker-resource-builder \
@@ -485,6 +518,20 @@ chmod +x worker-resource-builder
 <br />
 
 This created your finished Promise definition, `jenkins-promise.yaml`.
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻 . 📂 jenkins-promise<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 request-pipeline-image<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; object.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂  output<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins_instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; Dockerfile<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; jenkins-promise-template.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise.yaml<br />
 
 
 ### <a name="prepare-your-environment"></a>Prepare your environment
@@ -519,7 +566,8 @@ From back in your Promise directory, install the Promise in Kratix.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; execute-pipeline.sh<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-instance.yaml<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise-template.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; jenkins-promise-template.yaml<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise.yaml<br />
 
 
 ```
