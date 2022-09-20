@@ -116,7 +116,7 @@ Now that you know what the installation looks like, bring Kratix to life.
 
 Create your `platform` cluster and install Kratix and MinIO.
 ```bash
-kind create cluster --name platform
+kind create cluster --name platform --image kindest/node:v1.24.0
 kubectl apply --filename distribution/kratix.yaml
 kubectl apply --filename hack/platform/minio-install.yaml
 ```
@@ -163,7 +163,7 @@ sed -i'' -e "s/172.18.0.2/$PLATFORM_CLUSTER_IP/g" hack/worker/gitops-tk-resource
 
 Create your Kratix `worker` cluster and install [Flux](https://fluxcd.io/). This will create a cluster for running the X as-a-Service workloads:
 ```bash
-kind create cluster --name worker #Also switches kubectl context to worker
+kind create cluster --name worker --image kindest/node:v1.24.0 #Also switches kubectl context to worker
 kubectl apply --filename config/samples/platform_v1alpha1_worker_cluster.yaml --context kind-platform #register the worker cluster with the platform cluster
 kubectl apply --filename hack/worker/gitops-tk-install.yaml
 kubectl apply --filename hack/worker/gitops-tk-resources.yaml
