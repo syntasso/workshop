@@ -59,10 +59,10 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 1. [Folder setup](#folder-setup)
 1. [Generate a Promise template](#promise-template)
 
-#### Promise definition: xaasCrd 
+#### Promise definition: xaasCrd
 1. [X as-a-Service Custom Resource Definition: define your Promise API](#define-crd)
 
-#### Promise definition: xaasRequestPipeline 
+#### Promise definition: xaasRequestPipeline
 1. [Create your Promise instance base manifest](#base-instance)
 1. [Build a simple request pipeline](#pipeline-script)
 1. [Package your pipeline step as a Docker image](#dockerfile)
@@ -434,7 +434,6 @@ In summary, you have:
 - Executed the pipeline image locally as a test
 - Pushed the image to the registry
 - Added the image to the Promise definition in the `xaasRequestPipeline` array
-
 
 ### <a name="worker-cluster-resources"></a>Define your `workerClusterResources` in your Promise definition
 

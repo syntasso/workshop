@@ -75,6 +75,26 @@ knative-serving-promise   1m
 ```
 <br />
 
+Verify the CRDs are all installed on your platform cluster. Note that you know have `jenkins`, `knativeserving`, and `postgres` available.
+
+```console
+kubectl --context kind-platform get crds
+```
+<br />
+
+The above command will give an output similar to
+```console
+NAME                                          CREATED AT
+clusters.platform.kratix.io                   2022-09-23T14:37:20Z
+jenkins.example.promise.syntasso.io           2022-09-23T14:38:49Z
+knativeservings.example.promise.syntasso.io   2022-09-23T14:38:48Z
+postgreses.example.promise.syntasso.io        2022-09-23T14:38:51Z
+promises.platform.kratix.io                   2022-09-23T14:37:20Z
+workplacements.platform.kratix.io             2022-09-23T14:37:20Z
+works.platform.kratix.io                      2022-09-23T14:37:20Z
+```
+<br />
+
 Verify the `workerClusterResources` (more details in future steps) are installed on your worker cluster<br/>
 <sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```console
@@ -119,7 +139,7 @@ jenkins-example                           1/1     Running   0                5m
 ```
 <br />
 
-Verify that knative has also installed its networking resources into two new namespaces 
+Verify that knative has also installed its networking resources into two new namespaces
 ```console
 kubectl --context kind-worker get namespaces
 ```
@@ -170,7 +190,7 @@ Access the Jenkins UI in a browser, as in the [previous step](/installing-a-prom
 
 <br />
 
-Port forward for browser access to the Jenkins UI 
+Port forward for browser access to the Jenkins UI
 ```console
 kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
@@ -200,6 +220,21 @@ For those that are less familiar with Jenkins, you can watch this video to see h
 
 https://user-images.githubusercontent.com/201163/175933452-853af525-7fff-4dca-9ba9-032c07c8c393.mov
 
+
+<details>
+<summary>For step by step instructions in text, click here to expand</summary>
+
+1. From the _Dashboard_ page, click _New Item_ in the left menu
+2. Enter a name for the pipeline, e.g. `todo-app-pipeline`
+3. Select _Pipeline_ from the _Select item type_ dropdown
+4. Click _OK_
+5. In the _Pipeline_ section, paste the contents of the [Jenkinsfile](https://raw.githubusercontent.com/syntasso/workshop/main/sample-todo-app/ci/Jenkinsfile) in the _Script_ field
+8. Click _Save_
+9. Click _Build Now_ in the left menu
+10 Click on the running build
+10. Click _Console Output_ to see the pipeline progress
+</details>
+
 <br />
 
 ### <a name="validate-deployment"></a>Validate the deployment
@@ -220,7 +255,7 @@ todo   http://todo.default.example.com   todo-00001      todo-00001    True
 
 ### <a name="test-app"></a>Test the deployed application
 
-Now test the app. 
+Now test the app.
 
 On a separate terminal, you'll need to open access to the app by port-forwarding the kourier service:
 
