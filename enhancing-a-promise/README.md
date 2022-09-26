@@ -566,8 +566,18 @@ Open the Promise definition file (`postgres-promise.yaml`). From the top of the 
   <summary>👀&nbsp;&nbsp;Click here to see the resulting xaasRequestPipeline section which should be indented under `spec` in the Promise yaml</summary>
 
 ```yaml
+apiVersion: platform.kratix.io/v1alpha1
+kind: Promise
+metadata:
+  creationTimestamp: null
+  name: ha-postgres-promise
+spec:
+  xaasCrd:
+  # ...
   xaasRequestPipeline:
-  - kratix-workshop/postgres-request-pipeline:dev
+  - kratix-workshop/postgres-request-pipeline:dev # <-- Update this
+  workerClusterResources:
+  # ...
 ```
 </details>
 <br />

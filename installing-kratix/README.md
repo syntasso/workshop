@@ -137,9 +137,10 @@ works.platform.kratix.io               2022-05-10T12:00:00Z
 ```
 <br />
 
-Verify Kratix and MinIO are installed and healthy.
+Verify Kratix and MinIO are installed and healthy. <br />
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```bash
-kubectl --context kind-platform get pods --namespace kratix-platform-system
+kubectl --context kind-platform get pods --namespace kratix-platform-system --watch
 ```
 
 You should see something similar to
@@ -170,9 +171,10 @@ kubectl apply --filename hack/worker/gitops-tk-resources.yaml
 ```
 <br />
 
-Verify Flux is installed and configured (i.e., Flux knows where in MinIO to look for resources to install).
+Verify Flux is installed and configured (i.e., Flux knows where in MinIO to look for resources to install).<br />
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```bash
-kubectl --context kind-worker get buckets.source.toolkit.fluxcd.io --namespace flux-system
+kubectl --context kind-worker get buckets.source.toolkit.fluxcd.io --namespace flux-system --watch
 ```
 
 You should see something similar to
@@ -185,7 +187,8 @@ kratix-workload-resources         True    Fetched revision: f2d918e21d4c5cc65791
 
 Once Flux is installed and running, the Kratix resources will be visible on the `worker` cluster.
 
-Verify that you can deploy resources to `worker`&mdash;check if your "canary" resource has been deployed. This may take a few minutes so `--watch` will append updates to the bottom of the output.
+Verify that you can deploy resources to `worker`&mdash;check if your "canary" resource has been deployed. <br />
+<sub>(This may take a few minutes so `--watch` will watch the command)</sub>
 ```bash
 kubectl --context kind-worker get namespaces --watch
 ```
