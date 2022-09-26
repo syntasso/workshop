@@ -22,7 +22,7 @@ Kratix is a framework used by platform teams to build the custom platforms tailo
 * use GitOps workflow with Flux and familiar Kubernetes-native constructs.
 * co-create capabilities by providing a clear contract between application and platform teams through the definition and creation of “Promises”. We'll talk more about Kratix Promises in [the next step](/installing-a-promise/README.md).
 * create a flexible platform with your paved paths as Promises.
-* evolve your platform easily as your business needs change. 
+* evolve your platform easily as your business needs change.
 * start small on a laptop and expand to multi-team, multi-cluster, multi-region, and multi-cloud with a consistent API everywhere.
 
 ### Providing a Kratix-built platform allows your users to:
@@ -34,7 +34,7 @@ Kratix is a framework used by platform teams to build the custom platforms tailo
 <hr>
 <br />
 
-Before you begin installing Kratix: 
+Before you begin installing Kratix:
 
 ## <a name="prerequisites"></a>System setup
 For this workshop, we'll use Kratix on two local Kubernetes clusters. Install the prerequisites listed below if they aren't already on your system.
@@ -47,7 +47,7 @@ For this workshop, we'll use Kratix on two local Kubernetes clusters. Install th
   Used to orchestrate containers. `kind` (above) requires that you have Docker installed and configured. <br />
   See [Get Docker](https://docs.docker.com/get-docker/) to install.
 
-1. `kubectl` / **Kubernetes command-line tool**: <br /> 
+1. `kubectl` / **Kubernetes command-line tool**: <br />
 The CLI for Kubernetes&mdash;allows you to run commands against Kubernetes clusters.<br />
 See [the install guide](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
@@ -106,7 +106,7 @@ Now that your system is set up for the workshop, you can install Kratix! You sho
 | 3️⃣ | `kratix`&#x2011;`platform`&#x2011;`controller`&nbsp;&nbsp;Pod  | At a _very_ high level, this manages the lifecycle of Kratix resources.  |
 | 4️⃣ | An installation of [MinIO](https://min.io/) | [MinIO](https://min.io/) is a local document store, which is what the Kratix `platform` cluster needs for storing generated resource definitions. MinIO works well with KinD, but Kratix can use any storage mechanism that speaks either S3 or Git.  |
 | 5️⃣ | `worker` cluster | The second of two local Kubernetes clusters that Kratix will use. In this workshop, you run one single separate cluster to manage application workloads, but Kratix allows you to design the cluster architecture that makes sense in your context. |
-| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and [Flux](https://fluxcd.io/) is the mechanism to continuously synchronise the resources defined in the document store (MinIO) to the `worker` clusters. Similar to document storage, this workshop uses Flux, but Kratix can use any tool that follows the GitOps pattern of using repositories as the source of truth for defining desired Kubernetes state.  | 
+| 6️⃣ | An installation of [Flux](https://fluxcd.io/) | Kratix uses GitOps workflow, and [Flux](https://fluxcd.io/) is the mechanism to continuously synchronise the resources defined in the document store (MinIO) to the `worker` clusters. Similar to document storage, this workshop uses Flux, but Kratix can use any tool that follows the GitOps pattern of using repositories as the source of truth for defining desired Kubernetes state.  |
 
 <br />
 Now that you know what the installation looks like, bring Kratix to life.
@@ -183,7 +183,7 @@ kratix-workload-resources         True    Fetched revision: f2d918e21d4c5cc65791
 ```
 <br />
 
-Once Flux is installed and running, the Kratix resources will be visible on the `worker` cluster. 
+Once Flux is installed and running, the Kratix resources will be visible on the `worker` cluster.
 
 Verify that you can deploy resources to `worker`&mdash;check if your "canary" resource has been deployed. This may take a few minutes so `--watch` will append updates to the bottom of the output.
 ```bash
@@ -201,7 +201,7 @@ kube-public            Active   3m33s
 kube-system            Active   3m33s
 ...
 ```
-<br /> 
+<br />
 
 ## Summary
 You created a platform using Kratix. Well done!

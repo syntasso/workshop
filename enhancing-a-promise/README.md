@@ -2,28 +2,28 @@ This is Part 5, the final hands-on part, of [a series](../README.md) illustratin
 👈🏾&nbsp;&nbsp; Previous: [Writing and installing a Kratix Promise](/writing-a-promise/) <br />
 👉🏾&nbsp;&nbsp; Next: [Final Thoughts](/final-thoughts/)
 
-<hr> 
+<hr>
 
-### In this tutorial, you will 
+### In this tutorial, you will
 1. experience the power of leveraging customised Kratix Promises
 1. gain confidence with the components of a Promise
 1. enhance an sample Postgres Promise
 
 # Using Kratix to support your organisation
 
-As [you've seen](/using-multiple-promises/README.md), Kratix can support sample Promises for services like Jenkins, Knative, and Postgres. 
+As [you've seen](/using-multiple-promises/README.md), Kratix can support sample Promises for services like Jenkins, Knative, and Postgres.
 
 When you think about providing services for things like automation, deployment or data, how often are you able to choose a service (like Postgres) and offer it to your users straight off the shelf?
 
 Probably not very often.
 
-Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Key stakeholders in other parts of the business also need to easily understand the state of service usage as it applies to them (hello audit, billing, and security!). 
+Application teams need to be able to easily run their services in different environments. They'll want specific sizes, particular backup strategies, defined versions, and more. Key stakeholders in other parts of the business also need to easily understand the state of service usage as it applies to them (hello audit, billing, and security!).
 
-Your team works with all of these users to understand the if, when, and how of each of these requests and creates a platform from a prioritised backlog of platform features. 
+Your team works with all of these users to understand the if, when, and how of each of these requests and creates a platform from a prioritised backlog of platform features.
 
 This platform needs to be extensible and flexible&mdash;your users will have new and changing needs, and you'll want to quickly respond to valuable feature requests.
 
-Kratix and Promises make it easier to create a platform paved with golden paths that deliver value easily and quickly. 
+Kratix and Promises make it easier to create a platform paved with golden paths that deliver value easily and quickly.
 
 Now you will create and enhance a Promise as a response to user and business needs.
 
@@ -54,7 +54,7 @@ You discussed needs with application teams and you've decided to offer a new ser
 
 The billing team is a key stakeholder for the platform, and they will need a cost centre for each new instance of your Postgres service to charge back to the right team.
 
-For the purposes of this exercise, you know that all of the underlying functionality to get the billing team what it needs is already in place. 
+For the purposes of this exercise, you know that all of the underlying functionality to get the billing team what it needs is already in place.
 
 _Today, you only need create a new Postgres Promise that creates Postgres instances with a `costCentre` label._
 
@@ -131,7 +131,7 @@ You should see the `postgres-promise.yaml` file. This is the Promise definition 
 
 `xaasCrd` is the contract with the user who wants an instance. It's where you get to define the required and optional configuration options exposed to your users.
 
-You can already see a number of properties in this section of the `postgres-promise.yaml` file. These properties are defined within a versioned schema and can have different types and validations. 
+You can already see a number of properties in this section of the `postgres-promise.yaml` file. These properties are defined within a versioned schema and can have different types and validations.
 
 ### Update `xaasCrd`
 
@@ -142,9 +142,9 @@ costCentre:
   pattern: "^[a-zA-Z0-9_.-]*$"
   type: string
 ```
-From the top of the file, navigate to 
+From the top of the file, navigate to
 
-`spec` > `xaasCrd` > `spec` > `versions`[0] > `schema` > <br /> `openAPIV3Schema` > `properties` > `spec` > `properties` 
+`spec` > `xaasCrd` > `spec` > `versions`[0] > `schema` > <br /> `openAPIV3Schema` > `properties` > `spec` > `properties`
 
 Here, add your `costCentre` YAML from above as a sibling to the existing `preparedDatabases` property.
 
@@ -218,33 +218,33 @@ xaasCrd:
   alt="Kratix logo"
 />
 
-`workerClusterResources` is the description of all of the Kubernetes resources required to create an instance of the Promise, such as CRDs, Operators and Deployments. 
+`workerClusterResources` is the description of all of the Kubernetes resources required to create an instance of the Promise, such as CRDs, Operators and Deployments.
 
 In the Promise definition, you divide resources based on the idea of _prerequisite resources_ and _per-instance resources_. Prerequisite resources are resources that we create before any application team requests an instance. This can be helpful for two scenarios:
 1. Any CRDs or dependency resources are ready when an instance is requested which speeds up response time to application teams.
 1. Resources that can be shared across instances are only deployed once. This can reduce load on the cluster, and it can also allow defining a Kratix Resource Request as a portion of an existing resource (e.g. you could provide a whole database instance on each Resource Request, or you could provide a database within an existing instance on each Resource Request)
 
-The `workerClusterResources` section of the Kratix Promise defines the _prerequisite capabilities_. 
+The `workerClusterResources` section of the Kratix Promise defines the _prerequisite capabilities_.
 
 These capabilities are:
 * created once per cluster.
 * complete Kubernetes YAML documents stored in the `workerClusterResources` section of the Promise.
 
-For the Postgres Promise you're defining, the only cluster resources (prerequisite capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format. 
+For the Postgres Promise you're defining, the only cluster resources (prerequisite capabilities) you need are conveniently packaged in a [Kubernetes Operator](https://github.com/zalando/postgres-operator) that is maintained by Zalando. The Operator turns the complexities of configuring Postgres into a manageable configuration format.
 
 ### Update `workerClusterResources`
 
-To make sure each Postgres instance includes `costCentre`, you need to make the Operator aware of the label. 
+To make sure each Postgres instance includes `costCentre`, you need to make the Operator aware of the label.
 
-To ensure Zalando's Postgres Operator is aware of the label, you need to add configuration when installing the Operator. The configuration the Operator needs will be under a new key: [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels). 
+To ensure Zalando's Postgres Operator is aware of the label, you need to add configuration when installing the Operator. The configuration the Operator needs will be under a new key: [`inherited_labels`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels).
 
 > ☝🏾&nbsp;&nbsp;&nbsp;Note that `inherited_labels` is unique to how Zalando's Postgres Operator works. If you were using a different Operator (or writing your own!), a different change may be required (or no change at all).
 
 Following the Zalando [`docs`](https://github.com/zalando/postgres-operator/blob/master/docs/reference/operator_parameters.md#kubernetes-resources?:=inherited_labels), you need to add `inherited_labels` in a particular spot.
 
-From the top of the file, navigate to 
+From the top of the file, navigate to
 
-`spec` > `workerClusterResources`[0] > `data` 
+`spec` > `workerClusterResources`[0] > `data`
 
 To verify you're in the right place, the object should be `kind: ConfigMap` with `name: postgres-operator`.
 
@@ -364,7 +364,7 @@ The `minimal-postgres-manifest.yaml` is the pipeline basic template for the Post
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;postgres-promise.yaml<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;postgres-resource-request.yaml<br />
 
-You know every Postgres instance needs the `costCentre`. Change the metadata in `minimal-postgres-manifest.yaml` to include the `costCentre` label. This sets up a holding spot for the `costCentre` value the user sends in the request. 
+You know every Postgres instance needs the `costCentre`. Change the metadata in `minimal-postgres-manifest.yaml` to include the `costCentre` label. This sets up a holding spot for the `costCentre` value the user sends in the request.
 
 ```yaml
 labels:
@@ -386,7 +386,7 @@ metadata:
 
 ### Update the `execute-pipeline.sh` to add in the user's value
 
-The `execute-pipeline.sh` runs when Docker builds the image for the pipeline. This script is where the pipeline logic lives. 
+The `execute-pipeline.sh` runs when Docker builds the image for the pipeline. This script is where the pipeline logic lives.
 
 &nbsp;&nbsp;&nbsp;&nbsp;. 📂 <a href="https://github.com/syntasso/kratix">kratix</a><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;...<br />
@@ -403,14 +403,14 @@ The `execute-pipeline.sh` runs when Docker builds the image for the pipeline. Th
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;postgres-promise.yaml<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;postgres-resource-request.yaml<br />
 
-You can see that the script is already parsing the Kratix Resource Request to identify key user variables (`name`, `namespace`, `preparedDatabases`). The script then uses [yq](https://github.com/mikefarah/yq) to add those user-provided values to the output document. You can do the same to process the user's `costCentre`. 
+You can see that the script is already parsing the Kratix Resource Request to identify key user variables (`name`, `namespace`, `preparedDatabases`). The script then uses [yq](https://github.com/mikefarah/yq) to add those user-provided values to the output document. You can do the same to process the user's `costCentre`.
 
 In the `execute-pipeline.sh`
-1. Export another environment variable to store the value 
+1. Export another environment variable to store the value
     ```bash
     export COST_CENTRE=$(yq eval '.spec.costCentre' /input/object.yaml)
     ```
-1. Add a new line for `yq` process the replacement as a part of the pipeline 
+1. Add a new line for `yq` process the replacement as a part of the pipeline
     ```bash
     .metadata.labels.costCentre = env(COST_CENTRE) |
     ```
@@ -531,9 +531,9 @@ spec:
 
 #### Give the platform access to your pipeline image
 
-Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible. 
+Once you have made and validated all the pipeline image changes, you will need to make the newly created `kratix-workshop/postgres-request-pipeline:dev` image accessible.
 
-You have [install Kratix across two KinD clusters](/installing-kratix/) as a prerequisite for the exercise. Because of that, you can take advantage of the fact that Kubernetes will always look for locally cached images first. 
+You have [install Kratix across two KinD clusters](/installing-kratix/) as a prerequisite for the exercise. Because of that, you can take advantage of the fact that Kubernetes will always look for locally cached images first.
 
 Load the image into local caches by running the command below. This will stop any remote DockerHub calls.
 
@@ -543,7 +543,7 @@ kind load docker-image kratix-workshop/postgres-request-pipeline:dev --name plat
 
 ### Update the Promise's `xaasRequestPipeline` value
 
-The new image is built and available on your platform cluster. Update your Promise to use the new image. 
+The new image is built and available on your platform cluster. Update your Promise to use the new image.
 
 &nbsp;&nbsp;&nbsp;&nbsp;. 📂 <a href="https://github.com/syntasso/kratix">kratix</a><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;...<br />
@@ -618,7 +618,7 @@ works.platform.kratix.io                      2022-08-09T14:35:55Z
 ```
 <br />
 
-Check that the `workerClusterResources` have been installed. 
+Check that the `workerClusterResources` have been installed.
 
 For Postgres, you can see in the Promise file that there are a number of RBAC resources, as well as a deployment that installs the Postgres Operator in the worker cluster. That means that when the Promise is successfully applied you will see the `postgres-operator` deployment in the worker cluster. That's also an indication that the Operator is ready to provision a new instance.
 
@@ -685,7 +685,7 @@ We will validate the outcomes of this command in the next section.
 
 Back as a platform engineer, you want to ensure that the platform and Promise behaved as it should when creating the instances and that the instances have met the reequirements for the feature.
 
-After you applied the Kratix Resource Request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created. 
+After you applied the Kratix Resource Request in the step above, you should eventually see a new pod executing the `request-pipeline-image/execute-pipeline.sh` script you created.
 
 Check by listing the pods on the platform:<br/>
 <sub>(This may take a few minutes so `--watch` will watch the command)</sub>
@@ -712,7 +712,7 @@ On the worker cluster, you will eventually see a Postgres service as a two-pod c
 kubectl --context kind-worker get pods --watch
 ```
 
-You should see something similar to 
+You should see something similar to
 ```
 NAME                                 READY   STATUS    RESTARTS   AGE
 acid-minimal-cluster-0               1/1     Running   0          1h

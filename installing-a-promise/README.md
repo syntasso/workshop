@@ -134,12 +134,12 @@ Congratulations! You have successfully requested and created an on-demand instan
 
 ### <a name="use-instance"></a>Use your Jenkins instance
 
-Access the Jenkins UI in a browser to ensure the instance is working. 
+Access the Jenkins UI in a browser to ensure the instance is working.
 <br />
-<br /> 
+<br />
 
-⚠️ **Note:** Before you can access Jenkins in the UI, you must port forward from within the Kubernetes cluster to a local port on your computer. Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br /> 
-_**Open a new terminal to request the port forward**_. 
+⚠️ **Note:** Before you can access Jenkins in the UI, you must port forward from within the Kubernetes cluster to a local port on your computer. Running the `port-forward` command is continuous&mdash;as long as the command is running, the connection stays open.<br />
+_**Open a new terminal to request the port forward**_.
 ```console
 kubectl --context kind-worker port-forward jenkins-example 8080:8080
 ```
@@ -149,7 +149,7 @@ Navigate to http://localhost:8080 and log in with the credentials you get from t
 <br />
 <br />
 
-Leave the `port-forward` running in the separate terminal and return to your main terminal. 
+Leave the `port-forward` running in the separate terminal and return to your main terminal.
 
 Copy and paste the Jenkins username into the login page.
 ```console
@@ -183,7 +183,7 @@ You installed your first Kratix Promise on your platform. Well done!
 To recap the steps you took:
 1. ✅&nbsp;&nbsp;Installed the sample Jenkins Promise
 1. ✅&nbsp;&nbsp;Requested an instance of Jenkins
-1. ✅&nbsp;&nbsp;Tested the instance by logging in to the Jenkins UI and checking for pods on your `worker` cluster 
+1. ✅&nbsp;&nbsp;Tested the instance by logging in to the Jenkins UI and checking for pods on your `worker` cluster
 
 This is only the beginning of working with Promises. Next you will deploy three different Promises to provide a complete solution for an application team.
 

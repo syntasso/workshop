@@ -56,6 +56,7 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 ### Steps
 
 #### Define Promise
+1. [Prepare your environment](#prepare-your-environment), if required
 1. [Folder setup](#folder-setup)
 1. [Generate a Promise template](#promise-template)
 
@@ -72,13 +73,29 @@ Now you'll write a Jenkins Promise and install it on your platform so that your 
 1. [Define your `workerClusterResources` in your Promise definition](#worker-cluster-resources)
 
 #### Test Promise
-1. [Prepare your environment](#prepare-your-environment), if required
 1. [Install your Promise](#install-promise)
 1. [Create and submit a Kratix Resource Request](#create-resource-request)
 1. [Review of a Kratix Promise parts (in detail)](#promise-review)
 1. [Summary](#summary)
 1. [Tear down your environment](#teardown)
 
+
+### <a name="prepare-your-environment"></a>Prepare your environment
+
+You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script. This script is found in the kratix directory as seen here:
+
+<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
+👩🏾‍💻. <a href="https://github.com/syntasso/kratix">📂 kratix</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; ...<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 scripts<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 quick-start.sh<br />
+
+```bash
+./scripts/quick-start.sh --recreate
+```
+
+Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
+<br />
 
 ### <a name="folder-setup"></a>Folder setup
 
@@ -533,23 +550,6 @@ This created your finished Promise definition, `jenkins-promise.yaml`.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; 🆕 jenkins-promise.yaml<br />
 
 
-### <a name="prepare-your-environment"></a>Prepare your environment
-
-You need a fresh installation of Kratix for this section. The simplest way to do so is by running the quick-start script. This script is found in the kratix directory as seen here:
-
-<!-- 👩🏾‍💻 emoji is equivelant spacing to 4 &nbsp; -->
-👩🏾‍💻. <a href="https://github.com/syntasso/kratix">📂 kratix</a><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; ...<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 scripts<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash;📂 quick-start.sh<br />
-
-```bash
-./scripts/quick-start.sh --recreate
-```
-
-Alternatively, you can go back to the first step on this series: [Install Kratix across two KinD clusters](/installing-kratix/).
-<br />
-
 ### <a name="install-promise"></a>Install your Promise
 
 From back in your Promise directory, install the Promise in Kratix.
@@ -567,7 +567,21 @@ From back in your Promise directory, install the Promise in Kratix.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash;📂 resources<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&mdash; jenkins-promise-template.yaml<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\`&mdash; jenkins-promise.yaml<br />
+<br />
 
+Before installing your promise, verify that Kratix and MinIO are installed and healthy.
+```bash
+kubectl --context kind-platform get pods --namespace kratix-platform-system
+```
+
+You should see something similar to
+```console
+NAME                                                  READY   STATUS       RESTARTS   AGE
+kratix-platform-controller-manager-769855f9bb-8srtj   2/2     Running      0          1h
+minio-6f75d9fbcf-5cn7w                                1/1     Running      0          1h
+```
+
+If that is not the case, please go back to [Prepare your environment](#prepare-your-environment) and follow the instructions.
 
 ```
 kubectl apply --context kind-platform --filename jenkins-promise.yaml
