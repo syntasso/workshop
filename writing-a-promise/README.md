@@ -604,9 +604,17 @@ jenkins.example.promise.syntasso.io   2021-09-09T11:21:10Z
 
 Verify the Jenkins Operator is running<br/>
 <sub>(This may take a few minutes so `--watch` will watch the command)</sub>
+
 ```bash
 kubectl --context=kind-worker get pods --all-namespaces --watch
 ```
+
+The above command will give an output similar to
+```console
+NAME                                 READY   STATUS    RESTARTS   AGE
+jenkins-operator-6c89d97d4f-r474w    1/1     Running   0          1m
+```
+
 <br />
 
 ### <a name="create-resource-request"></a>Create and submit a Kratix Resource Request
