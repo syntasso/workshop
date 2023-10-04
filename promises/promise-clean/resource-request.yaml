@@ -1,0 +1,9 @@
+apiVersion: workshop.kratix.io/v1
+kind: postgresql
+metadata:
+  name: example
+  namespace: default
+spec:
+  size: small
+  dbName: bestdb
+  requester: requester-name

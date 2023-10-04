@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+set -x
+
+base_instance="/tmp/transfer/minimal-postgres-manifest.yaml"
+
+# Read current values from the provided resource request
+name="$(yq eval '.metadata.name' /kratix/input/object.yaml)"
+namespace="$(yq eval '.spec.namespace // "default"' /kratix/input/object.yaml)"
+
+size="$(yq eval '.spec.size // "small"' /kratix/input/object.yaml)"
+team="acid"
+dbname="$(yq eval '.spec.dbName // "postgres"' /kratix/input/object.yaml)"
+
+instance_name="${team}-${name}-postgresql"
+
+backup="false"
+disk="1Gi"
+instances="1"
+
+if [ $size = "medium" ]; then
+  disk="5Gi"
+  instances="3"
+fi
+
+if [ $size = "large" ]; then
+  disk="10Gi"
+  instances="5"
+fi
+
+cat ${base_instance} |
+  yq eval "
+    .metadata.namespace = \"${namespace}\" |
+    .metadata.name = \"${instance_name}\" |
+    .spec.enableLogicalBackup = ${backup} |
+    .spec.teamId = \"${team}\" |
+    .spec.volume.size = \"${disk}\" |
+    .spec.numberOfInstances = ${instances} |
+    .spec.users = {\"${team}\": [\"superuser\", \"createdb\"]} |
+    .spec.databases = {\"$dbname\": \"$team\"} |
+    del(.spec.preparedDatabases)
+  " - > /kratix/output/postgres-instance.yaml
