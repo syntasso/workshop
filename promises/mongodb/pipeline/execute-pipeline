@@ -38,7 +38,4 @@ cat /tmp/transfer/secret.yaml |  \
   sed "s/TBDNAME/$name/g" \
   > /kratix/output/secret.yaml
 
-region="$(yq eval '.spec.region' /kratix/input/object.yaml)"
-echo "[ matchLabels: { region: $region }]" > /kratix/metadata/destination-selectors.yaml
-
-echo "{message: 'scheduled to region-$region (version: $version)'}" > /kratix/metadata/status.yaml
+echo "{message: 'mongodb version: $version'}" > /kratix/metadata/status.yaml

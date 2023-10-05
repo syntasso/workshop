@@ -31,9 +31,6 @@ spec:
                   majorVersion:
                     default: '4'
                     type: string
-                  region:
-                    default: eu
-                    type: string
                   version:
                     type: string
                 type: object
