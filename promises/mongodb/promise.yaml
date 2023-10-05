@@ -2,9 +2,12 @@
 apiVersion: platform.kratix.io/v1alpha1
 kind: Promise
 metadata:
-  creationTimestamp: 
+  creationTimestamp:
   name: mongodb
 spec:
+  destinationSelectors:
+    - matchLabels:
+      environment: dev
   api:
     apiVersion: apiextensions.k8s.io/v1
     kind: CustomResourceDefinition
@@ -59,7 +62,7 @@ spec:
         service.binding/provider: community
         service.binding/type: mongodb
         service.binding/username: path={.metadata.name}-{.spec.users[0].db}-{.spec.users[0].name},objectType=Secret,sourceKey=username
-      creationTimestamp: 
+      creationTimestamp:
       name: mongodbcommunity.mongodbcommunity.mongodb.com
       namespace: default
     spec:
