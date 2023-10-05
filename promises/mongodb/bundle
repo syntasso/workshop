@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+promise_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+worker-resource-builder -resources-dir "${promise_dir}/dependencies" -promise "${promise_dir}/promise.yaml" | \
+  strip-crd-descriptions | \
+  sponge ${promise_dir}/promise.yaml
+
+docker build --tag syntasso/mongodb-configure-pipeline:v0.1.0 "${promise_dir}/pipeline"
+
+kind load docker-image syntasso/mongodb-configure-pipeline:v0.1.0 --name platform
