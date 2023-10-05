@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+echo """
+Found follow images:
+- registry.opensource.zalan.do/acid/postgres-operator:v1.8.2-43-g3e148ea5
+
+Scanning images for vulnerabilities
+...
+...
+...
+0 vulnerabilities found
+"""
