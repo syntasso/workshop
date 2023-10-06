@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# To speed up the workshop this fakes the output
+# for a real example of a security scanning image:
+# - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/snyk
+# - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/trivy
+
 echo """
 Found follow images:
 - registry.opensource.zalan.do/acid/postgres-operator:v1.8.2-43-g3e148ea5
