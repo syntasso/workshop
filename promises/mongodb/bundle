@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-docker build --tag syntasso/mongodb-configure-pipeline:v0.1.0 "./pipeline"
-
-kind load docker-image syntasso/mongodb-configure-pipeline:v0.1.0 --name platform
