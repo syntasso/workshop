@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -eux
+
+export requester="$(yq eval '.spec.requester // "anon"' /kratix/input/object.yaml)"
+export service="$(yq eval '.kind // "mongodb"' /kratix/input/object.yaml)"
+export spec="$(yq eval '.spec // "{}"' /kratix/input/object.yaml)"
+
+gh issue create \
+  --title "Workshop: ${requester} has requested a new ${service}" \
+  --body "Request spec: $spec" \
+  --repo "syntasso/workshop"
