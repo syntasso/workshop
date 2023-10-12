@@ -2,6 +2,7 @@ apiVersion: promise.kratix.io/v1alpha1
 kind: MongoDB
 metadata:
   name: example-mongodb
+  namespace: default
 spec:
   members: 1
   type: ReplicaSet
