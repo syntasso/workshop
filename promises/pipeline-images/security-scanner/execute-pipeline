@@ -5,9 +5,11 @@
 # - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/snyk
 # - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/trivy
 
+version=$(yq ".spec.version" /kratix/output/mongodb-instance.yaml)
+
 echo """
 Found follow images:
-- registry.opensource.zalan.do/acid/postgres-operator:v1.8.2-43-g3e148ea5
+- docker.io/mongo:$version
 
 Scanning images for vulnerabilities
 ...
@@ -15,3 +17,5 @@ Scanning images for vulnerabilities
 ...
 0 vulnerabilities found
 """
+
+echo "{vulnerabilities: \"no vulnterability found!\"}" > /kratix/metadata/status.yaml
