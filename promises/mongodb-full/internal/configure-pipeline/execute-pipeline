@@ -29,3 +29,10 @@ type: Opaque
 stringData:
   password: $password
 EOF
+
+cat <<EOF > /kratix/metadata/status.yaml
+message: "Instance requested"
+adminUserCredentials:
+  name: "$name-mongodb-admin-my-user"
+  namespace: $namespace
+EOF
