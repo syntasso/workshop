@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-root="$( cd $(dirname $0)/.. && pwd)"
+PWD="$( cd $(dirname $0)/.. && pwd)"
 
-docker build --tag ghcr.io/syntasso/kratix-marketplace/mongodb-configure-pipeline:v0.0.1 $root/configure-pipeline
-
-kind load docker-image ghcr.io/syntasso/kratix-marketplace/mongodb-configure-pipeline:v0.0.1 --name platform
+source ${PWD}/../../scripts/pipeline-image

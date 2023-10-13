@@ -1123,6 +1123,6 @@ spec:
           name: configure-workflow
         spec:
           containers:
-          - image: ghcr.io/syntasso/kratix-marketplace/mongodb-configure-pipeline:v0.0.1
+          - image: ghcr.io/syntasso/workshop/mongodb-full-configure-pipeline:v0.1.0
             name: create-instance
 status: {}
