@@ -5,6 +5,8 @@
 # - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/snyk
 # - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/trivy
 
+set -eux
+
 version=$(yq ".spec.version" /kratix/output/mongodb-instance.yaml)
 
 vulns=0
@@ -25,4 +27,10 @@ Scanning images for vulnerabilities
 $vulns vulnerabilities found
 """
 
-echo "{vulnerabilities: \"$message\"}" > /kratix/metadata/status.yaml
+if [ -f /kratix/metadata/status.yaml ]; then
+    yq ".vulnerabilities = \"$message\"" /kratix/metadata/status.yaml > /kratix/metadata/status.yaml.tmp
+    mv /kratix/metadata/status.yaml.tmp /kratix/metadata/status.yaml
+else
+    echo "{vulnerabilities: \"$message\"}" > /kratix/metadata/status.yaml
+fi
+

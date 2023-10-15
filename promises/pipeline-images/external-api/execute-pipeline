@@ -2,24 +2,30 @@
 
 set -eux
 
-export requester="$(yq eval '.spec.requester // ""' /kratix/input/object.yaml)"
+export requester="$(yq eval '.spec.requesterName // ""' /kratix/input/object.yaml)"
 export service="$(yq eval '.kind // "mongodb"' /kratix/input/object.yaml)"
 export spec="$(yq eval '.spec // "{}"' /kratix/input/object.yaml)"
 
 currentIssue=$(yq eval '.status.github.issue // ""' /kratix/input/object.yaml)
 
-if [ -n "$requester" ]; then
+if [ -z "$requester" ]; then
   echo "requesterName not specified; skipping creating the issue"
   exit 0
 fi
 
-if [ -n "$currentIssue" ]; then
+if [ -z "$currentIssue" ]; then
   issue=$(gh issue create \
     --title "Workshop: ${requester} has requested a new ${service}" \
     --body "Request spec: $spec" \
     --repo "syntasso/workshop")
 
-  echo "{github: {issue: $issue}}" > /kratix/metadata/status.yaml
+  if [ -f /kratix/metadata/status.yaml ]; then
+    export issue
+    yq eval ".github.issue = strenv(issue)" /kratix/metadata/status.yaml > /kratix/metadata/status.yaml.tmp
+    mv /kratix/metadata/status.yaml.tmp /kratix/metadata/status.yaml
+  else
+    echo "{github: {issue: $issue}}" > /kratix/metadata/status.yaml
+  fi
 else
   echo "github issue already created; skipping"
 fi
