@@ -33,6 +33,6 @@ EOF
 cat <<EOF > /kratix/metadata/status.yaml
 message: "Instance requested"
 adminUserCredentials:
-  name: "mongodb-$name-admin-my-user"
+  name: "$name-admin-my-user"
   namespace: $namespace
 EOF
