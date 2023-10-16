@@ -36,6 +36,7 @@ else
     ...
     $vulns vulnerabilities found
     """
+fi
 
 if [ -f /kratix/metadata/status.yaml ]; then
     yq ".vulnerabilities = \"$message\"" /kratix/metadata/status.yaml > /kratix/metadata/status.yaml.tmp
