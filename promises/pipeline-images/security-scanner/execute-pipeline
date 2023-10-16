@@ -7,25 +7,35 @@
 
 set -eux
 
-version=$(yq ".spec.version" /kratix/output/mongodb-instance.yaml)
-
 vulns=0
 message="no vulnerabilities found"
-if [ "$version" = "4.4.23" ] || [ "$version" = "5.0.14" ]; then
-    vulns=1
-    message="MongoDB $version contains a critical vulnerability. Please update."
-fi
 
-echo """
-Found follow images:
-- docker.io/mongo:$version
+if [ ! -f /kratix/output/mongodb-instance.yaml ]; then
+    echo """
+    Scanning images for vulnerabilities
+    ...
+    ...
+    ...
+    $vulns vulnerabilities found
+    """
+else
+    version=$(yq ".spec.version" /kratix/output/mongodb-instance.yaml)
 
-Scanning images for vulnerabilities
-...
-...
-...
-$vulns vulnerabilities found
-"""
+    if [ "$version" = "4.4.23" ] || [ "$version" = "5.0.14" ]; then
+        vulns=1
+        message="MongoDB $version contains a critical vulnerability. Please update."
+    fi
+
+    echo """
+    Found follow images:
+    - docker.io/mongo:$version
+
+    Scanning images for vulnerabilities
+    ...
+    ...
+    ...
+    $vulns vulnerabilities found
+    """
 
 if [ -f /kratix/metadata/status.yaml ]; then
     yq ".vulnerabilities = \"$message\"" /kratix/metadata/status.yaml > /kratix/metadata/status.yaml.tmp
@@ -33,4 +43,3 @@ if [ -f /kratix/metadata/status.yaml ]; then
 else
     echo "{vulnerabilities: \"$message\"}" > /kratix/metadata/status.yaml
 fi
-
