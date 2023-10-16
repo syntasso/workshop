@@ -2,8 +2,8 @@
 
 # To speed up the workshop this fakes the output
 # for a real example of a security scanning image:
-# - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/snyk
-# - https://github.com/syntasso/kratix-marketplace/tree/main/pipeline-marketplace-images/trivy
+# - https://github.com/syntasso/workshop/tree/main/pipeline-marketplace-images/snyk
+# - https://github.com/syntasso/workshop/tree/main/pipeline-marketplace-images/trivy
 
 set -eux
 
