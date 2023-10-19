@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 
-set -eux
+set -eu
+export GH_TOKEN=$(kubectl get secret gh-token -o jsonpath='{.data.token}' | base64 -d)
+
+set -x
 
 export requester="$(yq eval '.spec.requesterName // ""' /kratix/input/object.yaml)"
 export service="$(yq eval '.kind // "mongodb"' /kratix/input/object.yaml)"
@@ -17,7 +20,7 @@ if [ -z "$currentIssue" ]; then
   issue=$(gh issue create \
     --title "Workshop: ${requester} has requested a new ${service}" \
     --body "Request spec: $spec" \
-    --repo "syntasso/workshop")
+    --repo "syntassodev/workshop")
 
   if [ -f /kratix/metadata/status.yaml ]; then
     export issue

@@ -10,7 +10,6 @@ while [ $# -gt 0 ]; do
   case "$1" in
     build)
       docker build \
-        --build-arg GH_TOKEN=$GH_TOKEN \
         --tag "${pipeline_image}" \
         --platform linux/amd64 \
         "${PWD}" ;;
