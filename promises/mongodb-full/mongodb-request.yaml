@@ -25,6 +25,9 @@ spec:
       scramCredentialsSecretName: my-scram
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib
+
+  # Extra configurable properties (uncomment sections below to configure):
+  # ======================================================================
   # statefulSet:
   #   spec:
   #     selector:
