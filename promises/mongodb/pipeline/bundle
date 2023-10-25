@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-echo "Building image and loading into platform cluster"
-docker build --tag ghcr.io/syntasso/kratix-marketplace/mongodb-configure-pipeline:v0.2.0 "."
-
-kind load docker-image ghcr.io/syntasso/kratix-marketplace/mongodb-configure-pipeline:v0.2.0 --name platform
-echo "ghcr.io/syntasso/kratix-marketplace/mongodb-configure-pipeline:v0.2.0 loaded into platform cluster"
